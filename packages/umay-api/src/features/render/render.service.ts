@@ -17,7 +17,11 @@ export class RenderService {
   private tempDir: string;
 
   constructor() {
-    this.tempDir = path.join(__dirname, "../../../temp");
+    // Use /tmp directory for Cloud Run compatibility
+    this.tempDir =
+      process.env.NODE_ENV === "production"
+        ? "/tmp"
+        : path.join(process.cwd(), "temp");
     if (!fs.existsSync(this.tempDir)) {
       fs.mkdirSync(this.tempDir, { recursive: true });
     }

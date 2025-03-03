@@ -50,6 +50,9 @@ COPY --from=builder /usr/src/app/package.json ./
 # Set Chrome path for Puppeteer
 ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/google-chrome-stable
 
+# Create temp directory and set permissions
+RUN mkdir -p /usr/src/app/temp && chown -R node:node /usr/src/app
+
 # Expose the port on which the app will run
 EXPOSE 8080
 

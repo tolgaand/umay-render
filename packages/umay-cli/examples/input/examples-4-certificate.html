@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Certificate of Achievement</title>
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600&display=swap");
+         :root {
+            --primary-color: #1d3557;
+            --accent-color: #e63946;
+            --gold-color: #d4af37;
+            --text-color: #2b2b2b;
+            --border-color: #d5d5d5;
+            --background-color: #f5f9ff;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: "Montserrat", sans-serif;
+            color: var(--text-color);
+            line-height: 1.6;
+            background-color: #f0f0f0;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+        
+        .certificate-container {
+            width: 210mm;
+            height: 297mm;
+            margin: 20px auto;
+            background-color: white;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .certificate-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            opacity: 0.05;
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%231d3557' fill-opacity='1' fill-rule='evenodd'/%3E%3C/svg%3E");
+        }
+        
+        .certificate-border {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            right: 20px;
+            bottom: 20px;
+            border: 2px solid var(--gold-color);
+            z-index: 1;
+        }
+        
+        .certificate-border:before {
+            content: "";
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            right: 5px;
+            bottom: 5px;
+            border: 1px solid var(--primary-color);
+        }
+        
+        .certificate-content {
+            position: relative;
+            z-index: 2;
+            padding: 60px 40px;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .certificate-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .university-name {
+            font-family: "Cormorant Garamond", serif;
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+        
+        .certificate-title {
+            font-family: "Cormorant Garamond", serif;
+            font-size: 40px;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin: 40px 0 20px;
+            text-align: center;
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 10px;
+        }
+        
+        .certificate-subtitle {
+            font-family: "Montserrat", sans-serif;
+            font-size: 18px;
+            font-weight: 400;
+            text-align: center;
+            margin-bottom: 40px;
+            color: var(--text-color);
+            letter-spacing: 1px;
+        }
+        
+        .recipient-name {
+            font-family: "Cormorant Garamond", serif;
+            font-size: 36px;
+            font-weight: 600;
+            color: var(--accent-color);
+            margin: 20px 0;
+            text-align: center;
+            font-style: italic;
+        }
+        
+        .certificate-text {
+            font-size: 16px;
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto 40px;
+            line-height: 1.8;
+        }
+        
+        .award-reason {
+            font-family: "Cormorant Garamond", serif;
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin: 10px 0 30px;
+            text-align: center;
+        }
+        
+        .date-location {
+            font-family: "Montserrat", sans-serif;
+            font-size: 16px;
+            text-align: center;
+            margin: 40px 0;
+        }
+        
+        .signatures {
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+            margin-top: 40px;
+        }
+        
+        .signature {
+            text-align: center;
+            width: 200px;
+        }
+        
+        .signature-line {
+            width: 100%;
+            height: 1px;
+            background-color: var(--text-color);
+            margin-bottom: 10px;
+        }
+        
+        .signature-name {
+            font-weight: 600;
+            font-size: 16px;
+        }
+        
+        .signature-title {
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .certificate-seal {
+            position: absolute;
+            bottom: 80px;
+            right: 80px;
+            width: 120px;
+            height: 120px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid var(--gold-color);
+            border-radius: 50%;
+            font-family: "Cormorant Garamond", serif;
+            color: var(--primary-color);
+            transform: rotate(-5deg);
+        }
+        
+        .seal-text-top {
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .seal-text-middle {
+            font-size: 20px;
+            font-weight: 700;
+            margin: 5px 0;
+        }
+        
+        .seal-text-bottom {
+            font-size: 12px;
+            letter-spacing: 1px;
+        }
+        
+        .certificate-footer {
+            text-align: center;
+            font-size: 12px;
+            color: #666;
+            margin-top: 20px;
+            border-top: 1px solid var(--border-color);
+            padding-top: 10px;
+        }
+        
+        .with-honors {
+            color: var(--gold-color);
+            font-weight: 600;
+        }
+        
+        .decorative-corner {
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            z-index: 2;
+        }
+        
+        .corner-tl {
+            top: 30px;
+            left: 30px;
+            border-top: 3px solid var(--gold-color);
+            border-left: 3px solid var(--gold-color);
+        }
+        
+        .corner-tr {
+            top: 30px;
+            right: 30px;
+            border-top: 3px solid var(--gold-color);
+            border-right: 3px solid var(--gold-color);
+        }
+        
+        .corner-bl {
+            bottom: 30px;
+            left: 30px;
+            border-bottom: 3px solid var(--gold-color);
+            border-left: 3px solid var(--gold-color);
+        }
+        
+        .corner-br {
+            bottom: 30px;
+            right: 30px;
+            border-bottom: 3px solid var(--gold-color);
+            border-right: 3px solid var(--gold-color);
+        }
+        
+        @media print {
+            body {
+                background: none;
+            }
+            .certificate-container {
+                margin: 0;
+                box-shadow: none;
+            }
+            @page {
+                size: A4 portrait;
+                margin: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="certificate-container">
+        <div class="certificate-background"></div>
+        <div class="certificate-border"></div>
+
+        <div class="decorative-corner corner-tl"></div>
+        <div class="decorative-corner corner-tr"></div>
+        <div class="decorative-corner corner-bl"></div>
+        <div class="decorative-corner corner-br"></div>
+
+        <div class="certificate-content">
+            <div class="certificate-header">
+                <div class="university-name">UNIVERSITY OF EXCELLENCE</div>
+                <div>ESTABLISHED 1885</div>
+            </div>
+
+            <div class="certificate-body">
+                <div class="certificate-title">Certificate of Achievement</div>
+                <div class="certificate-subtitle">This acknowledges that</div>
+
+                <div class="recipient-name">Sarah Elizabeth Johnson</div>
+
+                <div class="certificate-text">
+                    has successfully completed all requirements and demonstrated academic excellence in accordance with the standards set forth by the Faculty of Computer Science and is hereby awarded the degree of
+                </div>
+
+                <div class="award-reason">
+                    Bachelor of Science in Computer Science
+                </div>
+                <div class="with-honors">With Highest Honors</div>
+
+                <div class="date-location">
+                    Conferred on May 15, 2023<br /> Cambridge, Massachusetts
+                </div>
+            </div>
+
+            <div class="signatures">
+                <div class="signature">
+                    <div class="signature-line"></div>
+                    <div class="signature-name">Dr. Robert Mitchell</div>
+                    <div class="signature-title">Dean, Faculty of Computer Science</div>
+                </div>
+
+                <div class="signature">
+                    <div class="signature-line"></div>
+                    <div class="signature-name">Dr. Jennifer Williams</div>
+                    <div class="signature-title">University President</div>
+                </div>
+            </div>
+
+            <div class="certificate-seal">
+                <div class="seal-text-top">University</div>
+                <div class="seal-text-middle">Seal</div>
+                <div class="seal-text-bottom">EXCELLENCE</div>
+            </div>
+
+            <div class="certificate-footer">
+                This certificate is not valid without the official university seal and appropriate signatures.
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Professional Resume Template</title>
+    <style>
+         :root {
+            --primary-color: #1e40af;
+            --secondary-color: #f1f5f9;
+            --accent-color: #3b82f6;
+            --text-color: #334155;
+            --text-light: #64748b;
+            --border-color: #e2e8f0;
+            --section-gap: 25px;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--text-color);
+            line-height: 1.5;
+            background-color: #f8fafc;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+        
+        .resume-container {
+            max-width: 210mm;
+            margin: 40px auto;
+            background: white;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+            border-radius: 5px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .resume-header {
+            padding: 40px 50px;
+            background-color: var(--primary-color);
+            color: white;
+            position: relative;
+        }
+        
+        .resume-name {
+            font-size: 32px;
+            font-weight: 600;
+            margin-bottom: 5px;
+            letter-spacing: -0.5px;
+        }
+        
+        .resume-title {
+            font-size: 18px;
+            font-weight: 400;
+            margin-bottom: 20px;
+            opacity: 0.9;
+        }
+        
+        .contact-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            list-style: none;
+            font-size: 14px;
+        }
+        
+        .contact-list li {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .contact-list a {
+            color: white;
+            text-decoration: none;
+            transition: opacity 0.2s;
+        }
+        
+        .contact-list a:hover {
+            opacity: 0.8;
+        }
+        
+        .icon {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: var(--accent-color);
+            display: inline-block;
+        }
+        
+        .resume-body {
+            padding: 40px 50px;
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+        }
+        
+        .main-column {
+            border-right: 1px solid var(--border-color);
+            padding-right: 30px;
+        }
+        
+        .section {
+            margin-bottom: var(--section-gap);
+        }
+        
+        .section-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--border-color);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .experience-item,
+        .education-item {
+            margin-bottom: 20px;
+        }
+        
+        .experience-header,
+        .education-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+        }
+        
+        .role,
+        .degree {
+            font-weight: 600;
+            color: #1e293b;
+            font-size: 16px;
+        }
+        
+        .company,
+        .school {
+            font-weight: 500;
+            color: var(--accent-color);
+            margin-bottom: 5px;
+        }
+        
+        .date {
+            color: var(--text-light);
+            font-size: 14px;
+        }
+        
+        .experience-description,
+        .education-description {
+            color: var(--text-color);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        
+        .achievements {
+            margin-top: 10px;
+        }
+        
+        .achievements ul {
+            padding-left: 20px;
+            margin-top: 5px;
+        }
+        
+        .achievements li {
+            margin-bottom: 5px;
+            font-size: 14px;
+        }
+        
+        .skills-list {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px 20px;
+            list-style: none;
+        }
+        
+        .skill-item {
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .skill-item::before {
+            content: "";
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background-color: var(--accent-color);
+            margin-right: 8px;
+        }
+        
+        .languages-list {
+            list-style: none;
+        }
+        
+        .language-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+        
+        .language-name {
+            font-weight: 500;
+        }
+        
+        .language-level {
+            color: var(--text-light);
+        }
+        
+        .interests-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            list-style: none;
+        }
+        
+        .interest-item {
+            background-color: var(--secondary-color);
+            color: var(--primary-color);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        
+        .summary {
+            font-size: 15px;
+            line-height: 1.6;
+            margin-bottom: 5px;
+        }
+        
+        .divider {
+            height: 1px;
+            background-color: var(--border-color);
+            margin: 15px 0;
+        }
+        
+        .certification-item {
+            margin-bottom: 12px;
+        }
+        
+        .certification-name {
+            font-weight: 600;
+            font-size: 14px;
+        }
+        
+        .certification-authority {
+            font-size: 13px;
+            color: var(--text-light);
+        }
+        
+        @media print {
+            body {
+                background: none;
+            }
+            .resume-container {
+                margin: 0;
+                box-shadow: none;
+                border-radius: 0;
+            }
+            .resume-body {
+                grid-template-columns: 65% 35%;
+            }
+            @page {
+                size: A4;
+                margin: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="resume-container">
+        <div class="resume-header">
+            <h1 class="resume-name">Alex Morgan</h1>
+            <div class="resume-title">Senior Software Engineer</div>
+            <ul class="contact-list">
+                <li><span class="icon"></span> alex.morgan@email.com</li>
+                <li><span class="icon"></span> (555) 123-4567</li>
+                <li><span class="icon"></span> San Francisco, CA</li>
+                <li><span class="icon"></span> linkedin.com/in/alexmorgan</li>
+                <li><span class="icon"></span> github.com/alexmorgan</li>
+            </ul>
+        </div>
+
+        <div class="resume-body">
+            <div class="main-column">
+                <div class="section">
+                    <h2 class="section-title">Professional Summary</h2>
+                    <p class="summary">
+                        Results-driven Senior Software Engineer with 8+ years of experience designing and developing enterprise-scale applications. Specialized in full-stack development with expertise in JavaScript, TypeScript, React, and Node.js. Strong leadership skills with
+                        a proven track record of mentoring junior developers and delivering high-quality software solutions on time.
+                    </p>
+                </div>
+
+                <div class="section">
+                    <h2 class="section-title">Work Experience</h2>
+
+                    <div class="experience-item">
+                        <div class="experience-header">
+                            <div class="role">Senior Software Engineer</div>
+                            <div class="date">Jan 2020 - Present</div>
+                        </div>
+                        <div class="company">TechNova Inc, San Francisco, CA</div>
+                        <div class="experience-description">
+                            Lead engineer for the company's flagship product, a cloud-based analytics platform serving over 500,000 users globally.
+                        </div>
+                        <div class="achievements">
+                            <ul>
+                                <li>
+                                    Led a team of 6 engineers to redesign the UI/UX, resulting in a 40% increase in user engagement and a 25% reduction in onboarding time.
+                                </li>
+                                <li>
+                                    Implemented a microservices architecture that improved system scalability and reduced infrastructure costs by 30%.
+                                </li>
+                                <li>
+                                    Established code quality standards and automated testing protocols that decreased production bugs by 65%.
+                                </li>
+                                <li>
+                                    Mentored junior developers through code reviews and pair programming sessions.
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="experience-item">
+                        <div class="experience-header">
+                            <div class="role">Software Engineer</div>
+                            <div class="date">Mar 2017 - Dec 2019</div>
+                        </div>
+                        <div class="company">DataSphere Solutions, Austin, TX</div>
+                        <div class="experience-description">
+                            Full-stack developer for an enterprise data management platform used by Fortune 500 companies.
+                        </div>
+                        <div class="achievements">
+                            <ul>
+                                <li>
+                                    Developed and maintained RESTful APIs using Node.js and Express, improving response times by 50%.
+                                </li>
+                                <li>
+                                    Built responsive front-end interfaces with React and Redux, enhancing user experience across devices.
+                                </li>
+                                <li>
+                                    Implemented automated CI/CD pipelines that reduced deployment time from days to hours.
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="experience-item">
+                        <div class="experience-header">
+                            <div class="role">Junior Developer</div>
+                            <div class="date">Jun 2015 - Feb 2017</div>
+                        </div>
+                        <div class="company">WebFront Technologies, Seattle, WA</div>
+                        <div class="experience-description">
+                            Contributed to the development of client websites and web applications as part of a dynamic team.
+                        </div>
+                        <div class="achievements">
+                            <ul>
+                                <li>
+                                    Developed responsive websites for clients across various industries using HTML5, CSS3, and JavaScript.
+                                </li>
+                                <li>
+                                    Created custom WordPress themes and plugins, improving site performance and functionality.
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2 class="section-title">Education</h2>
+
+                    <div class="education-item">
+                        <div class="education-header">
+                            <div class="degree">Master of Science in Computer Science</div>
+                            <div class="date">2013 - 2015</div>
+                        </div>
+                        <div class="school">University of Washington, Seattle</div>
+                        <div class="education-description">
+                            Specialized in Software Engineering and Distributed Systems. GPA: 3.85/4.0
+                        </div>
+                    </div>
+
+                    <div class="education-item">
+                        <div class="education-header">
+                            <div class="degree">
+                                Bachelor of Science in Computer Engineering
+                            </div>
+                            <div class="date">2009 - 2013</div>
+                        </div>
+                        <div class="school">California Institute of Technology</div>
+                        <div class="education-description">
+                            Graduated with honors. Participated in the Robotics Club and ACM programming competitions.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sidebar">
+                <div class="section">
+                    <h2 class="section-title">Skills</h2>
+                    <ul class="skills-list">
+                        <li class="skill-item">JavaScript/TypeScript</li>
+                        <li class="skill-item">React/Redux</li>
+                        <li class="skill-item">Node.js/Express</li>
+                        <li class="skill-item">Python</li>
+                        <li class="skill-item">AWS/Azure</li>
+                        <li class="skill-item">Docker/Kubernetes</li>
+                        <li class="skill-item">GraphQL</li>
+                        <li class="skill-item">MongoDB/PostgreSQL</li>
+                        <li class="skill-item">CI/CD</li>
+                        <li class="skill-item">RESTful APIs</li>
+                        <li class="skill-item">Microservices</li>
+                        <li class="skill-item">Git/GitHub</li>
+                    </ul>
+                </div>
+
+                <div class="section">
+                    <h2 class="section-title">Certifications</h2>
+                    <div class="certification-item">
+                        <div class="certification-name">
+                            AWS Certified Solutions Architect
+                        </div>
+                        <div class="certification-authority">
+                            Amazon Web Services, 2022
+                        </div>
+                    </div>
+                    <div class="certification-item">
+                        <div class="certification-name">
+                            Certified Kubernetes Administrator
+                        </div>
+                        <div class="certification-authority">
+                            Cloud Native Computing Foundation, 2021
+                        </div>
+                    </div>
+                    <div class="certification-item">
+                        <div class="certification-name">Professional Scrum Master I</div>
+                        <div class="certification-authority">Scrum.org, 2019</div>
+                    </div>
+                </div>
+
+                <div class="divider"></div>
+
+                <div class="section">
+                    <h2 class="section-title">Languages</h2>
+                    <ul class="languages-list">
+                        <li class="language-item">
+                            <span class="language-name">English</span>
+                            <span class="language-level">Native</span>
+                        </li>
+                        <li class="language-item">
+                            <span class="language-name">Spanish</span>
+                            <span class="language-level">Professional</span>
+                        </li>
+                        <li class="language-item">
+                            <span class="language-name">French</span>
+                            <span class="language-level">Conversational</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="divider"></div>
+
+                <div class="section">
+                    <h2 class="section-title">Interests</h2>
+                    <ul class="interests-list">
+                        <li class="interest-item">Machine Learning</li>
+                        <li class="interest-item">Open Source</li>
+                        <li class="interest-item">Data Visualization</li>
+                        <li class="interest-item">Blockchain</li>
+                        <li class="interest-item">Hiking</li>
+                        <li class="interest-item">Photography</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

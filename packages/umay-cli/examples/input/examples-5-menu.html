@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bistro Moderne - Menu</title>
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Source+Sans+Pro:wght@300;400;600&display=swap");
+         :root {
+            --primary-color: #2c3e50;
+            --accent-color: #d35400;
+            --light-accent: #f39c12;
+            --background-color: #f9f5f0;
+            --text-color: #333;
+            --light-text: #777;
+            --border-color: #e0e0e0;
+            --section-spacing: 2rem;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: "Source Sans Pro", sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--background-color);
+            padding: 0;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+        
+        .menu-container {
+            max-width: 210mm;
+            margin: 0 auto;
+            padding: 2rem;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .menu-header {
+            text-align: center;
+            margin-bottom: var(--section-spacing);
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .restaurant-name {
+            font-family: "Playfair Display", serif;
+            font-size: 2.8rem;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+        
+        .restaurant-tagline {
+            font-size: 1.2rem;
+            color: var(--light-text);
+            font-style: italic;
+            margin-bottom: 1rem;
+        }
+        
+        .restaurant-info {
+            font-size: 0.9rem;
+            color: var(--light-text);
+        }
+        
+        .menu-section {
+            margin-bottom: var(--section-spacing);
+        }
+        
+        .section-title {
+            font-family: "Playfair Display", serif;
+            font-size: 1.8rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--accent-color);
+            display: inline-block;
+        }
+        
+        .section-description {
+            font-size: 1rem;
+            color: var(--light-text);
+            margin-bottom: 1.5rem;
+            font-style: italic;
+        }
+        
+        .menu-items {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+        
+        .menu-item {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 1rem;
+            align-items: start;
+        }
+        
+        .item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 0.3rem;
+        }
+        
+        .item-name {
+            font-family: "Playfair Display", serif;
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: var(--text-color);
+        }
+        
+        .item-price {
+            font-family: "Source Sans Pro", sans-serif;
+            font-weight: 600;
+            color: var(--accent-color);
+            font-size: 1.1rem;
+        }
+        
+        .item-description {
+            font-size: 0.95rem;
+            color: var(--light-text);
+            line-height: 1.4;
+            grid-column: 1 / -1;
+            margin-top: -0.5rem;
+        }
+        
+        .item-tag {
+            display: inline-block;
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 0.1rem 0.4rem;
+            border-radius: 3px;
+            text-transform: uppercase;
+            margin-left: 0.5rem;
+            letter-spacing: 0.05rem;
+        }
+        
+        .tag-vegetarian {
+            background-color: #a5d6a7;
+            color: #1b5e20;
+        }
+        
+        .tag-spicy {
+            background-color: #ffcdd2;
+            color: #c62828;
+        }
+        
+        .tag-gluten-free {
+            background-color: #bbdefb;
+            color: #0d47a1;
+        }
+        
+        .tag-signature {
+            background-color: #ffe0b2;
+            color: #e65100;
+        }
+        
+        .chef-recommendations {
+            background-color: rgba(244, 241, 236, 0.8);
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-left: 3px solid var(--accent-color);
+        }
+        
+        .chef-title {
+            font-family: "Playfair Display", serif;
+            font-style: italic;
+            font-size: 1.3rem;
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+        }
+        
+        .menu-footer {
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border-color);
+            text-align: center;
+            color: var(--light-text);
+            font-size: 0.9rem;
+        }
+        
+        .allergen-info {
+            margin-bottom: 1rem;
+        }
+        
+        .decorative-element {
+            text-align: center;
+            margin: 2rem 0;
+            color: var(--accent-color);
+            font-size: 1.5rem;
+        }
+        
+        .special-note {
+            font-style: italic;
+            font-size: 0.9rem;
+        }
+        
+        @media screen and (min-width: 768px) {
+            .menu-items {
+                grid-template-columns: 1fr 1fr;
+                gap: 2rem 3rem;
+            }
+            .item-description {
+                grid-column: 1;
+            }
+        }
+        
+        @media print {
+            body {
+                background: none;
+            }
+            .menu-container {
+                box-shadow: none;
+                padding: 0.5in;
+            }
+            @page {
+                size: A4;
+                margin: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="menu-container">
+        <div class="menu-header">
+            <h1 class="restaurant-name">Bistro Moderne</h1>
+            <p class="restaurant-tagline">
+                Contemporary cuisine with classic French influences
+            </p>
+            <p class="restaurant-info">
+                Open Daily: 11:30 AM - 10:00 PM | 123 Culinary Avenue, Gourmet District | 555-123-4567
+            </p>
+        </div>
+
+        <div class="menu-section">
+            <h2 class="section-title">Starters</h2>
+            <p class="section-description">
+                Begin your culinary journey with our carefully crafted appetizers
+            </p>
+
+            <div class="menu-items">
+                <div class="menu-item">
+                    <div class="item-header">
+                        <span class="item-name">Truffle Arancini</span>
+                        <span class="item-price">$14</span>
+                    </div>
+                    <p class="item-description">
+                        Crispy risotto balls with wild mushrooms, black truffle, and parmesan, served with truffle aioli
+                        <span class="item-tag tag-vegetarian">v</span>
+                    </p>
+                </div>
+
+                <div class="menu-item">
+                    <div class="item-header">
+                        <span class="item-name">Seared Scallops</span>
+                        <span class="item-price">$18</span>
+                    </div>
+                    <p class="item-description">
+                        Pan-seared sea scallops with cauliflower purée, crispy pancetta, and herb oil <span class="item-tag tag-signature">signature</span>
+                    </p>
+                </div>
+
+                <div class="menu-item">
+                    <div class="item-header">
+                        <span class="item-name">Beet Carpaccio</span>
+                        <span class="item-price">$12</span>
+                    </div>
+                    <p class="item-description">
+                        Thinly sliced roasted beets with goat cheese mousse, candied walnuts, and champagne vinaigrette
+                        <span class="item-tag tag-vegetarian">v</span>
+                        <span class="item-tag tag-gluten-free">gf</span>
+                    </p>
+                </div>
+
+                <div class="menu-item">
+                    <div class="item-header">
+                        <span class="item-name">Tuna Tartare</span>
+                        <span class="item-price">$16</span>
+                    </div>
+                    <p class="item-description">
+                        Hand-cut sushi-grade tuna with avocado, cucumber, radish, sesame, and yuzu ponzu
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="chef-recommendations">
+            <h3 class="chef-title">Chef's Recommendations</h3>
+            <div class="menu-items">
+                <div class="menu-item">
+                    <div class="item-header">
+                        <span class="item-name">Côte de Boeuf for Two</span>
+                        <span class="item-price">$85</span>
+                    </div>
+                    <p class="item-description">
+                        32oz dry-aged ribeye with roasted bone marrow, confit garlic, and thyme jus. Served with potato gratin and seasonal vegetables
+                        <span class="item-tag tag-signature">signature</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="menu-section">
+            <h2 class="section-title">Main Courses</h2>
+            <p class="section-description">
+                Seasonal and locally-sourced ingredients prepared with French techniques
+            </p>
+
+            <div class="menu-items">
+                <div class="menu-item">
+                    <div class="item-header">
+                        <span class="item-name">Duck Breast</span>
+                        <span class="item-price">$32</span>
+                    </div>
+                    <p class="item-description">
+                        Honey and lavender glazed duck breast with cherry jus, parsnip purée, and braised red cabbage
+                        <span class="item-tag tag-signature">signature</span>
+                    </p>
+                </div>
+
+                <div class="menu-item">
+                    <div class="item-header">
+                        <span class="item-name">Rack of Lamb</span>
+                        <span class="item-price">$38</span>
+                    </div>
+                    <p class="item-description">
+                        Herb-crusted New Zealand lamb with ratatouille, rosemary jus, and pommes dauphine
+                    </p>
+                </div>
+
+                <div class="menu-item">
+                    <div class="item-header">
+                        <span class="item-name">Bouillabaisse</span>
+                        <span class="item-price">$29</span>
+                    </div>
+                    <p class="item-description">
+                        Traditional Provençal seafood stew with market fish, shrimp, mussels, and saffron rouille
+                        <span class="item-tag tag-spicy">spicy</span>
+                    </p>
+                </div>
+
+                <div class="menu-item">
+                    <div class="item-header">
+                        <span class="item-name">Wild Mushroom Risotto</span>
+                        <span class="item-price">$24</span>
+                    </div>
+                    <p class="item-description">
+                        Creamy Arborio rice with assorted wild mushrooms, white wine, parmesan, and truffle oil
+                        <span class="item-tag tag-vegetarian">v</span>
+                        <span class="item-tag tag-gluten-free">gf</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="decorative-element">• • •</div>
+
+        <div class="menu-section">
+            <h2 class="section-title">Desserts</h2>
+            <p class="section-description">
+                Sweet indulgences crafted by our pastry chef
+            </p>
+
+            <div class="menu-items">
+                <div class="menu-item">
+                    <div class="item-header">
+                        <span class="item-name">Chocolate Soufflé</span>
+                        <span class="item-price">$12</span>
+                    </div>
+                    <p class="item-description">
+                        Warm dark chocolate soufflé with vanilla bean ice cream and salted caramel sauce
+                        <span class="special-note">(Please allow 15 minutes)</span>
+                    </p>
+                </div>
+
+                <div class="menu-item">
+                    <div class="item-header">
+                        <span class="item-name">Crème Brûlée</span>
+                        <span class="item-price">$10</span>
+                    </div>
+                    <p class="item-description">
+                        Classic vanilla bean custard with caramelized sugar crust and seasonal berries <span class="item-tag tag-gluten-free">gf</span>
+                    </p>
+                </div>
+
+                <div class="menu-item">
+                    <div class="item-header">
+                        <span class="item-name">Tarte Tatin</span>
+                        <span class="item-price">$11</span>
+                    </div>
+                    <p class="item-description">
+                        Upside-down caramelized apple tart with crème fraîche ice cream and spiced caramel
+                    </p>
+                </div>
+
+                <div class="menu-item">
+                    <div class="item-header">
+                        <span class="item-name">Cheese Selection</span>
+                        <span class="item-price">$16</span>
+                    </div>
+                    <p class="item-description">
+                        Curated artisanal cheeses with honey, dried fruits, nuts, and artisan crackers
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="menu-footer">
+            <p class="allergen-info">
+                Please inform your server of any allergies or dietary restrictions. We are happy to accommodate when possible.
+            </p>
+            <p>
+                A 20% gratuity will be added to parties of 6 or more. Consuming raw or undercooked foods may increase your risk of foodborne illness.
+            </p>
+        </div>
+    </div>
+</body>
+
+</html>

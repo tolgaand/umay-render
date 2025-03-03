@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Professional Invoice</title>
+    <style>
+         :root {
+            --primary-color: #2563eb;
+            --secondary-color: #f8fafc;
+            --accent-color: #0ea5e9;
+            --text-color: #334155;
+            --border-color: #e2e8f0;
+            --success-color: #10b981;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f1f5f9;
+            color: var(--text-color);
+            line-height: 1.5;
+            padding: 0;
+            margin: 0;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+        
+        .invoice-container {
+            max-width: 800px;
+            margin: 40px auto;
+            background: white;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        
+        .invoice-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding: 40px;
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .invoice-logo {
+            font-size: 28px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+        
+        .invoice-logo span {
+            opacity: 0.7;
+            font-weight: 400;
+        }
+        
+        .invoice-id {
+            text-align: right;
+        }
+        
+        .invoice-id h2 {
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .invoice-id p {
+            font-size: 14px;
+            opacity: 0.8;
+        }
+        
+        .invoice-meta {
+            display: flex;
+            justify-content: space-between;
+            padding: 30px 40px;
+            background-color: var(--secondary-color);
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .invoice-meta-col {
+            flex: 1;
+        }
+        
+        .invoice-meta-col:last-child {
+            text-align: right;
+        }
+        
+        .meta-label {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #94a3b8;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+        
+        .meta-value {
+            font-weight: 600;
+            font-size: 15px;
+        }
+        
+        .invoice-body {
+            padding: 30px 40px;
+        }
+        
+        .client-details {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 30px;
+        }
+        
+        .client-col {
+            flex: 1;
+        }
+        
+        h3 {
+            font-size: 16px;
+            font-weight: 600;
+            color: #475569;
+            margin-bottom: 12px;
+        }
+        
+        .client-address {
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+        }
+        
+        thead th {
+            background-color: var(--secondary-color);
+            padding: 15px;
+            text-align: left;
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            color: #64748b;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        tbody td {
+            padding: 15px;
+            border-bottom: 1px solid var(--border-color);
+            font-size: 14px;
+        }
+        
+        .item-name {
+            font-weight: 600;
+            color: #334155;
+        }
+        
+        .item-description {
+            color: #64748b;
+            font-size: 13px;
+            margin-top: 4px;
+        }
+        
+        .text-right {
+            text-align: right;
+        }
+        
+        .subtotal-row td {
+            padding-top: 20px;
+            border-top: 2px solid var(--border-color);
+            border-bottom: none;
+        }
+        
+        .total-row td {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--primary-color);
+            border-bottom: none;
+        }
+        
+        .payment-status {
+            display: inline-block;
+            padding: 8px 16px;
+            border-radius: 50px;
+            background-color: rgba(16, 185, 129, 0.1);
+            color: var(--success-color);
+            font-weight: 600;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .invoice-footer {
+            padding: 30px 40px;
+            background-color: var(--secondary-color);
+            border-top: 1px solid var(--border-color);
+            text-align: center;
+            font-size: 14px;
+            color: #64748b;
+        }
+        
+        .invoice-footer p {
+            margin-bottom: 10px;
+        }
+        
+        .invoice-footer strong {
+            color: var(--primary-color);
+        }
+        
+        .bank-details {
+            max-width: 400px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+        
+        .bank-details-table {
+            width: 100%;
+            font-size: 13px;
+        }
+        
+        .bank-details-table td {
+            padding: 8px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .bank-details-table td:first-child {
+            font-weight: 600;
+            color: #475569;
+        }
+        
+        .bank-details-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .note {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #fffbeb;
+            border-left: 4px solid #fbbf24;
+            border-radius: 4px;
+            font-size: 13px;
+            color: #92400e;
+        }
+        
+        @media print {
+            body {
+                background: none;
+            }
+            .invoice-container {
+                margin: 0;
+                box-shadow: none;
+                border-radius: 0;
+            }
+            @page {
+                size: A4;
+                margin: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="invoice-container">
+        <div class="invoice-header">
+            <div class="invoice-logo">ACME<span>.inc</span></div>
+            <div class="invoice-id">
+                <h2>INVOICE</h2>
+                <p>INV-2023-0042</p>
+            </div>
+        </div>
+
+        <div class="invoice-meta">
+            <div class="invoice-meta-col">
+                <div class="meta-label">Date Issued</div>
+                <div class="meta-value">June 15, 2023</div>
+            </div>
+            <div class="invoice-meta-col">
+                <div class="meta-label">Due Date</div>
+                <div class="meta-value">July 15, 2023</div>
+            </div>
+            <div class="invoice-meta-col">
+                <div class="meta-label">Status</div>
+                <div class="meta-value">
+                    <span class="payment-status">Paid</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="invoice-body">
+            <div class="client-details">
+                <div class="client-col">
+                    <h3>Billed To:</h3>
+                    <div class="client-address">
+                        XYZ Corporation<br /> Attn: John Smith<br /> 123 Business Avenue<br /> Suite 400<br /> New York, NY 10001<br /> United States
+                    </div>
+                </div>
+                <div class="client-col">
+                    <h3>From:</h3>
+                    <div class="client-address">
+                        ACME Inc.<br /> 1 Infinite Loop<br /> Cupertino, CA 95014<br /> United States<br /> Tax ID: 123-45-6789<br /> accounting@acmeinc.com
+                    </div>
+                </div>
+            </div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Quantity</th>
+                        <th>Rate</th>
+                        <th class="text-right">Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="item-name">Website Design</div>
+                            <div class="item-description">
+                                Custom website design with responsive layouts
+                            </div>
+                        </td>
+                        <td>1</td>
+                        <td>$3,500.00</td>
+                        <td class="text-right">$3,500.00</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="item-name">Development Hours</div>
+                            <div class="item-description">
+                                Frontend and backend development
+                            </div>
+                        </td>
+                        <td>45</td>
+                        <td>$85.00</td>
+                        <td class="text-right">$3,825.00</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="item-name">Content Creation</div>
+                            <div class="item-description">
+                                Copywriting for website pages
+                            </div>
+                        </td>
+                        <td>1</td>
+                        <td>$950.00</td>
+                        <td class="text-right">$950.00</td>
+                    </tr>
+                    <tr class="subtotal-row">
+                        <td colspan="3" class="text-right">Subtotal:</td>
+                        <td class="text-right">$8,275.00</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" class="text-right">Tax (8%):</td>
+                        <td class="text-right">$662.00</td>
+                    </tr>
+                    <tr class="total-row">
+                        <td colspan="3" class="text-right">Total:</td>
+                        <td class="text-right">$8,937.00</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="note">
+                <strong>Note:</strong> This invoice includes all deliverables as outlined in our contract. Payment is due within 30 days of issue. We accept bank transfers and credit cards.
+            </div>
+        </div>
+
+        <div class="invoice-footer">
+            <p>Thank you for your business!</p>
+            <p>
+                Questions? Contact us at <strong>billing@acmeinc.com</strong> or call
+                <strong>+1 (555) 123-4567</strong>
+            </p>
+
+            <div class="bank-details">
+                <h3>Payment Details</h3>
+                <table class="bank-details-table">
+                    <tr>
+                        <td>Bank Name:</td>
+                        <td>National Bank of Business</td>
+                    </tr>
+                    <tr>
+                        <td>Account Name:</td>
+                        <td>ACME Inc.</td>
+                    </tr>
+                    <tr>
+                        <td>Account Number:</td>
+                        <td>1234567890</td>
+                    </tr>
+                    <tr>
+                        <td>Routing Number:</td>
+                        <td>987654321</td>
+                    </tr>
+                    <tr>
+                        <td>SWIFT Code:</td>
+                        <td>NTBBUS12</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

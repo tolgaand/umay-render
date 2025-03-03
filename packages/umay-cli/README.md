@@ -98,22 +98,6 @@ Options:
 - `--device-scale-factor <factor>` - Device scale factor [default: 2]
 - `--api-url <url>` - Custom API URL (optional) [default: "https://umay-api-935360498495.us-central1.run.app/v1"]
 
-## Examples
-
-```bash
-# Generate A4 PDF with custom margins
-umay pdf input.html output.pdf --format A4 --margin-top 10mm --margin-left 15mm
-
-# Generate high-quality PNG screenshot
-umay image https://github.com github.png --type png --quality 100 --device-scale-factor 3
-
-# Generate PDF from URL with landscape orientation
-umay pdf https://news.ycombinator.com news.pdf --landscape
-
-# Generate full-page screenshot from URL
-umay image https://example.com example.jpg --full-page
-```
-
 ## API Reference
 
 UmayRender provides simple methods for converting HTML to PDF and image formats.
@@ -139,6 +123,22 @@ UmayRender provides simple methods for converting HTML to PDF and image formats.
 | `quality` | number | 90 | Image quality (1-100) |
 | `fullPage` | boolean | true | Capture full page height |
 | `viewport` | object | `{width:1920, height:1080, deviceScaleFactor:2}` | Viewport settings |
+
+## Examples
+
+```bash
+# Generate A4 PDF with custom margins
+umay pdf input.html output.pdf --format A4 --margin-top 10mm --margin-left 15mm
+
+# Generate high-quality PNG screenshot
+umay image https://github.com github.png --type png --quality 100 --device-scale-factor 3
+
+# Generate PDF from URL with landscape orientation
+umay pdf https://news.ycombinator.com news.pdf --landscape
+
+# Generate full-page screenshot from URL
+umay image https://example.com example.jpg --full-page
+```
 
 ## License
 

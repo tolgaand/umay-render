@@ -26,6 +26,47 @@ pnpm add umay-render
 
 ## Usage
 
+You can convert HTML content to PDF or image formats using UmaySDK.
+
+```typescript
+import { UmaySDK } from 'umay-render';
+
+// Initialize the SDK
+const sdk = new UmaySDK();
+
+// Generate PDF
+const pdfBuffer = await sdk.toPDF(html, options);
+
+// Generate Image
+const imageBuffer = await sdk.toImage(html, options);
+```
+
+## API Reference
+
+| Method | Description | Parameters |
+|--------|-------------|------------|
+| `toPDF(html, options)` | Converts HTML to PDF | `html`: HTML content string<br>`options`: (Optional) PDF options object |
+| `toImage(html, options)` | Converts HTML to image | `html`: HTML content string<br>`options`: (Optional) Image options object |
+
+### PDF Options
+
+| Option | Type | Default | Description |
+|--------|------|---------|-------------|
+| `format` | string | "A4" | Paper format (A4, Letter, etc.) |
+| `landscape` | boolean | false | Landscape orientation |
+| `printBackground` | boolean | true | Print background graphics |
+| `margin` | object | `{top:"20mm", right:"20mm", bottom:"20mm", left:"20mm"}` | Page margins |
+
+### Image Options
+
+| Option | Type | Default | Description |
+|--------|------|---------|-------------|
+| `quality` | number | 90 | Image quality (1-100) |
+| `fullPage` | boolean | true | Capture full page height |
+| `viewport` | object | `{width:1920, height:1080, deviceScaleFactor:2}` | Viewport settings |
+
+## Examples
+
 ### Browser Environment
 
 ```typescript
@@ -119,27 +160,3 @@ async function generateImage() {
   fs.writeFileSync('image.png', imageBuffer);
 }
 ```
-
-## API Reference
-
-| Method | Description | Parameters |
-|--------|-------------|------------|
-| `toPDF(html, options)` | Converts HTML to PDF | `html`: HTML content string<br>`options`: (Optional) PDF options object |
-| `toImage(html, options)` | Converts HTML to image | `html`: HTML content string<br>`options`: (Optional) Image options object |
-
-### PDF Options
-
-| Option | Type | Default | Description |
-|--------|------|---------|-------------|
-| `format` | string | "A4" | Paper format (A4, Letter, etc.) |
-| `landscape` | boolean | false | Landscape orientation |
-| `printBackground` | boolean | true | Print background graphics |
-| `margin` | object | `{top:"20mm", right:"20mm", bottom:"20mm", left:"20mm"}` | Page margins |
-
-### Image Options
-
-| Option | Type | Default | Description |
-|--------|------|---------|-------------|
-| `quality` | number | 90 | Image quality (1-100) |
-| `fullPage` | boolean | true | Capture full page height |
-| `viewport` | object | `{width:1920, height:1080, deviceScaleFactor:2}` | Viewport settings |

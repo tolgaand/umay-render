@@ -14,88 +14,6 @@
 - ✅ **Customizable Options** - Control page size, margins, quality, and more
 - ✅ **Cross-Platform** - Works on all major platforms
 
-## Examples
-
-### Invoice Template
-
-Convert HTML invoices to PDF or image formats with perfect formatting.
-
-<details>
-  <summary>View Invoice HTML Source</summary>
-
-```html
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Invoice</title>
-    <style>
-      @page {
-        size: A4;
-        margin: 0;
-      }
-
-      :root {
-        --primary-color: #2979ff;
-        --secondary-color: #f5f5f5;
-        --text-color: #333333;
-        --border-color: #dddddd;
-      }
-
-      body {
-        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-        margin: 0;
-        padding: 0;
-        color: var(--text-color);
-        background-color: #fff;
-        font-size: 12px;
-        line-height: 1.4;
-        -webkit-print-color-adjust: exact;
-        print-color-adjust: exact;
-      }
-
-      .invoice-container {
-        width: 210mm;
-        min-height: 297mm;
-        margin: 0 auto;
-        padding: 15px;
-        box-sizing: border-box;
-      }
-
-      /* Additional styles omitted for brevity */
-    </style>
-  </head>
-  <body>
-    <div class="invoice-container">
-      <!-- Invoice content omitted for brevity -->
-      <!-- See complete example in packages/umay-cli/examples/input/invoice.html -->
-    </div>
-  </body>
-</html>
-```
-</details>
-
-#### Output Examples
-
-**PDF Output:**
-
-[View Example PDF](./packages/umay-cli/examples/output/invoice.pdf)
-
-**Image Output:**
-
-![Invoice Image Example](./packages/umay-cli/examples/output/invoice.jpg)
-
-#### CLI Command Used
-
-```bash
-# Generate PDF
-umay render ./examples/input/invoice.html -t pdf -o ./examples/output/invoice.pdf
-
-# Generate PNG Image
-umay render ./examples/input/invoice.html -t image -o ./examples/output/invoice.png -w 900 -h 1300 -s 1 --full-page false
-```
-
 ## Installation
 
 ```bash
@@ -203,6 +121,88 @@ Customize your PDFs and images with flexible options for page size, orientation,
 ## Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
+
+## Examples
+
+### Invoice Template
+
+Convert HTML invoices to PDF or image formats with perfect formatting.
+
+<details>
+  <summary>View Invoice HTML Source</summary>
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Invoice</title>
+    <style>
+      @page {
+        size: A4;
+        margin: 0;
+      }
+
+      :root {
+        --primary-color: #2979ff;
+        --secondary-color: #f5f5f5;
+        --text-color: #333333;
+        --border-color: #dddddd;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        margin: 0;
+        padding: 0;
+        color: var(--text-color);
+        background-color: #fff;
+        font-size: 12px;
+        line-height: 1.4;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      .invoice-container {
+        width: 210mm;
+        min-height: 297mm;
+        margin: 0 auto;
+        padding: 15px;
+        box-sizing: border-box;
+      }
+
+      /* Additional styles omitted for brevity */
+    </style>
+  </head>
+  <body>
+    <div class="invoice-container">
+      <!-- Invoice content omitted for brevity -->
+      <!-- See complete example in packages/umay-cli/examples/input/invoice.html -->
+    </div>
+  </body>
+</html>
+```
+</details>
+
+#### Output Examples
+
+**PDF Output:**
+
+[View Example PDF](./packages/umay-cli/examples/output/invoice.pdf)
+
+**Image Output:**
+
+![Invoice Image Example](./packages/umay-cli/examples/output/invoice.jpg)
+
+#### CLI Command Used
+
+```bash
+# Generate PDF
+umay render ./examples/input/invoice.html -t pdf -o ./examples/output/invoice.pdf
+
+# Generate PNG Image
+umay render ./examples/input/invoice.html -t image -o ./examples/output/invoice.png -w 900 -h 1300 -s 1 --full-page false
+```
 
 ## License
 

@@ -142,6 +142,18 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## Examples
 
+### Template Showcase
+
+| Template | HTML Source | PDF Output |
+|----------|------------|------------|
+| Invoice | [View HTML](./packages/umay-cli/examples/input/examples-1-invoice.html) | [View PDF](./packages/umay-cli/examples/output/examples-1-invoice.pdf) |
+| Resume | [View HTML](./packages/umay-cli/examples/input/examples-2-resume.html) | [View PDF](./packages/umay-cli/examples/output/examples-2-resume.pdf) |
+| Business Report | [View HTML](./packages/umay-cli/examples/input/examples-3-report.html) | [View PDF](./packages/umay-cli/examples/output/examples-3-report.pdf) |
+| Certificate | [View HTML](./packages/umay-cli/examples/input/examples-4-certificate.html) | [View PDF](./packages/umay-cli/examples/output/examples-4-certificate.pdf) |
+| Restaurant Menu | [View HTML](./packages/umay-cli/examples/input/examples-5-menu.html) | [View PDF](./packages/umay-cli/examples/output/examples-5-menu.pdf) |
+
+These example templates showcase different HTML/CSS techniques optimized for PDF rendering.
+
 ### Invoice Template
 
 Convert HTML invoices to PDF or image formats with perfect formatting.

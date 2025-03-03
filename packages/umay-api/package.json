@@ -1,0 +1,59 @@
+{
+  "name": "umay-api",
+  "version": "1.0.0",
+  "description": "Free, high-performance HTML to PDF and HTML to Image conversion API service",
+  "keywords": [
+    "html-to-pdf",
+    "html-to-image",
+    "pdf-generator",
+    "image-generator",
+    "puppeteer",
+    "render",
+    "screenshot",
+    "api",
+    "express",
+    "free",
+    "open-source"
+  ],
+  "author": "Tolga Çağlayan <tolgaand@yandex.com>",
+  "license": "MIT",
+  "main": "dist/server.js",
+  "directories": {
+    "lib": "dist"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "dev": "ts-node-dev --project tsconfig.json src/server.ts",
+    "start": "node dist/server.js",
+    "start:dev": "ts-node-dev --project tsconfig.json src/server.ts",
+    "build": "tsc"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "morgan": "^1.10.0",
+    "puppeteer": "^24.3.0",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/express": "^5.0.0",
+    "@types/morgan": "^1.9.9",
+    "@types/node": "^22.13.8",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.8.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tolgaand/umay-render"
+  },
+  "homepage": "https://github.com/tolgaand/umay-render",
+  "bugs": {
+    "url": "https://github.com/tolgaand/umay-render/issues"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}

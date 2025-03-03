@@ -1,0 +1,14 @@
+version: "3.8"
+
+services:
+  api:
+    platform: linux/amd64
+    image: ${IMAGE_NAME}
+    build:
+      context: ../../packages/umay-api
+      dockerfile: ../../.docker/umay-api/Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      - PORT=8080
+      - NODE_ENV=production 

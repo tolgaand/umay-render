@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Invoice</title>
+    <style>
+      @page {
+        size: A4;
+        margin: 0;
+      }
+
+      :root {
+        --primary-color: #2979ff;
+        --secondary-color: #f5f5f5;
+        --text-color: #333333;
+        --border-color: #dddddd;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        margin: 0;
+        padding: 0;
+        color: var(--text-color);
+        background-color: #fff;
+        font-size: 12px;
+        line-height: 1.4;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      .invoice-container {
+        width: 210mm;
+        min-height: 297mm;
+        margin: 0 auto;
+        padding: 15px;
+        box-sizing: border-box;
+      }
+
+      .invoice-header {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 20px;
+      }
+
+      .company-details {
+        text-align: left;
+      }
+
+      .company-name {
+        font-size: 20px;
+        font-weight: 600;
+        color: var(--primary-color);
+        margin-bottom: 3px;
+      }
+
+      .invoice-title {
+        text-align: right;
+        font-size: 22px;
+        font-weight: 700;
+        color: var(--primary-color);
+        margin-bottom: 5px;
+      }
+
+      .invoice-details {
+        text-align: right;
+      }
+
+      .client-details {
+        margin-bottom: 15px;
+        padding: 10px;
+        background-color: var(--secondary-color);
+        border-radius: 3px;
+      }
+
+      .section-title {
+        font-weight: 600;
+        margin-bottom: 5px;
+        color: var(--primary-color);
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 15px;
+      }
+
+      thead {
+        background-color: var(--primary-color);
+        color: white;
+      }
+
+      th,
+      td {
+        padding: 6px 8px;
+        text-align: left;
+        border-bottom: 1px solid var(--border-color);
+        font-size: 11px;
+      }
+
+      th:last-child,
+      td:last-child {
+        text-align: right;
+      }
+
+      .total-container {
+        display: flex;
+        justify-content: flex-end;
+        margin: 10px 0;
+      }
+
+      .total-table {
+        width: 250px;
+        margin-bottom: 0;
+      }
+
+      .total-table th,
+      .total-table td {
+        padding: 5px 8px;
+      }
+
+      .total-row {
+        font-weight: 700;
+        font-size: 13px;
+        background-color: var(--secondary-color);
+      }
+
+      .payment-info {
+        margin-top: 15px;
+        padding: 10px;
+        background-color: var(--secondary-color);
+        border-radius: 3px;
+      }
+
+      .notes {
+        margin-top: 15px;
+        font-style: italic;
+        font-size: 11px;
+      }
+
+      .footer {
+        margin-top: 20px;
+        text-align: center;
+        font-size: 10px;
+        color: #777;
+        border-top: 1px solid var(--border-color);
+        padding-top: 10px;
+      }
+
+      .logo {
+        max-height: 50px;
+        margin-bottom: 5px;
+      }
+
+      .invoice-info {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 15px;
+      }
+
+      .info-block {
+        flex: 1;
+        padding-right: 10px;
+      }
+
+      .qr-code {
+        text-align: center;
+        margin-top: 15px;
+      }
+
+      .qr-code img {
+        width: 100px;
+        height: 100px;
+      }
+
+      .tax-id {
+        font-weight: bold;
+      }
+
+      .status-paid {
+        color: #4caf50;
+        font-weight: bold;
+        border: 1px solid #4caf50;
+        padding: 5px 10px;
+        border-radius: 3px;
+        display: inline-block;
+        margin-top: 5px;
+      }
+
+      .barcode {
+        margin-top: 15px;
+        text-align: center;
+      }
+
+      .barcode img {
+        max-width: none;
+        width: 300px;
+        height: 70px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="invoice-container">
+      <div class="invoice-header">
+        <div class="company-details">
+          <div class="company-name">Umay Render</div>
+          <div>123 Tech Street</div>
+          <div>San Francisco, CA 94103</div>
+          <div>contact@umayrender.com | +1 (555) 123-4567</div>
+          <div class="tax-id">Tax ID: 46-8712594</div>
+        </div>
+        <div>
+          <div class="invoice-title">INVOICE</div>
+          <div class="invoice-details">
+            <div><strong>Invoice #:</strong> INV-20230315-001</div>
+            <div><strong>Date:</strong> March 15, 2023</div>
+            <div><strong>Due Date:</strong> April 15, 2023</div>
+            <div class="status-paid">PAID</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="invoice-info">
+        <div class="info-block">
+          <div class="section-title">Bill To:</div>
+          <div><strong>Acme Corporation</strong></div>
+          <div>456 Business Avenue</div>
+          <div>New York, NY 10001</div>
+          <div>accounts@acmecorp.com | +1 (555) 987-6543</div>
+          <div>Tax ID: 98-7654321</div>
+        </div>
+
+        <div class="info-block">
+          <div class="section-title">Payment Details:</div>
+          <div><strong>Method:</strong> Credit Card (Visa ending in 4242)</div>
+          <div><strong>Transaction ID:</strong> TXN-20230315-8975423</div>
+          <div><strong>Payment Date:</strong> March 15, 2023</div>
+        </div>
+      </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th>Description</th>
+            <th>Quantity</th>
+            <th>Unit Price</th>
+            <th>Amount</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>PDF API</td>
+            <td>HTML to PDF API Service - Enterprise Plan (Annual)</td>
+            <td>1</td>
+            <td>$500.00</td>
+            <td>$500.00</td>
+          </tr>
+          <tr>
+            <td>Image API</td>
+            <td>HTML to Image API Service - Enterprise Plan (Annual)</td>
+            <td>1</td>
+            <td>$300.00</td>
+            <td>$300.00</td>
+          </tr>
+          <tr>
+            <td>SDK License</td>
+            <td>TypeScript SDK License - 10 Developer Seats</td>
+            <td>10</td>
+            <td>$50.00</td>
+            <td>$500.00</td>
+          </tr>
+          <tr>
+            <td>Support</td>
+            <td>Premium Technical Support - 12 Months</td>
+            <td>1</td>
+            <td>$1,200.00</td>
+            <td>$1,200.00</td>
+          </tr>
+          <tr>
+            <td>Consulting</td>
+            <td>Implementation Consulting Services (10 hours)</td>
+            <td>10</td>
+            <td>$150.00</td>
+            <td>$1,500.00</td>
+          </tr>
+          <tr>
+            <td>Custom Addon</td>
+            <td>Custom Watermark Feature</td>
+            <td>1</td>
+            <td>$250.00</td>
+            <td>$250.00</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="total-container">
+        <table class="total-table">
+          <tr>
+            <td>Subtotal:</td>
+            <td>$4,250.00</td>
+          </tr>
+          <tr>
+            <td>Tax (8.5%):</td>
+            <td>$361.25</td>
+          </tr>
+          <tr>
+            <td>Discount (Loyalty):</td>
+            <td>-$500.00</td>
+          </tr>
+          <tr class="total-row">
+            <td>Total:</td>
+            <td>$4,111.25</td>
+          </tr>
+          <tr>
+            <td>Amount Paid:</td>
+            <td>$4,111.25</td>
+          </tr>
+          <tr>
+            <td><strong>Balance Due:</strong></td>
+            <td><strong>$0.00</strong></td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="payment-info">
+        <div class="section-title">Payment Instructions:</div>
+        <div>All payments should be made to Umay Render Inc.</div>
+        <div><strong>Bank Name:</strong> Global Bank</div>
+        <div><strong>Account Name:</strong> Umay Render Inc.</div>
+        <div><strong>Account Number:</strong> 1234567890</div>
+        <div><strong>Routing Number:</strong> 987654321</div>
+        <div><strong>SWIFT/BIC:</strong> GLBNK123</div>
+      </div>
+
+      <div class="notes">
+        <div class="section-title">Notes:</div>
+        <p>
+          Thank you for your business! This invoice is for the annual
+          subscription to Umay Render services from March 15, 2023 to March 14,
+          2024. Access to all services has been activated for your account.
+        </p>
+        <p>
+          For any technical support, please contact support@umayrender.com or
+          call our support hotline at +1 (555) 123-9876.
+        </p>
+      </div>
+
+      <div class="footer">
+        <p>Umay Render Inc. | EIN: 46-8712594 | www.umayrender.com</p>
+        <p>
+          This invoice was generated using Umay Render - Free HTML to PDF
+          conversion service
+        </p>
+        <div class="barcode">
+          <img
+            src="https://barcode.tec-it.com/barcode.ashx?data=UMAY-RENDER-INVOICE-12345&code=Code128&dpi=300&modulewidth=2&ratio=3&dataseparator=&imagetype=png"
+            alt="Barcode"
+          />
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

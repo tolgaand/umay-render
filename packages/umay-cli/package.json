@@ -1,0 +1,53 @@
+{
+  "name": "umay-cli",
+  "version": "1.0.0",
+  "private": false,
+  "description": "Command-line interface for free, high-performance HTML to PDF and HTML to Image conversion",
+  "bin": {
+    "umay": "./lib/index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "ts-node src/index.ts",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "html-to-pdf",
+    "html-to-image",
+    "pdf-generator",
+    "image-generator",
+    "render",
+    "cli",
+    "screenshot",
+    "puppeteer",
+    "free",
+    "open-source",
+    "command-line"
+  ],
+  "author": "Tolga Çağlayan <tolgaand@yandex.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tolgaand/umay-render"
+  },
+  "homepage": "https://github.com/tolgaand/umay-render",
+  "bugs": {
+    "url": "https://github.com/tolgaand/umay-render/issues"
+  },
+  "dependencies": {
+    "commander": "^12.0.0",
+    "umay-render": "file:../umay-ts-sdk"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.8",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.2"
+  },
+  "files": [
+    "lib",
+    "README.md"
+  ],
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}

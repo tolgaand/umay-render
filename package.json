@@ -1,0 +1,36 @@
+{
+  "name": "umay-render",
+  "version": "1.0.0",
+  "description": "Free, high-performance HTML to PDF and HTML to Image conversion service with easy-to-use SDK",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "test": "pnpm -r test",
+    "build": "pnpm -r build"
+  },
+  "keywords": [
+    "html-to-pdf",
+    "html-to-image",
+    "pdf-generator",
+    "image-generator",
+    "puppeteer",
+    "render",
+    "screenshot",
+    "typescript",
+    "sdk",
+    "free",
+    "open-source"
+  ],
+  "homepage": "https://github.com/yourusername/umay-render",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yourusername/umay-render.git"
+  },
+  "author": "Your Name",
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^5.8.2"
+  }
+}

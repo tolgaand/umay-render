@@ -13,7 +13,7 @@ const startServer = async () => {
     // Graceful shutdown
     const shutdown = async () => {
       server.close();
-      console.log("Server kapatıldı");
+      console.log("Server is closed");
       process.exit(0);
     };
 

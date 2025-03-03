@@ -100,7 +100,7 @@ Options:
 
 ## API Reference
 
-UmayRender provides simple methods for converting HTML to PDF and image formats.
+UmaySDK provides simple methods for converting HTML to PDF and image formats.
 
 | Method | Description | Parameters |
 |--------|-------------|------------|

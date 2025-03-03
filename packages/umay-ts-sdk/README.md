@@ -32,13 +32,29 @@ You can convert HTML content to PDF or image formats using UmaySDK.
 import { UmaySDK } from 'umay-render';
 
 // Initialize the SDK
-const sdk = new UmaySDK();
+const client = new UmaySDK();
+// Or with custom API URL (optional)
+// const client = new UmaySDK({ 
+//   API_URL: 'https://your-custom-api-url.com', // Optional: A default API URL is provided
+//   TIMEOUT: 60000 // Optional: Default is 30000 (30 seconds)
+// });
 
 // Generate PDF
-const pdfBuffer = await sdk.toPDF(html, options);
+const pdfBuffer = await client.toPDF(html, options);
 
 // Generate Image
-const imageBuffer = await sdk.toImage(html, options);
+const imageBuffer = await client.toImage(html, options);
+```
+
+## Configuration
+
+When initializing the SDK, you can optionally provide configuration options:
+
+```typescript
+const client = new UmaySDK({
+  API_URL: 'https://your-custom-api-url.com', // Optional: A default API URL is provided
+  TIMEOUT: 60000 // Optional: Default is 30000 (30 seconds)
+});
 ```
 
 ## API Reference
@@ -73,13 +89,13 @@ const imageBuffer = await sdk.toImage(html, options);
 import { UmaySDK } from 'umay-render';
 
 // Initialize the SDK
-const sdk = new UmaySDK();
+const client = new UmaySDK();
 
 // Generate PDF
 async function generatePDF() {
   const html = '<html><body><h1>Hello World</h1></body></html>';
   
-  const pdfBuffer = await sdk.toPDF(html, {
+  const pdfBuffer = await client.toPDF(html, {
     format: 'A4',
     landscape: false,
     printBackground: true
@@ -99,7 +115,7 @@ async function generatePDF() {
 async function generateImage() {
   const html = '<html><body><h1>Hello World</h1></body></html>';
   
-  const imageBuffer = await sdk.toImage(html, {
+  const imageBuffer = await client.toImage(html, {
     quality: 90,
     fullPage: true,
     viewport: {
@@ -126,13 +142,13 @@ import { UmaySDK } from 'umay-render';
 import fs from 'fs';
 
 // Initialize the SDK
-const sdk = new UmaySDK();
+const client = new UmaySDK();
 
 // Generate PDF
 async function generatePDF() {
   const html = '<html><body><h1>Hello World</h1></body></html>';
   
-  const pdfBuffer = await sdk.toPDF(html, {
+  const pdfBuffer = await client.toPDF(html, {
     format: 'A4',
     landscape: false,
     printBackground: true
@@ -146,7 +162,7 @@ async function generatePDF() {
 async function generateImage() {
   const html = '<html><body><h1>Hello World</h1></body></html>';
   
-  const imageBuffer = await sdk.toImage(html, {
+  const imageBuffer = await client.toImage(html, {
     quality: 90,
     fullPage: true,
     viewport: {

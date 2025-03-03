@@ -30,12 +30,18 @@ pnpm add umay-render
 
 ```javascript
 // Client-side (Browser)
-import { UmayRender } from 'umay-render';
+import { UmaySDK } from 'umay-render';
 
-const client = new UmayRender({ apiUrl: 'https://your-api-url.com' });
+// Initialize the SDK
+const client = new UmaySDK(); 
+// Or with custom API URL (optional)
+// const client = new UmaySDK({ 
+//   API_URL: 'https://your-custom-api-url.com', // Optional: A default API URL is provided
+//   TIMEOUT: 60000 // Optional: Default is 30000 (30 seconds)
+// });
 
 // Generate PDF from HTML
-const pdfBuffer = await client.generatePDF('<html><body><h1>Hello World</h1></body></html>', {
+const pdfBuffer = await client.toPDF('<html><body><h1>Hello World</h1></body></html>', {
   format: 'A4',
   landscape: false,
   printBackground: true
@@ -46,13 +52,19 @@ client.downloadBlob(pdfBuffer, 'document.pdf', 'application/pdf');
 
 
 // Server-side (Node.js)
-import { UmayRender } from 'umay-render';
+import { UmaySDK } from 'umay-render';
 import fs from 'fs';
 
-const client = new UmayRender({ apiUrl: 'https://your-api-url.com' });
+// Initialize the SDK
+const client = new UmaySDK();
+// Or with custom API URL (optional)
+// const client = new UmaySDK({ 
+//   API_URL: 'https://your-custom-api-url.com', // Optional: A default API URL is provided
+//   TIMEOUT: 60000 // Optional: Default is 30000 (30 seconds)
+// });
 
 // Generate PDF from HTML
-const pdfBuffer = await client.generatePDF('<html><body><h1>Hello World</h1></body></html>', {
+const pdfBuffer = await client.toPDF('<html><body><h1>Hello World</h1></body></html>', {
   format: 'A4',
   landscape: false,
   printBackground: true
@@ -66,12 +78,18 @@ fs.writeFileSync('document.pdf', pdfBuffer);
 
 ```javascript
 // Client-side (Browser)
-import { UmayRender } from 'umay-render';
+import { UmaySDK } from 'umay-render';
 
-const client = new UmayRender({ apiUrl: 'https://your-api-url.com' });
+// Initialize the SDK
+const client = new UmaySDK();
+// Or with custom API URL (optional)
+// const client = new UmaySDK({ 
+//   API_URL: 'https://your-custom-api-url.com', // Optional: A default API URL is provided
+//   TIMEOUT: 60000 // Optional: Default is 30000 (30 seconds)
+// });
 
 // Generate JPEG image from HTML
-const imageBuffer = await client.generateImage('<html><body><h1>Hello World</h1></body></html>', {
+const imageBuffer = await client.toImage('<html><body><h1>Hello World</h1></body></html>', {
   type: 'jpeg',
   quality: 90,
   fullPage: true,

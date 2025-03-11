@@ -8,8 +8,17 @@ import {
   Text,
   VStack,
   Spinner,
+  Link,
 } from "@chakra-ui/react";
-import { LuUpload, LuCode, LuDownload } from "react-icons/lu";
+import {
+  LuUpload,
+  LuCode,
+  LuDownload,
+  LuGithub,
+  LuPackage,
+  LuTerminal,
+  LuHeart,
+} from "react-icons/lu";
 import { ColorModeButton } from "../components/ui/color-mode";
 import { useCallback, useState } from "react";
 import { UmaySDK } from "umay-render";
@@ -99,7 +108,13 @@ export default function HomeView() {
   }, []);
 
   return (
-    <Container>
+    <Container
+      css={{
+        display: "flex",
+        flexDirection: "column",
+        minHeight: "100vh",
+      }}
+    >
       <HStack
         css={{
           w: "full",
@@ -117,6 +132,7 @@ export default function HomeView() {
       <VStack
         css={{
           marginTop: "60px",
+          flex: "1",
         }}
       >
         <Text
@@ -235,6 +251,56 @@ export default function HomeView() {
             ))}
           </FileUpload.ItemGroup>
         </FileUpload.Root>
+      </VStack>
+
+      <VStack>
+        <HStack css={{ spaceX: "20px" }}>
+          <Link
+            href="https://github.com/tolgaand/umay-render"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <HStack css={{ gap: "8px" }}>
+              <Icon as={LuGithub} />
+              <Text>GitHub</Text>
+            </HStack>
+          </Link>
+          <Link
+            href="https://www.npmjs.com/package/umay-render"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <HStack css={{ gap: "8px" }}>
+              <Icon as={LuPackage} />
+              <Text>NPM</Text>
+            </HStack>
+          </Link>
+          <Link
+            href="https://github.com/tolgaand/umay-render/tree/main/packages/umay-cli"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <HStack css={{ gap: "8px" }}>
+              <Icon as={LuTerminal} />
+              <Text>CLI</Text>
+            </HStack>
+          </Link>
+        </HStack>
+
+        <Box
+          width="full"
+          py={4}
+          textAlign="center"
+          borderTopWidth="1px"
+          borderTopColor="gray.200"
+        >
+          <Text fontSize="sm">
+            Made with <Icon as={LuHeart} /> using Umay Render SDK
+          </Text>
+          <Text fontSize="xs" mt={1}>
+            Open Source under MIT License
+          </Text>
+        </Box>
       </VStack>
     </Container>
   );

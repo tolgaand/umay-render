@@ -53,29 +53,12 @@ export default function HomeView() {
         const result = await umay.toPDF(content);
         console.log("Conversion result:", result);
 
-        let pdfData: Uint8Array;
-        if (result instanceof Uint8Array) {
-          pdfData = result;
-        } else if (result instanceof ArrayBuffer) {
-          pdfData = new Uint8Array(result);
-        } else if (typeof result === "object" && result !== null) {
-          try {
-            pdfData = new Uint8Array(result as ArrayBufferLike);
-          } catch (e) {
-            console.error("Failed to convert result to Uint8Array:", e);
-            throw new Error("Cannot convert result to binary data");
-          }
-        } else {
-          console.error("Unexpected result type:", typeof result);
-          throw new Error("Unexpected result type");
-        }
-
         setFiles((prevFiles) => {
           const newFiles = [...prevFiles];
           newFiles[index] = {
             ...newFiles[index],
             loading: false,
-            pdfData: pdfData,
+            pdfData: result,
           };
           console.log("State updated with PDF data:", newFiles[index]);
           return newFiles;

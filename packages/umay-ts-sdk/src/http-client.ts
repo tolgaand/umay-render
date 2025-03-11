@@ -4,6 +4,31 @@ import { UmayError } from "./errors";
 import { ErrorCodes } from "./errors";
 import { UmayConfig } from "./config";
 
+// Yardımcı fonksiyon: Herhangi bir binary veriyi Uint8Array'e dönüştürür
+function ensureUint8Array(data: any): Uint8Array {
+  if (data instanceof Uint8Array) {
+    return data;
+  } else if (data instanceof ArrayBuffer) {
+    return new Uint8Array(data);
+  } else if (
+    typeof data === "object" &&
+    data !== null &&
+    typeof data.byteLength === "number"
+  ) {
+    // ArrayBuffer-like object
+    try {
+      return new Uint8Array(data);
+    } catch (error: unknown) {
+      const errorMessage =
+        error instanceof Error ? error.message : String(error);
+      throw new Error(`Cannot convert to Uint8Array: ${errorMessage}`);
+    }
+  }
+  throw new Error(
+    `Cannot convert to Uint8Array: Unsupported data type ${typeof data}`
+  );
+}
+
 export class HttpClient {
   private client: AxiosInstance;
   private config: UmayConfig;
@@ -39,7 +64,7 @@ export class HttpClient {
         status: response.status,
         contentType: response.headers["content-type"],
         dataType: typeof response.data,
-        dataLength: response.data?.length,
+        dataLength: response.data?.length || response.data?.byteLength,
       });
 
       return this.processResponse<T>(response);
@@ -102,38 +127,23 @@ export class HttpClient {
       throw new UmayError(ErrorCodes.API_ERROR, errorMessage, errorDetails);
     }
 
-    // Handle PDF specifically
-    if (contentType.includes("application/pdf")) {
-      console.log("Processing PDF response", {
-        isBuffer: Buffer.isBuffer(data),
+    // Handle binary data (PDF or images)
+    if (
+      contentType.includes("application/pdf") ||
+      contentType.includes("image/")
+    ) {
+      console.log("Processing binary response", {
         isArrayBuffer: data instanceof ArrayBuffer,
+        isUint8Array: data instanceof Uint8Array,
         bytesLength: data?.byteLength || data?.length || 0,
       });
 
-      // Convert to proper Buffer if needed
-      if (Buffer.isBuffer(data)) {
+      try {
+        const uint8Array = ensureUint8Array(data);
+        return uint8Array as unknown as T;
+      } catch (e) {
+        console.warn("Failed to convert binary data:", e);
         return data as unknown as T;
-      } else if (data instanceof ArrayBuffer) {
-        const buffer = Buffer.from(data);
-        console.log("Converted ArrayBuffer to Buffer:", buffer.length);
-        return buffer as unknown as T;
-      } else if (data instanceof Uint8Array) {
-        const buffer = Buffer.from(data);
-        console.log("Converted Uint8Array to Buffer:", buffer.length);
-        return buffer as unknown as T;
-      } else {
-        console.warn("PDF data is in unexpected format:", typeof data);
-      }
-    }
-
-    // Handle images
-    if (contentType.includes("image/")) {
-      if (Buffer.isBuffer(data)) {
-        return data as unknown as T;
-      } else if (data instanceof ArrayBuffer) {
-        return Buffer.from(data) as unknown as T;
-      } else if (data instanceof Uint8Array) {
-        return Buffer.from(data) as unknown as T;
       }
     }
 

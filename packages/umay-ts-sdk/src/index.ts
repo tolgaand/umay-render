@@ -17,17 +17,17 @@ export class UmaySDK {
     this.httpClient = new HttpClient(mergedConfig);
   }
 
-  async toPDF(html: string, options?: PdfOptions): Promise<Buffer> {
+  async toPDF(html: string, options?: PdfOptions): Promise<Uint8Array> {
     const validatedOptions = options
       ? PdfOptionsSchema.parse(options)
       : PdfOptionsSchema.parse({});
-    return this.httpClient.request<Buffer>("/render/pdf", {
+    return this.httpClient.request<Uint8Array>("/render/pdf", {
       html,
       options: validatedOptions,
     });
   }
 
-  async toImage(html: string, options?: ImageOptions): Promise<Buffer> {
+  async toImage(html: string, options?: ImageOptions): Promise<Uint8Array> {
     const validatedOptions = options
       ? ImageOptionsSchema.parse(options)
       : ImageOptionsSchema.parse({});
@@ -35,6 +35,6 @@ export class UmaySDK {
       html,
       options: validatedOptions,
     };
-    return this.httpClient.request<Buffer>("/render/image", payload);
+    return this.httpClient.request<Uint8Array>("/render/image", payload);
   }
 }

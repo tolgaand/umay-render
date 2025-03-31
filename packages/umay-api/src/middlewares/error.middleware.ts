@@ -4,9 +4,11 @@ export class AppError extends Error {
   constructor(
     public statusCode: number,
     message: string,
-    public publicMessage?: string
+    public publicMessage?: string,
+    public errorCode?: string
   ) {
     super(message);
+    this.name = this.constructor.name;
   }
 }
 
@@ -18,14 +20,26 @@ export const errorHandler = (
 ) => {
   if (err instanceof AppError) {
     res.status(err.statusCode).json({
-      error: err.publicMessage || err.message,
-      ...(process.env.NODE_ENV === "development" && { stack: err.stack }),
+      error: {
+        message: err.publicMessage || "An error occurred.",
+        code: err.errorCode || "UNKNOWN_ERROR",
+        ...(process.env.NODE_ENV !== "production" && {
+          internal_message: err.message,
+        }),
+      },
+      ...(process.env.NODE_ENV !== "production" && { stack: err.stack }),
     });
   } else {
-    console.error(err);
+    console.error("Unexpected Error:", err);
     res.status(500).json({
-      error: "Internal Server Error",
-      ...(process.env.NODE_ENV === "development" && { details: err.message }),
+      error: {
+        message: "Internal Server Error",
+        code: "INTERNAL_SERVER_ERROR",
+        ...(process.env.NODE_ENV !== "production" && {
+          internal_message: err.message,
+        }),
+      },
+      ...(process.env.NODE_ENV !== "production" && { stack: err.stack }),
     });
   }
 };

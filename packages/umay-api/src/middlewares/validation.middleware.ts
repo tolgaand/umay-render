@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
-import { RenderRequestSchema } from "../schemas/render.schema";
 import { ZodError } from "zod";
+import { ConversionRequestSchema } from "../schemas/render.schema";
 
 export const validateRenderRequest = (
   req: Request,
@@ -8,7 +8,7 @@ export const validateRenderRequest = (
   next: NextFunction
 ): void => {
   try {
-    const result = RenderRequestSchema.safeParse(req.body);
+    const result = ConversionRequestSchema.safeParse(req.body);
 
     if (!result.success) {
       res.status(400).json({
@@ -22,7 +22,6 @@ export const validateRenderRequest = (
       return;
     }
 
-    // Add the parsed and validated data to the request
     req.body = result.data;
     next();
   } catch (error) {

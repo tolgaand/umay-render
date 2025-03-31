@@ -1,28 +1,46 @@
 import { createApp } from "./app";
+import { closeBrowser } from "./features/render/render.service";
+import http from "http";
 
-const PORT = process.env.PORT || 3000;
+const app = createApp();
 
-const startServer = async () => {
-  try {
-    const app = createApp();
+const PORT = process.env.PORT || 3001;
 
-    const server = app.listen(PORT, () => {
-      console.log(`Server running on port ${PORT}`);
+const server: http.Server = app.listen(PORT, () => {
+  console.log(`Server listening on port ${PORT}`);
+  console.log(`API endpoint available at http://localhost:${PORT}/v1/render`);
+});
+
+const signals: NodeJS.Signals[] = ["SIGINT", "SIGTERM"];
+
+signals.forEach((signal) => {
+  process.on(signal, async () => {
+    console.log(`\nReceived ${signal}. Shutting down gracefully...`);
+
+    server.close(async (err?: Error) => {
+      if (err) {
+        console.error("Error closing HTTP server:", err);
+      } else {
+        console.log("HTTP server closed.");
+      }
+
+      await closeBrowser();
+
+      process.exit(err ? 1 : 0);
     });
 
-    // Graceful shutdown
-    const shutdown = async () => {
-      server.close();
-      console.log("Server is closed");
-      process.exit(0);
-    };
+    setTimeout(() => {
+      console.error("Graceful shutdown timed out. Forcing exit.");
+      process.exit(1);
+    }, 15000);
+  });
+});
 
-    process.on("SIGTERM", shutdown);
-    process.on("SIGINT", shutdown);
-  } catch (error) {
-    console.error("Failed to start server:", error);
-    process.exit(1);
-  }
-};
+process.on("unhandledRejection", (reason, promise) => {
+  console.error("Unhandled Rejection at:", promise, "reason:", reason);
+});
 
-startServer();
+process.on("uncaughtException", (error) => {
+  console.error("Uncaught Exception thrown:", error);
+  process.exit(1);
+});

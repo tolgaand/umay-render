@@ -1,93 +1,74 @@
-import { RequestHandler } from "express";
+import { Request, Response, NextFunction, RequestHandler } from "express";
 import { RenderService } from "./render.service";
 import { AppError } from "../../middlewares/error.middleware";
-import { PdfOptionsSchema, ImageOptionsSchema } from "./render.schema";
-import path from "path";
-import fs from "fs";
-import { z } from "zod";
+import { ConversionRequest } from "../../schemas/render.schema";
 
 const renderService = new RenderService();
 
-export const renderPDF: RequestHandler = async (req, res, next) => {
+export const performRender: RequestHandler = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   try {
-    const html = req.body.html;
-    const options = req.body.options || {};
+    const conversionRequest: ConversionRequest = req.body;
 
-    if (!html || typeof html !== "string" || html.trim().length === 0) {
-      throw new AppError(
-        400,
-        "HTML content is required and must be a valid string",
-        "Invalid input data"
+    console.log(
+      "Controller received validated request:",
+      JSON.stringify(conversionRequest, null, 2)
+    );
+    const fileBuffer: Buffer = await renderService.performConversion(
+      conversionRequest
+    );
+
+    if (
+      !fileBuffer ||
+      !Buffer.isBuffer(fileBuffer) ||
+      fileBuffer.length === 0
+    ) {
+      console.error(
+        "performConversion returned invalid buffer for validated request:",
+        conversionRequest
       );
-    }
-
-    await PdfOptionsSchema.parseAsync(options).catch((err: z.ZodError) => {
-      throw new AppError(400, err.message, "Invalid PDF options");
-    });
-
-    const pdf = await renderService.generatePDF(html, options);
-
-    if (!pdf || !Buffer.isBuffer(pdf) || pdf.length === 0) {
       throw new AppError(
         500,
-        "Generated PDF is invalid or empty",
-        "PDF generation failed"
+        "Generated output is invalid or empty",
+        "Conversion failed",
+        "EMPTY_OUTPUT"
       );
     }
 
-    const filename = options.filename || "document.pdf";
+    let contentType: string;
+    let extension: string = conversionRequest.outputFormat;
 
-    res.set({
-      "Content-Type": "application/pdf",
-      "Content-Length": pdf.length,
-      "Content-Disposition": `attachment; filename="${filename}"`,
-    });
-
-    res.send(pdf);
-  } catch (error) {
-    next(error);
-  }
-};
-
-export const renderImage: RequestHandler = async (req, res, next) => {
-  try {
-    const html = req.body.html;
-    const options = req.body.options || {};
-
-    if (!html || typeof html !== "string" || html.trim().length === 0) {
-      throw new AppError(
-        400,
-        "HTML content is required and must be a valid string",
-        "Invalid input data"
-      );
+    switch (conversionRequest.outputFormat) {
+      case "pdf":
+        contentType = "application/pdf";
+        break;
+      case "png":
+        contentType = "image/png";
+        break;
+      case "jpeg":
+        contentType = "image/jpeg";
+        extension = "jpg";
+        break;
+      case "webp":
+        contentType = "image/webp";
+        break;
     }
 
-    await ImageOptionsSchema.parseAsync(options).catch((err: z.ZodError) => {
-      throw new AppError(400, err.message, "Invalid image options");
-    });
-
-    const image = await renderService.generateImage(html, options);
-
-    if (!image || !Buffer.isBuffer(image) || image.length === 0) {
-      throw new AppError(
-        500,
-        "Generated image is invalid or empty",
-        "Image generation failed"
-      );
-    }
-
-    const type = options.type || "jpeg";
-    const extension = type === "png" ? "png" : "jpg";
-    const filename = options.filename || `image.${extension}`;
-    const contentType = type === "png" ? "image/png" : "image/jpeg";
+    const filename: string =
+      conversionRequest.filename || `output.${extension}`;
 
     res.set({
       "Content-Type": contentType,
-      "Content-Length": image.length,
-      "Content-Disposition": `attachment; filename="${filename}"`,
+      "Content-Length": fileBuffer.length.toString(),
+      "Content-Disposition": `attachment; filename*=UTF-8''${encodeURIComponent(
+        filename
+      )}`,
     });
 
-    res.send(image);
+    res.send(fileBuffer);
   } catch (error) {
     next(error);
   }

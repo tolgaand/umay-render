@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./style.css";
-import HomeView from "./views/home-view";
+import HomeView from "./views/home";
 
 function App() {
   return (
@@ -11,5 +11,4 @@ function App() {
     </BrowserRouter>
   );
 }
-
 export default App;

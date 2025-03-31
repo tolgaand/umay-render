@@ -1,21 +1,15 @@
-// src/http-client.ts
-import axios, { AxiosInstance, AxiosResponse } from "axios";
-import { UmayError } from "./errors";
-import { ErrorCodes } from "./errors";
+import axios, { AxiosInstance, AxiosResponse, AxiosError } from "axios";
+import { UmayError, ErrorCodes } from "./errors";
 import { UmayConfig } from "./config";
 
-// Yardımcı fonksiyon: Herhangi bir binary veriyi Uint8Array'e dönüştürür
 function ensureUint8Array(data: any): Uint8Array {
-  if (data instanceof Uint8Array) {
-    return data;
-  } else if (data instanceof ArrayBuffer) {
-    return new Uint8Array(data);
-  } else if (
+  if (data instanceof Uint8Array) return data;
+  if (data instanceof ArrayBuffer) return new Uint8Array(data);
+  if (
     typeof data === "object" &&
     data !== null &&
     typeof data.byteLength === "number"
   ) {
-    // ArrayBuffer-like object
     try {
       return new Uint8Array(data);
     } catch (error: unknown) {
@@ -42,112 +36,81 @@ export class HttpClient {
         "Content-Type": "application/json",
         Accept: "application/json, image/*, application/pdf",
       },
-      responseType: "arraybuffer", // For handling PDF and image responses
-      validateStatus: (status) => status < 500, // Don't reject status codes < 500
+      responseType: "arraybuffer",
+      validateStatus: (status) => status < 500,
     });
   }
 
   async request<T>(endpoint: string, data: any): Promise<T> {
     try {
-      console.log(
-        `Making ${endpoint} request with data:`,
-        typeof data === "object" ? JSON.stringify(data) : data
-      );
+      const response = await this.client.post<ArrayBuffer>(endpoint, data, {});
 
-      const response = await this.client.post(endpoint, data, {
-        headers: {
-          Accept: "application/json, image/*, application/pdf",
-        },
-      });
+      return this.processSuccessResponse<T>(response);
+    } catch (error: unknown) {
+      console.error(`HTTP client error during request to ${endpoint}:`, error);
 
-      console.log(`Received response from ${endpoint}:`, {
-        status: response.status,
-        contentType: response.headers["content-type"],
-        dataType: typeof response.data,
-        dataLength: response.data?.length || response.data?.byteLength,
-      });
-
-      return this.processResponse<T>(response);
-    } catch (error) {
-      console.error("HTTP client error:", error);
       if (axios.isAxiosError(error)) {
-        let errorMessage = error.message;
-        if (error.response?.data) {
-          try {
-            const text = new TextDecoder().decode(error.response.data);
-            try {
-              const json = JSON.parse(text);
-              errorMessage = json.details || json.error || error.message;
-            } catch (parseError) {
-              // If not JSON, use text as error message
-              errorMessage = text || error.message;
-            }
-          } catch (e) {
-            console.error("Error parsing API error response:", e);
-          }
+        const axiosError = error as AxiosError<ArrayBuffer>;
+
+        if (
+          axiosError.code === "ECONNABORTED" ||
+          axiosError.message.includes("timeout")
+        ) {
+          throw new UmayError(
+            ErrorCodes.TIMEOUT,
+            `Request timed out after ${this.config.TIMEOUT}ms`,
+            axiosError.config
+          );
         }
-        throw new UmayError(
-          ErrorCodes.API_ERROR,
-          `API request failed: ${errorMessage}`,
-          error.response?.data
-        );
+
+        if (axiosError.response) {
+          return this.processErrorResponse<T>(axiosError.response);
+        } else if (axiosError.request) {
+          throw new UmayError(
+            ErrorCodes.NETWORK_ERROR,
+            `Network error: No response received from server. ${axiosError.message}`,
+            { requestDetails: axiosError.request }
+          );
+        } else {
+          throw new UmayError(
+            ErrorCodes.NETWORK_ERROR,
+            `Request setup error: ${axiosError.message}`,
+            axiosError.config
+          );
+        }
       }
+
       throw new UmayError(
         ErrorCodes.NETWORK_ERROR,
-        error instanceof Error ? error.message : "Unknown network error"
+        error instanceof Error
+          ? error.message
+          : "Unknown network or client error",
+        error
       );
     }
   }
 
-  private processResponse<T>(response: AxiosResponse): T {
-    const contentType = response.headers["content-type"] || "";
+  private processSuccessResponse<T>(response: AxiosResponse<ArrayBuffer>): T {
+    const contentType = response.headers["content-type"]?.toLowerCase() || "";
     const data = response.data;
 
-    // Handle error responses
-    if (response.status >= 400) {
-      let errorMessage = `HTTP error: ${response.status}`;
-      let errorDetails = null;
-
-      try {
-        if (data) {
-          const text = new TextDecoder().decode(data);
-          try {
-            const json = JSON.parse(text);
-            errorMessage = json.error || errorMessage;
-            errorDetails = json.details || null;
-          } catch (e) {
-            // Not JSON, use as plain text
-            errorMessage = text || errorMessage;
-          }
-        }
-      } catch (e) {
-        console.error("Error processing error response:", e);
-      }
-
-      throw new UmayError(ErrorCodes.API_ERROR, errorMessage, errorDetails);
-    }
-
-    // Handle binary data (PDF or images)
     if (
       contentType.includes("application/pdf") ||
       contentType.includes("image/")
     ) {
-      console.log("Processing binary response", {
-        isArrayBuffer: data instanceof ArrayBuffer,
-        isUint8Array: data instanceof Uint8Array,
-        bytesLength: data?.byteLength || data?.length || 0,
-      });
-
       try {
         const uint8Array = ensureUint8Array(data);
         return uint8Array as unknown as T;
-      } catch (e) {
-        console.warn("Failed to convert binary data:", e);
-        return data as unknown as T;
+      } catch (e: unknown) {
+        console.error("Failed to process binary data:", e);
+        throw new UmayError(
+          ErrorCodes.API_ERROR,
+          "Failed to process binary response from API",
+          e
+        );
       }
     }
 
-    // Handle JSON
     if (contentType.includes("application/json")) {
       try {
         const text = new TextDecoder().decode(data);
@@ -155,31 +118,84 @@ export class HttpClient {
         return jsonData as T;
       } catch (e) {
         console.warn(
-          "Response has content-type application/json but failed to parse"
+          "Received JSON content-type but failed to parse response body."
+        );
+        throw new UmayError(
+          ErrorCodes.API_ERROR,
+          "Failed to parse JSON response from API",
+          { responseText: new TextDecoder().decode(data) }
         );
       }
     }
 
-    // Default fallback
-    console.log("Using default data response handling");
-    return data as T;
-  }
-
-  private buildHeaders(): HeadersInit {
-    return {
-      "Content-Type": "application/json",
-      Accept: "application/json, image/*, application/pdf",
-    };
-  }
-
-  private normalizeError(error: unknown): UmayError {
-    if (error instanceof UmayError) return error;
-    if (error instanceof DOMException && error.name === "AbortError") {
-      return new UmayError(ErrorCodes.TIMEOUT, "Request timed out");
-    }
-    return new UmayError(
-      ErrorCodes.NETWORK_ERROR,
-      error instanceof Error ? error.message : "Unknown network error"
+    console.warn(
+      `Unexpected content type received: ${contentType}. Returning raw data.`
     );
+    try {
+      const uint8Array = ensureUint8Array(data);
+      return uint8Array as unknown as T;
+    } catch (e) {
+      return data as unknown as T;
+    }
+  }
+
+  private processErrorResponse<T>(response: AxiosResponse<ArrayBuffer>): T {
+    const status = response.status;
+    let errorCode: keyof typeof ErrorCodes | string = ErrorCodes.API_ERROR;
+    let errorMessage = `API request failed with status ${status}`;
+    let errorDetails: any = null;
+    let publicMessage: string | undefined = undefined;
+
+    try {
+      if (response.data && response.data.byteLength > 0) {
+        const text = new TextDecoder().decode(response.data);
+        try {
+          const json = JSON.parse(text);
+
+          if (json.error && typeof json.error === "object") {
+            const errObj = json.error;
+            const backendCode = errObj.code;
+            if (backendCode && typeof backendCode === "string") {
+              errorCode = Object.prototype.hasOwnProperty.call(
+                ErrorCodes,
+                backendCode
+              )
+                ? (backendCode as keyof typeof ErrorCodes)
+                : backendCode;
+            }
+            publicMessage =
+              typeof errObj.message === "string" ? errObj.message : undefined;
+            errorMessage =
+              typeof errObj.internal_message === "string"
+                ? errObj.internal_message
+                : publicMessage || errorMessage;
+          } else if (typeof json.error === "string") {
+            publicMessage = json.error;
+            errorMessage = json.error;
+          }
+
+          errorDetails = json.details || json.stack || json;
+        } catch (parseError) {
+          console.warn("API error response was not valid JSON:", text);
+          errorMessage = `API Error (${status}): ${text || "No response body"}`;
+          publicMessage = `An API error occurred (Status: ${status})`;
+          errorDetails = { responseText: text };
+        }
+      } else {
+        errorMessage = `API request failed with status ${status} and empty response body`;
+        publicMessage = `An API error occurred (Status: ${status})`;
+      }
+    } catch (decodeError) {
+      console.error("Error processing API error response data:", decodeError);
+      errorMessage = `Failed to process error response (Status: ${status})`;
+      publicMessage = `An error occurred while processing the API response (Status: ${status})`;
+      errorDetails = decodeError;
+    }
+
+    throw new UmayError(errorCode, errorMessage, {
+      status: status,
+      responseDetails: errorDetails,
+      publicMessage: publicMessage,
+    });
   }
 }

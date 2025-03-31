@@ -3,3 +3,17 @@ dist/
 lib/
 *.log
 .DS_Store
+
+# C# build artifacts
+bin/
+obj/
+*.user
+*.userosscache
+*.suo
+*.dbmdl
+*.jfm
+*.cache
+.vs/
+_ReSharper*/
+*.[Rr]e[Ss]harper
+*.DotSettings.user

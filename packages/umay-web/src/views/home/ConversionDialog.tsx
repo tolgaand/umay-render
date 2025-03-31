@@ -58,7 +58,9 @@ interface ConversionDialogProps {
 
 // Initialize UmaySDK
 const umay = new UmaySDK({
-  API_URL: import.meta.env.DEV ? "http://localhost:3001/v1" : undefined,
+  ...(import.meta.env.DEV && {
+    API_URL: "http://localhost:3001/v1",
+  }),
 });
 
 // Create collections for select components

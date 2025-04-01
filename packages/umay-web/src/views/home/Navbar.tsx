@@ -87,7 +87,7 @@ export default function Navbar() {
                 border="1px solid"
                 borderColor={isDark ? "brand.500/20" : "brand.200"}
               >
-                2.0.0
+                2.0.0 beta
               </Badge>
             </ReactRouterLink>
           </Link>

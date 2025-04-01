@@ -12,17 +12,15 @@ interface TryItButtonProps {
 export default function TryItButton({
   variant = "solid",
   size = "md",
-  colorScheme = "blue",
+  colorScheme = "brand",
 }: TryItButtonProps) {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   const handleOpenDialog = () => {
-    console.log("Opening dialog");
     setIsDialogOpen(true);
   };
 
   const handleCloseDialog = () => {
-    console.log("Closing dialog");
     setIsDialogOpen(false);
   };
 
@@ -33,6 +31,7 @@ export default function TryItButton({
         size={size}
         colorScheme={colorScheme}
         onClick={handleOpenDialog}
+        rounded="full"
       >
         Try it now
         <Icon as={LuExternalLink} ml={2} />

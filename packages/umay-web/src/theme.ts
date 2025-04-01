@@ -72,17 +72,57 @@ const config = defineConfig({
           900: { value: "#1c1917" },
           950: { value: "#0c0a09" },
         },
+        // Gray tonları - Chakra v3 biçimlendirilmiş
+        gray: {
+          50: { value: "#fafafa" },
+          100: { value: "#f4f4f5" },
+          200: { value: "#e4e4e7" },
+          300: { value: "#d4d4d8" },
+          400: { value: "#a1a1aa" },
+          500: { value: "#71717a" },
+          600: { value: "#52525b" },
+          650: { value: "#45454e" }, // Pricing icin eklenen
+          700: { value: "#3f3f46" },
+          750: { value: "#33333a" }, // Özel ara ton
+          800: { value: "#27272a" },
+          850: { value: "#202024" }, // Özel ara ton
+          900: { value: "#18181b" },
+          950: { value: "#09090b" },
+        },
+        // Gradient renkleri - Koyu mod
+        darkFrom: { value: "#1A202C" },
+        darkMid: { value: "#2D3748" },
+        darkTo: { value: "#4A5568" },
+        // Gradient renkleri - Açık mod
+        lightFrom: { value: "#F7FAFC" },
+        lightMid: { value: "#EDF2F7" },
+        lightTo: { value: "#E2E8F0" },
+      },
+      // Container boyutları
+      sizes: {
+        container: {
+          sm: { value: "640px" },
+          md: { value: "768px" },
+          lg: { value: "1024px" },
+          xl: { value: "1280px" },
+          "2xl": { value: "1536px" },
+        },
       },
       // Animations
       animations: {
         fadeInUp: { value: "fadeInUp 0.5s forwards" },
         fadeOutUp: { value: "fadeOutUp 0.5s forwards" },
       },
-      // Yazı tipleri
+      // Yazı tipleri - Modern tipografi sistemi
       fonts: {
-        heading: { value: "'Inter', sans-serif" },
+        heading: { value: "'Outfit', 'Plus Jakarta Sans', sans-serif" },
         body: { value: "'Inter', sans-serif" },
-        mono: { value: "'Inter', monospace" },
+        mono: { value: "'Space Grotesk', monospace" },
+        // Saat yönünde özel font aileleri
+        outfit: { value: "'Outfit', sans-serif" },
+        jakarta: { value: "'Plus Jakarta Sans', sans-serif" },
+        inter: { value: "'Inter', sans-serif" },
+        grotesk: { value: "'Space Grotesk', monospace" },
       },
       // Gölgeler
       shadows: {
@@ -178,6 +218,68 @@ const config = defineConfig({
           emphasized: { value: "{colors.accent.200}" },
           focusRing: { value: "{colors.accent.500}" },
         },
+        // Gradient semantik renkleri
+        "page.from": {
+          value: { base: "{colors.lightFrom}", _dark: "{colors.darkFrom}" },
+        },
+        "page.mid": {
+          value: { base: "{colors.lightMid}", _dark: "{colors.darkMid}" },
+        },
+        "page.to": {
+          value: { base: "{colors.lightTo}", _dark: "{colors.darkTo}" },
+        },
+        "hero.from": {
+          value: { base: "{colors.lightFrom}", _dark: "{colors.darkFrom}" },
+        },
+        "hero.to": {
+          value: { base: "{colors.lightMid}", _dark: "{colors.darkMid}" },
+        },
+        "features.from": {
+          value: { base: "{colors.lightMid}", _dark: "{colors.darkMid}" },
+        },
+        "features.to": {
+          value: { base: "{colors.lightFrom}", _dark: "{colors.darkFrom}" },
+        },
+        "architecture.from": {
+          value: { base: "{colors.lightFrom}", _dark: "{colors.darkFrom}" },
+        },
+        "architecture.to": {
+          value: { base: "{colors.lightMid}", _dark: "{colors.darkMid}" },
+        },
+        "pricing.from": {
+          value: { base: "{colors.lightMid}", _dark: "{colors.darkMid}" },
+        },
+        "pricing.to": {
+          value: { base: "{colors.lightFrom}", _dark: "{colors.darkTo}" },
+        },
+        "footer.from": {
+          value: { base: "{colors.lightFrom}", _dark: "{colors.darkTo}" },
+        },
+        "footer.to": {
+          value: { base: "{colors.lightMid}", _dark: "{colors.darkMid}" },
+        },
+        // Tablo arka plan renkleri
+        "table.header": {
+          value: { base: "{colors.gray.100}", _dark: "{colors.gray.650}" },
+        },
+        "table.cell": {
+          value: { base: "white", _dark: "{colors.gray.700}" },
+        },
+        "table.border": {
+          value: { base: "{colors.gray.200}", _dark: "{colors.gray.600}" },
+        },
+        "table.hover": {
+          value: { base: "{colors.gray.50}", _dark: "{colors.gray.650}" },
+        },
+        "table.highlight": {
+          value: { base: "{colors.brand.50}", _dark: "rgba(12, 74, 110, 0.3)" }, // brand.900/30
+        },
+        "table.highlightHover": {
+          value: {
+            base: "rgba(191, 219, 254, 0.7)",
+            _dark: "rgba(12, 74, 110, 0.4)",
+          }, // brand.100/70, brand.900/40
+        },
       },
     },
   },
@@ -188,6 +290,10 @@ const config = defineConfig({
       "--font-heading": "var(--umay-fonts-heading)",
       "--font-body": "var(--umay-fonts-body)",
       "--font-mono": "var(--umay-fonts-mono)",
+      "--font-outfit": "var(--umay-fonts-outfit)",
+      "--font-jakarta": "var(--umay-fonts-jakarta)",
+      "--font-inter": "var(--umay-fonts-inter)",
+      "--font-grotesk": "var(--umay-fonts-grotesk)",
     },
     "html, body": {
       bg: "bg.default",
@@ -199,10 +305,10 @@ const config = defineConfig({
     },
     "h1, h2, h3, h4, h5, h6": {
       fontFamily: "var(--font-heading)",
-      fontWeight: "600",
-      lineHeight: 1.2,
+      fontWeight: "700",
+      letterSpacing: "-0.015em",
     },
-    "code, pre": {
+    "code, pre, kbd": {
       fontFamily: "var(--font-mono)",
     },
   },

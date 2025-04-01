@@ -1,163 +1,176 @@
-import { Box, Container, Grid, Text, VStack, Card } from "@chakra-ui/react";
-import { LuZap, LuInfinity, LuGlobe, LuShield } from "react-icons/lu";
-import { useColorModeValue } from "../../components/ui/color-mode";
-import { useRef, useEffect } from "react";
+import {
+  Box,
+  Container,
+  SimpleGrid,
+  HStack,
+  VStack,
+  Heading,
+  Text,
+  Icon,
+} from "@chakra-ui/react";
+import { useEffect, useRef } from "react";
 import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-// Register ScrollTrigger plugin
-if (typeof window !== "undefined") {
-  gsap.registerPlugin(ScrollTrigger);
-}
+import {
+  LuFileOutput,
+  LuCode,
+  LuGlobe,
+  LuSettings,
+  LuLink,
+  LuShieldCheck,
+} from "react-icons/lu";
+import { useTheme } from "next-themes";
 
 export default function Features() {
-  // Refs for animations
-  const featureRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const featuresRef = useRef<(HTMLDivElement | null)[]>([]);
+  const { resolvedTheme } = useTheme();
+  const isDark = resolvedTheme === "dark";
 
-  // Theme colors
-  const textColor = useColorModeValue("text.default", "text.default");
-  const mutedTextColor = useColorModeValue("text.muted", "text.muted");
-  const cardBg = useColorModeValue("white", "bg.card");
-  const borderColor = useColorModeValue("border.default", "border.default");
-  const featureBgColor = useColorModeValue("bg.subtle", "bg.default");
-  const featureIconBg = useColorModeValue("brand.subtle", "brand.subtle");
-  const featureIconColor = useColorModeValue("brand.solid", "brand.solid");
+  // Theme colors for cards and elements
+  const cardBg = isDark ? "gray.750" : "white";
+  const iconBg = isDark ? "brand.900/20" : "brand.50";
+  const iconColor = isDark ? "brand.400" : "brand.700";
+  const textMuted = isDark ? "gray.300" : "gray.600";
+  const borderColor = isDark ? "gray.700" : "gray.200";
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    const container = containerRef.current;
+    const features = featuresRef.current.filter(Boolean);
+
+    if (!container || features.length === 0) return;
+
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: container,
+        start: "top 80%",
+        end: "bottom 20%",
+        toggleActions: "play none none none",
+      },
+    });
+
+    tl.fromTo(
+      features,
+      { opacity: 0, y: 30 },
+      { opacity: 1, y: 0, stagger: 0.1, duration: 0.5 }
+    );
+
+    return () => {
+      tl.kill();
+    };
+  }, []);
 
   const features = [
     {
-      icon: LuZap,
-      title: "High-Performance Rendering",
+      title: "Universal Compatibility",
       description:
-        "Convert HTML to PDF with lightning-fast speed and professional quality.",
-    },
-    {
-      icon: LuInfinity,
-      title: "No Usage Limits",
-      description:
-        "Convert as many documents as you need without any usage restrictions.",
-    },
-    {
+        "Works in both browser and Node.js environments with the same consistent API across platforms.",
       icon: LuGlobe,
-      title: "Multi-Language SDKs",
-      description:
-        "Official SDKs for JavaScript, Python, Go, Ruby, PHP and more.",
     },
     {
-      icon: LuShield,
-      title: "100% Open Source",
+      title: "Multiple Output Formats",
       description:
-        "Fully open-source code under MIT License. Self-host or use our service.",
+        "Convert HTML to PDF, PNG, JPEG, or WebP formats with pixel-perfect rendering quality.",
+      icon: LuFileOutput,
+    },
+    {
+      title: "TypeScript Support",
+      description:
+        "Full TypeScript type definitions and IntelliSense support for an enhanced development experience.",
+      icon: LuCode,
+    },
+    {
+      title: "Customization Options",
+      description:
+        "Configure viewport settings, page formats, margins, headers, footers, and more for perfect output.",
+      icon: LuSettings,
+    },
+    {
+      title: "Flexible Input",
+      description:
+        "Process raw HTML content or fetch from a URL with support for authentication and cookies.",
+      icon: LuLink,
+    },
+    {
+      title: "100% Free & Open Source",
+      description:
+        "No hidden costs, no usage limits, and complete freedom to self-host or use our free API service.",
+      icon: LuShieldCheck,
     },
   ];
 
-  // Setup animations
-  useEffect(() => {
-    // Only run on client-side
-    if (typeof window === "undefined") return;
-
-    // Instead of looping through each feature element, animate the entire container with staggered children
-    const featuresGrid = document.querySelector(".features-grid");
-    if (featuresGrid) {
-      const featureItems = featuresGrid.querySelectorAll(".feature-item");
-
-      gsap.fromTo(
-        featureItems,
-        {
-          y: 100,
-          opacity: 0,
-          scale: 0.9,
-        },
-        {
-          y: 0,
-          opacity: 1,
-          scale: 1,
-          duration: 0.8,
-          stagger: 0.15,
-          ease: "back.out(1.5)",
-          scrollTrigger: {
-            trigger: featuresGrid,
-            start: "top 85%",
-          },
-        }
-      );
-    }
-  }, []);
-
   return (
-    <Box bg={featureBgColor} py="20" id="features">
-      <Container maxW="container.xl">
-        <VStack gap="16">
-          <VStack gap="4">
-            <Text
+    <Box
+      as="section"
+      id="features"
+      py={{ base: "16", md: "24" }}
+      ref={containerRef}
+    >
+      <Container maxW="1200px" px={{ base: 4, md: 6 }}>
+        <VStack gap={{ base: "10", md: "16" }} align="center">
+          <Box textAlign="center" maxW="800px">
+            <Heading
               as="h2"
-              fontSize="3xl"
+              fontSize={{ base: "3xl", md: "4xl" }}
               fontWeight="bold"
-              textAlign="center"
-              color={textColor}
+              mb="4"
             >
-              Why Choose Umay Render?
-            </Text>
+              High-Performance HTML to PDF Conversion
+            </Heading>
             <Text
-              fontSize="lg"
-              color={mutedTextColor}
-              maxW="3xl"
-              textAlign="center"
+              fontSize={{ base: "md", md: "lg" }}
+              color={textMuted}
+              maxW="750px"
+              mx="auto"
             >
-              Umay Render provides a complete solution for HTML to PDF
-              conversion with no limitations and enterprise-grade features,
-              completely free of charge.
+              Umay Render provides a lightweight, powerful SDK for converting
+              HTML to PDF and images in both browser and Node.js environments
+              with extensive customization options.
             </Text>
-          </VStack>
+          </Box>
 
-          <Grid
-            templateColumns={{
-              base: "1fr",
-              md: "1fr 1fr",
-              lg: "repeat(4, 1fr)",
-            }}
+          <SimpleGrid
+            columns={{ base: 1, md: 2, lg: 3 }}
             gap="8"
-            className="features-grid"
+            width="100%"
+            mt="8"
           >
             {features.map((feature, index) => (
-              <Card.Root
+              <Box
                 key={index}
-                p="6"
+                py="6"
+                px="6"
                 borderRadius="lg"
-                shadow="md"
+                boxShadow="sm"
+                transition="all 0.3s"
+                _hover={{ transform: "translateY(-5px)", boxShadow: "md" }}
                 height="100%"
                 bg={cardBg}
-                borderWidth="1px"
+                border="1px solid"
                 borderColor={borderColor}
-                transition="all 0.3s ease"
-                _hover={{
-                  transform: "translateY(-8px)",
-                  boxShadow: "xl",
-                  borderColor: "brand.solid",
-                }}
-                className="card-hover feature-item"
-                ref={(el) => {
-                  if (featureRefs.current) {
-                    featureRefs.current[index] = el;
-                  }
-                }}
+                ref={(el: HTMLDivElement | null) =>
+                  (featuresRef.current[index] = el)
+                }
               >
-                <VStack gap="4" alignItems="flex-start">
-                  <Box
-                    p="3"
-                    borderRadius="lg"
-                    bg={featureIconBg}
-                    color={featureIconColor}
-                  >
-                    <Box as={feature.icon} boxSize="6" />
-                  </Box>
-                  <Text fontSize="xl" fontWeight="bold" color="brand.solid">
-                    {feature.title}
-                  </Text>
-                  <Text color={mutedTextColor}>{feature.description}</Text>
+                <VStack gap="4" align="flex-start">
+                  <HStack gap="3">
+                    <Box p="3" borderRadius="md" bg={iconBg} color={iconColor}>
+                      <Icon as={feature.icon} boxSize="5" />
+                    </Box>
+                    <Heading
+                      as="h3"
+                      fontSize={{ base: "lg", md: "xl" }}
+                      fontWeight="bold"
+                    >
+                      {feature.title}
+                    </Heading>
+                  </HStack>
+                  <Text color={textMuted}>{feature.description}</Text>
                 </VStack>
-              </Card.Root>
+              </Box>
             ))}
-          </Grid>
+          </SimpleGrid>
         </VStack>
       </Container>
     </Box>

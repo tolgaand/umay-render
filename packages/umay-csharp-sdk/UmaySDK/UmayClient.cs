@@ -1,5 +1,6 @@
 using System.Text;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using UmaySDK.Models;
 
 namespace UmaySDK;
@@ -8,11 +9,17 @@ public class UmayClient
 {
     private readonly HttpClient _httpClient;
     private readonly string _baseUrl;
+    private readonly JsonSerializerOptions _jsonOptions;
 
-    public UmayClient(string baseUrl = "http://localhost:3000")
+    public UmayClient(string baseUrl = "https://umay-api-935360498495.us-central1.run.app/v1")
     {
         _baseUrl = baseUrl;
         _httpClient = new HttpClient();
+        _jsonOptions = new JsonSerializerOptions
+        {
+            DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+        };
     }
 
     public async Task<byte[]> RenderAsync(ConversionRequest request)
@@ -41,10 +48,10 @@ public class UmayClient
             throw new ArgumentException("Output format is required", nameof(request));
         }
 
-        var json = JsonSerializer.Serialize(request);
+        var json = JsonSerializer.Serialize(request, _jsonOptions);
         var content = new StringContent(json, Encoding.UTF8, "application/json");
 
-        var response = await _httpClient.PostAsync($"{_baseUrl}/v1/render", content);
+        var response = await _httpClient.PostAsync($"{_baseUrl}/render", content);
 
         if (!response.IsSuccessStatusCode)
         {

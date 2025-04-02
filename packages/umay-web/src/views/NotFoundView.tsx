@@ -27,7 +27,7 @@ export default function NotFoundView() {
 
       <Box py={20} bg="bg.default" minH="calc(100vh - 200px)">
         <Container maxW="container.md">
-          <VStack spacing={8} textAlign="center">
+          <VStack gap={8} textAlign="center">
             <Heading size="4xl" color="brand.500">
               404
             </Heading>
@@ -35,8 +35,9 @@ export default function NotFoundView() {
             <Text fontSize="lg" color="text.muted">
               The page you are looking for doesn't exist or has been moved.
             </Text>
-            <Button as={Link} to="/" colorScheme="brand" size="lg" mt={4}>
-              Return to Homepage
+
+            <Button asChild colorScheme="brand" size="lg" mt={4}>
+              <Link to="/">Return to Homepage</Link>
             </Button>
           </VStack>
         </Container>

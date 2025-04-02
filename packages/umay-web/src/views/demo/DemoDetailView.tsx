@@ -35,6 +35,7 @@ import {
   vscDarkPlus,
   solarizedlight,
 } from "react-syntax-highlighter/dist/esm/styles/prism";
+import { Helmet } from "react-helmet-async";
 
 // Demo item interface
 interface DemoItem {
@@ -202,6 +203,26 @@ export default function DemoDetailView() {
     setCarouselIndex(0);
   };
 
+  // SEO Title ve Meta Description için
+  const getSeoTitle = () => {
+    if (metadata?.pageTitle) {
+      return metadata.pageTitle;
+    }
+    return demo?.title
+      ? `${demo.title} - Umay Render Demo`
+      : "Demo Example - Umay Render";
+  };
+
+  const getSeoDescription = () => {
+    if (metadata?.metaDescription) {
+      return metadata.metaDescription;
+    }
+    return (
+      demo?.description ||
+      "View an example of HTML to PDF conversion with Umay Render."
+    );
+  };
+
   if (loading) {
     return (
       <Box
@@ -293,28 +314,34 @@ export default function DemoDetailView() {
     );
   }
 
-  // Document Metadata for SEO
-  const metaTitle = `${demo.title} | Umay Render Example`;
-  const metaDescription = demo.description;
-  const metaKeywords = `${demo.title}, ${
-    demoMap.categories[demo.category]
-  }, HTML to PDF, render, conversion, example, Umay Render`;
-
   return (
     <>
-      {/* Document Metadata for SEO using React 19 features */}
-      <title>{metaTitle}</title>
-      <meta name="description" content={metaDescription} />
-      <meta name="keywords" content={metaKeywords} />
-      <meta property="og:title" content={metaTitle} />
-      <meta property="og:description" content={metaDescription} />
-      <meta property="og:type" content="website" />
-      {demo.screenshots && demo.screenshots.length > 0 && (
-        <meta property="og:image" content={demo.screenshots[0]} />
+      {demo && (
+        <Helmet>
+          <title>{getSeoTitle()}</title>
+          <meta name="description" content={getSeoDescription()} />
+          {metadata?.tags && metadata.tags.length > 0 && (
+            <meta name="keywords" content={metadata.tags.join(", ")} />
+          )}
+          <link
+            rel="canonical"
+            href={`https://www.umayrender.com/demos/${demo.id}`}
+          />
+          {demo.screenshots && demo.screenshots.length > 0 && (
+            <meta property="og:image" content={demo.screenshots[0]} />
+          )}
+          <meta property="og:title" content={getSeoTitle()} />
+          <meta property="og:description" content={getSeoDescription()} />
+          <meta property="og:type" content="website" />
+          <meta
+            property="og:url"
+            content={`https://www.umayrender.com/demos/${demo.id}`}
+          />
+          <meta name="twitter:card" content="summary_large_image" />
+          <meta name="twitter:title" content={getSeoTitle()} />
+          <meta name="twitter:description" content={getSeoDescription()} />
+        </Helmet>
       )}
-      <meta name="twitter:card" content="summary_large_image" />
-      <meta name="twitter:title" content={metaTitle} />
-      <meta name="twitter:description" content={metaDescription} />
 
       <Box bg={bodyBg} minH="100vh">
         <Navbar />

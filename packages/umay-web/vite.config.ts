@@ -3,6 +3,10 @@ import react from "@vitejs/plugin-react";
 import tsconfigPaths from "vite-tsconfig-paths";
 import { nodePolyfills } from "vite-plugin-node-polyfills";
 import sitemap from "vite-plugin-sitemap";
+import demoMap from "./public/demo/demo-map.json";
+
+// Demo ID'lerini alma
+const demoRoutes = demoMap.demos.map((demo) => `/demos/${demo.id}`);
 
 export default defineConfig({
   plugins: [
@@ -11,9 +15,15 @@ export default defineConfig({
     nodePolyfills(),
     sitemap({
       hostname: "https://www.umayrender.com",
-      dynamicRoutes: ["/", "/demos", "/demos/:id"],
-      exclude: ["/404"],
+      dynamicRoutes: ["/", "/demos", ...demoRoutes],
+      exclude: ["/404", "/demos/:id"],
       outDir: "dist",
+      robots: [
+        {
+          userAgent: "*",
+          allow: "/",
+        },
+      ],
     }),
   ],
 

@@ -16,7 +16,7 @@ export default defineConfig({
     sitemap({
       hostname: "https://www.umayrender.com",
       dynamicRoutes: ["/", "/demos", ...demoRoutes],
-      exclude: ["/404", "/demos/:id"],
+      exclude: ["/404", "/demos/:id", "/demo/examples/**"],
       outDir: "dist",
       robots: [
         {

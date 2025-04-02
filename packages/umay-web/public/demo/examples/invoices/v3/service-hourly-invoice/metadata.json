@@ -1,0 +1,36 @@
+{
+  "pageTitle": "Generate PDF Service Invoices from HTML | Hourly Rate Billing Example",
+  "metaDescription": "Create professional PDF invoices for services billed by the hour. This showcase demonstrates clear rendering of task descriptions, hours, rates, and totals from HTML.",
+  "tags": [
+    "generate pdf service invoice",
+    "html to pdf hourly billing",
+    "consulting invoice pdf",
+    "freelance invoice pdf",
+    "service billing pdf",
+    "create pdf invoice",
+    "hourly rate invoice template",
+    "time tracking invoice pdf",
+    "professional services pdf"
+  ],
+  "render": {
+    "pdfOptions": {
+      "format": "A4",
+      "landscape": false,
+      "printBackground": true,
+      "margin": {
+        "top": "2mm",
+        "right": "2mm",
+        "bottom": "2mm",
+        "left": "2mm"
+      },
+      "scale": 0.9
+    },
+    "pageSetupOptions": {
+      "viewport": {
+        "width": 800,
+        "height": 1131,
+        "deviceScaleFactor": 2
+      }
+    }
+  }
+}

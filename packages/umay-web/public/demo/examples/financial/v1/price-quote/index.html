@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Professional Price Quote</title>
+    <style>
+      /* General Page Styles */
+
+      body {
+        font-family: "Arial", sans-serif;
+        margin: 0;
+        padding: 0;
+        color: #333;
+        line-height: 1.6;
+      }
+      /* Quote Document */
+
+      .quote {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #fff;
+      }
+      /* Page Break */
+
+      .page-break {
+        page-break-after: always;
+        height: 0;
+        margin: 0;
+        border: 0;
+      }
+      /* Page Footer */
+
+      .quote__footer {
+        margin-top: 50px;
+        padding-top: 15px;
+        border-top: 1px solid #ddd;
+        font-size: 12px;
+        color: #777;
+        display: flex;
+        justify-content: space-between;
+      }
+      /* Cover Page */
+
+      .quote__cover {
+        height: 85vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+
+      .quote__cover-top {
+        text-align: center;
+        margin-top: 100px;
+      }
+
+      .quote__cover-title {
+        font-size: 36px;
+        color: #2c3e50;
+        margin-bottom: 20px;
+      }
+
+      .quote__cover-subtitle {
+        font-size: 24px;
+        color: #3498db;
+        margin-bottom: 40px;
+      }
+
+      .quote__cover-client {
+        margin-bottom: 20px;
+      }
+
+      .quote__cover-company {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 40px;
+      }
+
+      .quote__cover-logo {
+        max-width: 200px;
+        margin-bottom: 20px;
+      }
+
+      .quote__cover-logo img {
+        max-width: 100%;
+        height: auto;
+      }
+
+      .quote__cover-bottom {
+        text-align: center;
+      }
+
+      .quote__cover-date {
+        font-size: 16px;
+        color: #555;
+      }
+      /* Introduction Page */
+
+      .quote__intro {
+        padding: 20px 0;
+      }
+
+      .quote__intro-title {
+        font-size: 24px;
+        color: #2c3e50;
+        margin-bottom: 20px;
+        border-bottom: 2px solid #3498db;
+        padding-bottom: 10px;
+      }
+
+      .quote__intro-text {
+        font-size: 16px;
+        margin-bottom: 15px;
+      }
+      /* Services Page */
+
+      .quote__services {
+        padding: 20px 0;
+      }
+
+      .quote__services-title {
+        font-size: 24px;
+        color: #2c3e50;
+        margin-bottom: 20px;
+        border-bottom: 2px solid #3498db;
+        padding-bottom: 10px;
+      }
+
+      .quote__service {
+        margin-bottom: 30px;
+      }
+
+      .quote__service-title {
+        font-size: 18px;
+        color: #3498db;
+        margin-bottom: 10px;
+      }
+
+      .quote__service-description {
+        margin-bottom: 15px;
+      }
+
+      .quote__service-features {
+        padding-left: 20px;
+      }
+
+      .quote__service-features li {
+        margin-bottom: 8px;
+      }
+      /* Pricing Page */
+
+      .quote__pricing {
+        padding: 20px 0;
+      }
+
+      .quote__pricing-title {
+        font-size: 24px;
+        color: #2c3e50;
+        margin-bottom: 20px;
+        border-bottom: 2px solid #3498db;
+        padding-bottom: 10px;
+      }
+
+      .quote__pricing-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 30px;
+      }
+
+      .quote__pricing-header {
+        background-color: #f5f5f5;
+      }
+
+      .quote__pricing-header th {
+        padding: 12px 15px;
+        text-align: left;
+        border-bottom: 2px solid #ddd;
+      }
+
+      .quote__pricing-row td {
+        padding: 12px 15px;
+        border-bottom: 1px solid #ddd;
+      }
+
+      .quote__pricing-item {
+        width: 50%;
+      }
+
+      .quote__pricing-quantity,
+      .quote__pricing-rate,
+      .quote__pricing-amount {
+        text-align: right;
+      }
+
+      .quote__pricing-optional {
+        color: #777;
+        font-style: italic;
+      }
+
+      .quote__pricing-total {
+        margin-top: 20px;
+        text-align: right;
+        font-size: 18px;
+        font-weight: bold;
+      }
+      /* Timeline Page */
+
+      .quote__timeline {
+        padding: 20px 0;
+      }
+
+      .quote__timeline-title {
+        font-size: 24px;
+        color: #2c3e50;
+        margin-bottom: 20px;
+        border-bottom: 2px solid #3498db;
+        padding-bottom: 10px;
+      }
+
+      .quote__timeline-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 30px;
+      }
+
+      .quote__timeline-header {
+        background-color: #f5f5f5;
+      }
+
+      .quote__timeline-header th {
+        padding: 12px 15px;
+        text-align: left;
+        border-bottom: 2px solid #ddd;
+      }
+
+      .quote__timeline-row td {
+        padding: 12px 15px;
+        border-bottom: 1px solid #ddd;
+      }
+      /* Terms Page */
+
+      .quote__terms {
+        padding: 20px 0;
+      }
+
+      .quote__terms-title {
+        font-size: 24px;
+        color: #2c3e50;
+        margin-bottom: 20px;
+        border-bottom: 2px solid #3498db;
+        padding-bottom: 10px;
+      }
+
+      .quote__terms-section {
+        margin-bottom: 20px;
+      }
+
+      .quote__terms-section-title {
+        font-size: 18px;
+        color: #3498db;
+        margin-bottom: 10px;
+      }
+
+      .quote__terms-list {
+        padding-left: 20px;
+      }
+
+      .quote__terms-list li {
+        margin-bottom: 10px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Page 1: Cover -->
+    <div class="quote quote__cover">
+      <div class="quote__cover-top">
+        <h1 class="quote__cover-title">PROFESSIONAL PRICE QUOTE</h1>
+        <h2 class="quote__cover-subtitle">Business Solutions Package</h2>
+
+        <div class="quote__cover-client">
+          <img
+            src="https://i.imgur.com/bKdrh1Q.png"
+            alt="Client Company Logo"
+            width="150"
+            height="50"
+          />
+          <strong>Prepared for:</strong><br />
+          <p>ABC Client Corporation</p>
+          <p>123 Client Avenue, Suite 400</p>
+          <p>Business District, NY 10001</p>
+        </div>
+      </div>
+
+      <div class="quote__cover-bottom">
+        <div class="quote__cover-company">
+          <div class="quote__cover-logo">
+            <img
+              src="https://i.imgur.com/0xURAaz.png"
+              alt="Company Logo"
+              width="306"
+              height="70"
+            />
+          </div>
+          <p><strong>XYZ Professional Services Inc.</strong></p>
+          <p>456 Business Boulevard</p>
+          <p>Enterprise City, CA 94105</p>
+          <p>contact@xyzprofessional.example</p>
+          <p>(555) 987-6543</p>
+        </div>
+
+        <div class="quote__cover-date">
+          <p>Quote #: PRQ-2024-0568</p>
+          <p>Date: May 20, 2024</p>
+          <p>Valid until: June 20, 2024</p>
+        </div>
+      </div>
+
+      <div class="quote__footer">
+        <div>Quote #PRQ-2024-0568</div>
+        <div>Page 1 of 6</div>
+      </div>
+    </div>
+
+    <div class="page-break"></div>
+
+    <!-- Page 2: Introduction -->
+    <div class="quote quote__intro">
+      <h2 class="quote__intro-title">Introduction</h2>
+
+      <p class="quote__intro-text">Dear Ms. Johnson,</p>
+
+      <p class="quote__intro-text">
+        Thank you for your interest in XYZ Professional Services Inc. We are
+        pleased to present this comprehensive quote for our Business Solutions
+        Package designed specifically for ABC Client Corporation.
+      </p>
+
+      <p class="quote__intro-text">
+        This document outlines our recommended services, pricing structure, and
+        project timeline based on the requirements discussed during our meeting
+        on May 15, 2024. Our proposal addresses your primary objectives:
+      </p>
+
+      <ul>
+        <li>Optimize your existing business processes to improve efficiency</li>
+        <li>Implement automated workflows to reduce manual data entry</li>
+        <li>Provide comprehensive training for your staff</li>
+        <li>Offer ongoing technical support to ensure smooth operations</li>
+      </ul>
+
+      <p class="quote__intro-text">
+        Our team of experts has carefully analyzed your current infrastructure
+        and business needs to create a customized solution that will meet your
+        unique requirements. We are confident that our proposal will provide
+        significant value to your organization and help you achieve your
+        business objectives.
+      </p>
+
+      <p class="quote__intro-text">
+        Please review the details provided in this quote. We are available to
+        discuss any questions or adjustments needed to better align with your
+        expectations. We look forward to the opportunity of working with ABC
+        Client Corporation.
+      </p>
+
+      <p class="quote__intro-text">
+        Sincerely,<br />
+        John Smith<br />
+        Senior Business Consultant<br />
+        XYZ Professional Services Inc.
+      </p>
+
+      <div class="quote__footer">
+        <div>Quote #PRQ-2024-0568</div>
+        <div>Page 2 of 6</div>
+      </div>
+    </div>
+
+    <div class="page-break"></div>
+
+    <!-- Page 3: Services/Products Offered -->
+    <div class="quote quote__services">
+      <h2 class="quote__services-title">Services & Products Offered</h2>
+
+      <div class="quote__service">
+        <h3 class="quote__service-title">
+          1. Business Process Analysis & Optimization
+        </h3>
+        <p class="quote__service-description">
+          Our team will conduct a comprehensive analysis of your current
+          business processes to identify inefficiencies and opportunities for
+          improvement. We will then develop and implement optimized workflows
+          tailored to your specific needs.
+        </p>
+        <ul class="quote__service-features">
+          <li>Current process mapping and documentation</li>
+          <li>Identification of bottlenecks and inefficiencies</li>
+          <li>Development of optimized workflows</li>
+          <li>Implementation plan with minimal disruption</li>
+          <li>Performance metrics and monitoring</li>
+        </ul>
+      </div>
+
+      <div class="quote__service">
+        <h3 class="quote__service-title">2. Custom Software Integration</h3>
+        <p class="quote__service-description">
+          We will integrate your existing software systems to create a seamless
+          flow of information across your organization. This will eliminate
+          redundant data entry and ensure consistent data across all platforms.
+        </p>
+        <ul class="quote__service-features">
+          <li>Systems assessment and compatibility analysis</li>
+          <li>Custom API development</li>
+          <li>Database synchronization</li>
+          <li>Automated data validation</li>
+          <li>Real-time reporting capabilities</li>
+        </ul>
+      </div>
+
+      <div class="quote__service">
+        <h3 class="quote__service-title">3. Staff Training Program</h3>
+        <p class="quote__service-description">
+          Our comprehensive training program will ensure your team is proficient
+          in the new systems and processes. We offer both group sessions and
+          individual coaching to accommodate different learning styles.
+        </p>
+        <ul class="quote__service-features">
+          <li>Custom training materials and documentation</li>
+          <li>On-site workshop sessions (3 days)</li>
+          <li>Hands-on practical exercises</li>
+          <li>Video tutorials for future reference</li>
+          <li>Competency assessment and certification</li>
+        </ul>
+      </div>
+
+      <div class="quote__footer">
+        <div>Quote #PRQ-2024-0568</div>
+        <div>Page 3 of 6</div>
+      </div>
+    </div>
+
+    <div class="page-break"></div>
+
+    <!-- Page 4: Pricing -->
+    <div class="quote quote__pricing">
+      <h2 class="quote__pricing-title">Pricing Details</h2>
+
+      <table class="quote__pricing-table">
+        <thead class="quote__pricing-header">
+          <tr>
+            <th class="quote__pricing-item">Item Description</th>
+            <th class="quote__pricing-quantity">Quantity</th>
+            <th class="quote__pricing-rate">Rate</th>
+            <th class="quote__pricing-amount">Amount</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="quote__pricing-row">
+            <td class="quote__pricing-item">
+              Business Process Analysis & Optimization
+            </td>
+            <td class="quote__pricing-quantity">1</td>
+            <td class="quote__pricing-rate">$15,000.00</td>
+            <td class="quote__pricing-amount">$15,000.00</td>
+          </tr>
+          <tr class="quote__pricing-row">
+            <td class="quote__pricing-item">Custom Software Integration</td>
+            <td class="quote__pricing-quantity">1</td>
+            <td class="quote__pricing-rate">$12,500.00</td>
+            <td class="quote__pricing-amount">$12,500.00</td>
+          </tr>
+          <tr class="quote__pricing-row">
+            <td class="quote__pricing-item">Staff Training Program</td>
+            <td class="quote__pricing-quantity">1</td>
+            <td class="quote__pricing-rate">$7,500.00</td>
+            <td class="quote__pricing-amount">$7,500.00</td>
+          </tr>
+          <tr class="quote__pricing-row">
+            <td class="quote__pricing-item">Project Management</td>
+            <td class="quote__pricing-quantity">1</td>
+            <td class="quote__pricing-rate">$5,000.00</td>
+            <td class="quote__pricing-amount">$5,000.00</td>
+          </tr>
+          <tr class="quote__pricing-row quote__pricing-optional">
+            <td class="quote__pricing-item">
+              Extended Support Package (12 months)
+            </td>
+            <td class="quote__pricing-quantity">1</td>
+            <td class="quote__pricing-rate">$8,400.00</td>
+            <td class="quote__pricing-amount">$8,400.00</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="quote__pricing-total">
+        <p>Subtotal: $40,000.00</p>
+        <p>Optional Items: $8,400.00</p>
+        <p>Total: $48,400.00</p>
+      </div>
+
+      <p>
+        <strong>Note:</strong> All prices are in USD and exclude any applicable
+        taxes. Optional items are not included in the base quote total.
+      </p>
+
+      <p>Payment Terms:</p>
+      <ul>
+        <li>50% due upon contract signing</li>
+        <li>25% due at project mid-point</li>
+        <li>25% due upon project completion</li>
+      </ul>
+
+      <div class="quote__footer">
+        <div>Quote #PRQ-2024-0568</div>
+        <div>Page 4 of 6</div>
+      </div>
+    </div>
+
+    <div class="page-break"></div>
+
+    <!-- Page 5: Project Timeline -->
+    <div class="quote quote__timeline">
+      <h2 class="quote__timeline-title">Project Timeline</h2>
+
+      <p>
+        Following is the proposed timeline for project implementation. The
+        timeline assumes a start date within 2 weeks of quote acceptance.
+      </p>
+
+      <table class="quote__timeline-table">
+        <thead class="quote__timeline-header">
+          <tr>
+            <th>Phase</th>
+            <th>Description</th>
+            <th>Duration</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="quote__timeline-row">
+            <td>1</td>
+            <td>
+              <strong>Project Initiation</strong><br />
+              Kickoff meeting, requirements confirmation, team assignment
+            </td>
+            <td>1 week</td>
+          </tr>
+          <tr class="quote__timeline-row">
+            <td>2</td>
+            <td>
+              <strong>Business Process Analysis</strong><br />
+              Current process documentation, interviews, analysis
+            </td>
+            <td>3 weeks</td>
+          </tr>
+          <tr class="quote__timeline-row">
+            <td>3</td>
+            <td>
+              <strong>Solution Design</strong><br />
+              Process redesign, integration architecture, approval
+            </td>
+            <td>2 weeks</td>
+          </tr>
+          <tr class="quote__timeline-row">
+            <td>4</td>
+            <td>
+              <strong>Implementation</strong><br />
+              Software integration, workflow configuration, testing
+            </td>
+            <td>6 weeks</td>
+          </tr>
+          <tr class="quote__timeline-row">
+            <td>5</td>
+            <td>
+              <strong>Training</strong><br />
+              Materials development, on-site workshops, hands-on sessions
+            </td>
+            <td>2 weeks</td>
+          </tr>
+          <tr class="quote__timeline-row">
+            <td>6</td>
+            <td>
+              <strong>Go-Live & Support</strong><br />
+              Final deployment, supervised operation, immediate support
+            </td>
+            <td>2 weeks</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p><strong>Total Project Duration: 16 weeks</strong></p>
+
+      <p>
+        Note: This timeline represents our estimated schedule based on the
+        current understanding of the project scope. Actual timeline may vary
+        based on discovery findings and client availability for approvals and
+        training.
+      </p>
+
+      <div class="quote__footer">
+        <div>Quote #PRQ-2024-0568</div>
+        <div>Page 5 of 6</div>
+      </div>
+    </div>
+
+    <div class="page-break"></div>
+
+    <!-- Page 6: Terms & Conditions -->
+    <div class="quote quote__terms">
+      <h2 class="quote__terms-title">Terms & Conditions</h2>
+
+      <div class="quote__terms-section">
+        <h3 class="quote__terms-section-title">Validity Period</h3>
+        <p>
+          This quote is valid for 30 days from the date of issue. Pricing and
+          availability of resources cannot be guaranteed beyond this period.
+        </p>
+      </div>
+
+      <div class="quote__terms-section">
+        <h3 class="quote__terms-section-title">Acceptance Process</h3>
+        <p>
+          To accept this quote, please sign and return the attached acceptance
+          form within the validity period. Upon receipt, our team will contact
+          you to schedule the project kickoff meeting.
+        </p>
+      </div>
+
+      <div class="quote__terms-section">
+        <h3 class="quote__terms-section-title">Payment Terms</h3>
+        <ol class="quote__terms-list">
+          <li>All prices are quoted in USD and exclude applicable taxes.</li>
+          <li>
+            Payment schedule: 50% upon contract signing, 25% at project
+            mid-point, and 25% upon project completion.
+          </li>
+          <li>Invoices are payable within 15 days of receipt.</li>
+          <li>
+            Late payments may result in project delays and are subject to a 1.5%
+            monthly interest charge.
+          </li>
+        </ol>
+      </div>
+
+      <div class="quote__terms-section">
+        <h3 class="quote__terms-section-title">Change Management</h3>
+        <ol class="quote__terms-list">
+          <li>
+            Any changes to the project scope after acceptance will require a
+            formal change request.
+          </li>
+          <li>Change requests may impact the project timeline and cost.</li>
+          <li>
+            All changes must be documented and approved in writing before
+            implementation.
+          </li>
+        </ol>
+      </div>
+
+      <div class="quote__terms-section">
+        <h3 class="quote__terms-section-title">Client Responsibilities</h3>
+        <ol class="quote__terms-list">
+          <li>
+            Providing timely access to necessary information, systems, and
+            personnel.
+          </li>
+          <li>
+            Assigning a dedicated project coordinator to facilitate
+            communication.
+          </li>
+          <li>
+            Ensuring staff availability for interviews, training, and testing
+            activities.
+          </li>
+          <li>
+            Reviewing and providing feedback on deliverables within agreed
+            timeframes.
+          </li>
+        </ol>
+      </div>
+
+      <div class="quote__terms-section">
+        <h3 class="quote__terms-section-title">Confidentiality</h3>
+        <p>
+          XYZ Professional Services Inc. will maintain the confidentiality of
+          all client information accessed during the project. Similarly, the
+          client agrees to maintain the confidentiality of our proprietary
+          methodologies and tools.
+        </p>
+      </div>
+
+      <div class="quote__terms-section">
+        <h3 class="quote__terms-section-title">Warranty</h3>
+        <p>
+          XYZ Professional Services Inc. warrants that all deliverables will
+          conform to the agreed specifications for a period of 90 days after
+          project completion. This warranty is exclusive and in lieu of all
+          other warranties, whether express or implied.
+        </p>
+      </div>
+
+      <div class="quote__footer">
+        <div>Quote #PRQ-2024-0568</div>
+        <div>Page 6 of 6</div>
+      </div>
+    </div>
+  </body>
+</html>

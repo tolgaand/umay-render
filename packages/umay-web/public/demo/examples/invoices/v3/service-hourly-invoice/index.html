@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Service / Hourly Rate Invoice</title>
+    <style>
+      /* --- Base Styles (Similar to v1, slightly refined) --- */
+
+      body {
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        margin: 0;
+        padding: 25px;
+        font-size: 13px;
+        /* Slightly smaller base font */
+        line-height: 1.6;
+        color: #333;
+        background-color: #fff;
+      }
+
+      .invoice {
+        max-width: 800px;
+        margin: 0 auto;
+      }
+      /* --- BEM Naming Convention --- */
+      /* Invoice Header */
+
+      .invoice__header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 35px;
+        /* Increased spacing */
+        padding-bottom: 15px;
+        border-bottom: 1px solid #ddd;
+      }
+
+      .invoice__logo-area {
+        flex: 1;
+      }
+
+      .invoice__logo {
+        max-width: 170px;
+        height: auto;
+      }
+
+      .invoice__title-area {
+        flex: 1;
+        text-align: right;
+      }
+
+      .invoice__title {
+        font-size: 26px;
+        font-weight: bold;
+        color: #111;
+        margin: 0 0 5px 0;
+        text-transform: uppercase;
+      }
+
+      .invoice__details {
+        font-size: 12px;
+        color: #444;
+      }
+
+      .invoice__detail-item {
+        margin-bottom: 3px;
+      }
+
+      .invoice__detail-label {
+        font-weight: bold;
+      }
+      /* Invoice Parties */
+
+      .invoice__parties {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 35px;
+        gap: 25px;
+      }
+
+      .invoice__party {
+        flex: 1;
+      }
+
+      .invoice__party-title {
+        font-weight: bold;
+        margin-bottom: 8px;
+        font-size: 14px;
+        border-bottom: 1px solid #ddd;
+        padding-bottom: 4px;
+        color: #000;
+      }
+
+      .invoice__party-info p {
+        margin: 0 0 5px 0;
+        font-size: 13px;
+      }
+      /* Items Table for Services */
+
+      .invoice__items-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 30px;
+      }
+
+      .invoice__items-header {
+        background-color: #e9e9e9;
+        /* Slightly different header color */
+        font-weight: bold;
+        border-bottom: 2px solid #bbb;
+        /* Stronger border */
+      }
+
+      .invoice__items-header th {
+        padding: 12px 10px;
+        text-align: left;
+        font-size: 12px;
+      }
+
+      .invoice__items-row td {
+        padding: 10px;
+        border-bottom: 1px solid #eee;
+        font-size: 13px;
+      }
+      /* Specific columns for service billing */
+
+      .invoice__items-col--service {
+        width: 50%;
+      }
+
+      .invoice__items-col--hours {
+        width: 10%;
+        text-align: center;
+      }
+
+      .invoice__items-col--rate {
+        width: 15%;
+        text-align: right;
+      }
+
+      .invoice__items-col--total {
+        width: 15%;
+        text-align: right;
+        font-weight: 500;
+      }
+
+      .invoice__items-col--date {
+        width: 10%;
+      }
+      /* Optional date column */
+      /* Invoice Totals */
+
+      .invoice__totals {
+        margin-left: auto;
+        width: 45%;
+        max-width: 300px;
+      }
+
+      .invoice__totals-row {
+        display: flex;
+        justify-content: space-between;
+        padding: 6px 0;
+        font-size: 13px;
+      }
+
+      .invoice__totals-label {
+        color: #444;
+      }
+
+      .invoice__totals-value {
+        font-weight: bold;
+        text-align: right;
+      }
+
+      .invoice__totals-row--grand-total {
+        font-size: 17px;
+        /* Slightly larger total */
+        font-weight: bold;
+        border-top: 2px solid #333;
+        margin-top: 10px;
+        padding-top: 10px;
+      }
+
+      .invoice__totals-value--grand-total {
+        color: #000;
+      }
+      /* Footer/Notes */
+
+      .invoice__footer {
+        margin-top: 40px;
+        padding-top: 20px;
+        border-top: 1px solid #ccc;
+        font-size: 11px;
+        /* Smaller footer text */
+        color: #555;
+      }
+
+      .invoice__payment-terms {
+        font-weight: bold;
+        margin-bottom: 5px;
+      }
+
+      .invoice__notes {
+        margin-top: 10px;
+        font-style: italic;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="invoice">
+      <header class="invoice__header">
+        <div class="invoice__logo-area">
+          <img
+            src="https://i.imgur.com/0xURAaz.png"
+            alt="Company Logo"
+            width="306"
+            height="70"
+          />
+        </div>
+        <div class="invoice__title-area">
+          <h1 class="invoice__title">Service Invoice</h1>
+          <div class="invoice__details">
+            <div class="invoice__detail-item">
+              <span class="invoice__detail-label">Invoice #:</span>
+              <span>SIV-2024-0301</span>
+            </div>
+            <div class="invoice__detail-item">
+              <span class="invoice__detail-label">Date Issued:</span>
+              <span>May 20, 2024</span>
+            </div>
+            <div class="invoice__detail-item">
+              <span class="invoice__detail-label">Date Due:</span>
+              <span>June 19, 2024</span>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <section class="invoice__parties">
+        <div class="invoice__party">
+          <div class="invoice__party-title">Service Provider:</div>
+          <div class="invoice__party-info">
+            <p><strong>Consulting Experts Group</strong></p>
+            <p>789 Consultancy Rd.</p>
+            <p>Think Tank City, ST 54321</p>
+            <p>Email: billing@consultingexperts.example</p>
+          </div>
+        </div>
+        <div class="invoice__party">
+          <div class="invoice__party-title">Client:</div>
+          <div class="invoice__party-info">
+            <p><strong>Innovate Solutions Ltd.</strong></p>
+            <p>101 Innovation Drive</p>
+            <p>Future Town, ST 10001</p>
+            <p>Email: accounts@innovatesolutions.example</p>
+            <p>Attn: Project Manager</p>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <table class="invoice__items-table">
+          <thead class="invoice__items-header">
+            <tr>
+              <th class="invoice__items-col--date">Date</th>
+              <th class="invoice__items-col--service">
+                Service / Task Description
+              </th>
+              <th class="invoice__items-col--hours">Hours</th>
+              <th class="invoice__items-col--rate">Hourly Rate</th>
+              <th class="invoice__items-col--total">Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="invoice__items-row">
+              <td class="invoice__items-col--date">2024-05-02</td>
+              <td class="invoice__items-col--service">
+                Initial Project Consultation & Discovery
+              </td>
+              <td class="invoice__items-col--hours">4.0</td>
+              <td class="invoice__items-col--rate">$180.00</td>
+              <td class="invoice__items-col--total">$720.00</td>
+            </tr>
+            <tr class="invoice__items-row">
+              <td class="invoice__items-col--date">2024-05-05</td>
+              <td class="invoice__items-col--service">
+                Market Research & Analysis Report Prep
+              </td>
+              <td class="invoice__items-col--hours">8.5</td>
+              <td class="invoice__items-col--rate">$150.00</td>
+              <td class="invoice__items-col--total">$1,275.00</td>
+            </tr>
+            <tr class="invoice__items-row">
+              <td class="invoice__items-col--date">2024-05-10</td>
+              <td class="invoice__items-col--service">
+                Strategy Development Workshop Session
+              </td>
+              <td class="invoice__items-col--hours">6.0</td>
+              <td class="invoice__items-col--rate">$180.00</td>
+              <td class="invoice__items-col--total">$1,080.00</td>
+            </tr>
+            <tr class="invoice__items-row">
+              <td class="invoice__items-col--date">2024-05-15</td>
+              <td class="invoice__items-col--service">
+                Technical Support & Troubleshooting
+              </td>
+              <td class="invoice__items-col--hours">2.5</td>
+              <td class="invoice__items-col--rate">$120.00</td>
+              <td class="invoice__items-col--total">$300.00</td>
+            </tr>
+            <tr class="invoice__items-row">
+              <td class="invoice__items-col--date">2024-05-18</td>
+              <td class="invoice__items-col--service">
+                Monthly Progress Report Generation
+              </td>
+              <td class="invoice__items-col--hours">3.0</td>
+              <td class="invoice__items-col--rate">$150.00</td>
+              <td class="invoice__items-col--total">$450.00</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="invoice__totals">
+        <div class="invoice__totals-row">
+          <div class="invoice__totals-label">Subtotal:</div>
+          <div class="invoice__totals-value">$3,825.00</div>
+        </div>
+        <div class="invoice__totals-row">
+          <div class="invoice__totals-label">Tax (if applicable):</div>
+          <div class="invoice__totals-value">$0.00</div>
+        </div>
+        <div class="invoice__totals-row">
+          <div class="invoice__totals-label">Adjustments/Credits:</div>
+          <div class="invoice__totals-value">$0.00</div>
+        </div>
+        <div class="invoice__totals-row invoice__totals-row--grand-total">
+          <div class="invoice__totals-label">Total Due:</div>
+          <div class="invoice__totals-value invoice__totals-value--grand-total">
+            $3,825.00
+          </div>
+        </div>
+      </section>
+
+      <footer class="invoice__footer">
+        <div class="invoice__payment-terms">Payment Terms: Net 30 Days</div>
+        <div class="invoice__notes">
+          <p>Please reference Invoice # SIV-2024-0301 with your payment.</p>
+          <p>Services rendered for the period of May 1st - May 18th, 2024.</p>
+          <p>We appreciate your prompt payment.</p>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Multi-Currency / International Invoice</title>
+    <style>
+      /* --- Base Styles (Similar to v1) --- */
+
+      body {
+        font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+          "Lucida Sans", Arial, sans-serif;
+        /* Different font example */
+        margin: 0;
+        padding: 25px;
+        font-size: 13px;
+        line-height: 1.5;
+        color: #333;
+        background-color: #fff;
+      }
+
+      .invoice {
+        max-width: 800px;
+        margin: 0 auto;
+      }
+      /* --- BEM Naming Convention --- */
+      /* Invoice Header */
+
+      .invoice__header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 30px;
+        padding-bottom: 15px;
+        border-bottom: 1px solid #e0e0e0;
+        /* Lighter border */
+      }
+
+      .invoice__logo-area {
+        flex: 1;
+      }
+
+      .invoice__logo {
+        max-width: 160px;
+        height: auto;
+      }
+
+      .invoice__title-area {
+        flex: 1;
+        text-align: right;
+      }
+
+      .invoice__title {
+        font-size: 26px;
+        font-weight: bold;
+        color: #2c3e50;
+        /* Different color */
+        margin: 0 0 5px 0;
+        text-transform: uppercase;
+      }
+
+      .invoice__details {
+        font-size: 12px;
+        color: #555;
+      }
+
+      .invoice__detail-item {
+        margin-bottom: 3px;
+      }
+
+      .invoice__detail-label {
+        font-weight: bold;
+      }
+      /* Invoice Parties */
+
+      .invoice__parties {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 30px;
+        gap: 20px;
+      }
+
+      .invoice__party {
+        flex: 1;
+      }
+
+      .invoice__party-title {
+        font-weight: bold;
+        margin-bottom: 8px;
+        font-size: 14px;
+        border-bottom: 1px solid #e0e0e0;
+        padding-bottom: 4px;
+      }
+
+      .invoice__party-info p {
+        margin: 0 0 5px 0;
+        font-size: 13px;
+      }
+
+      .invoice__party-info strong {
+        display: block;
+        margin-bottom: 3px;
+      }
+      /* Make company name stand out */
+      /* Items Table */
+
+      .invoice__items-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 30px;
+      }
+
+      .invoice__items-header {
+        background-color: #f8f8f8;
+        /* Very light header */
+        font-weight: bold;
+        border-bottom: 2px solid #d0d0d0;
+      }
+
+      .invoice__items-header th {
+        padding: 10px 8px;
+        text-align: left;
+        font-size: 12px;
+      }
+
+      .invoice__items-row td {
+        padding: 8px;
+        border-bottom: 1px solid #f0f0f0;
+        /* Lighter row separators */
+      }
+      /* Adjusted columns for currency */
+
+      .invoice__items-col--qty {
+        width: 8%;
+        text-align: center;
+      }
+
+      .invoice__items-col--price {
+        width: 18%;
+        text-align: right;
+      }
+
+      .invoice__items-col--total {
+        width: 18%;
+        text-align: right;
+        font-weight: 500;
+      }
+
+      .invoice__items-col--desc {
+        width: 56%;
+      }
+      /* Totals Section */
+
+      .invoice__totals {
+        margin-left: auto;
+        width: 45%;
+        max-width: 320px;
+      }
+
+      .invoice__totals-row {
+        display: flex;
+        justify-content: space-between;
+        padding: 5px 0;
+        font-size: 13px;
+      }
+
+      .invoice__totals-label {
+        color: #555;
+      }
+
+      .invoice__totals-value {
+        font-weight: bold;
+        text-align: right;
+      }
+
+      .invoice__totals-row--grand-total {
+        font-size: 16px;
+        font-weight: bold;
+        border-top: 2px solid #333;
+        /* Darker total line */
+        margin-top: 10px;
+        padding-top: 10px;
+      }
+
+      .invoice__totals-value--grand-total {
+        color: #2c3e50;
+      }
+
+      .invoice__currency-note {
+        font-size: 11px;
+        color: #666;
+        text-align: right;
+        margin-top: 5px;
+      }
+      /* Footer/Payment Info */
+
+      .invoice__footer {
+        margin-top: 40px;
+        padding-top: 20px;
+        border-top: 1px solid #e0e0e0;
+        font-size: 12px;
+        color: #555;
+      }
+
+      .invoice__payment-info-title {
+        font-weight: bold;
+        font-size: 14px;
+        margin-bottom: 10px;
+      }
+
+      .invoice__payment-details p {
+        margin: 0 0 5px 0;
+      }
+
+      .invoice__payment-terms {
+        margin-top: 15px;
+        font-weight: bold;
+      }
+
+      .invoice__notes {
+        margin-top: 10px;
+        font-style: italic;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="invoice">
+      <header class="invoice__header">
+        <div class="invoice__logo-area">
+          <img
+            src="https://i.imgur.com/0xURAaz.png"
+            alt="Company Logo"
+            width="306"
+            height="70"
+          />
+        </div>
+        <div class="invoice__title-area">
+          <h1 class="invoice__title">Commercial Invoice</h1>
+          <div class="invoice__details">
+            <div class="invoice__detail-item">
+              <span class="invoice__detail-label">Invoice #:</span>
+              <span>INTL-2024-0042</span>
+            </div>
+            <div class="invoice__detail-item">
+              <span class="invoice__detail-label">Date Issued:</span>
+              <span>May 20, 2024</span>
+            </div>
+            <div class="invoice__detail-item">
+              <span class="invoice__detail-label">Date Due:</span>
+              <span>June 19, 2024</span>
+            </div>
+            <div class="invoice__detail-item">
+              <span class="invoice__detail-label">Currency:</span>
+              <span>EUR (€)</span>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <section class="invoice__parties">
+        <div class="invoice__party">
+          <div class="invoice__party-title">Exporter / From:</div>
+          <div class="invoice__party-info">
+            <p><strong>Global Exports GmbH</strong></p>
+            <p>Exportstrasse 15</p>
+            <p>10117 Berlin</p>
+            <p>Germany</p>
+            <p>VAT ID: DE123456789</p>
+            <p>Email: exports@globalgmbh.example</p>
+          </div>
+        </div>
+        <div class="invoice__party">
+          <div class="invoice__party-title">Importer / To:</div>
+          <div class="invoice__party-info">
+            <p><strong>Import Solutions UK Ltd.</strong></p>
+            <p>Unit 5, Business Park</p>
+            <p>Import Road</p>
+            <p>London, SW1A 0AA</p>
+            <p>United Kingdom</p>
+            <p>VAT ID: GB987654321</p>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <table class="invoice__items-table">
+          <thead class="invoice__items-header">
+            <tr>
+              <th class="invoice__items-col--desc">
+                Description (HS Code if applicable)
+              </th>
+              <th class="invoice__items-col--qty">Qty</th>
+              <th class="invoice__items-col--price">Unit Price (€)</th>
+              <th class="invoice__items-col--total">Total (€)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="invoice__items-row">
+              <td class="invoice__items-col--desc">
+                Precision Machine Part (HS: 8483.10)
+              </td>
+              <td class="invoice__items-col--qty" style="text-align: center">
+                50
+              </td>
+              <td class="invoice__items-col--price">€ 75.00</td>
+              <td class="invoice__items-col--total">€ 3,750.00</td>
+            </tr>
+            <tr class="invoice__items-row">
+              <td class="invoice__items-col--desc">
+                Electronic Component Assembly (HS: 8542.31)
+              </td>
+              <td class="invoice__items-col--qty" style="text-align: center">
+                200
+              </td>
+              <td class="invoice__items-col--price">€ 12.50</td>
+              <td class="invoice__items-col--total">€ 2,500.00</td>
+            </tr>
+            <tr class="invoice__items-row">
+              <td class="invoice__items-col--desc">
+                Specialized Software License - Annual
+              </td>
+              <td class="invoice__items-col--qty" style="text-align: center">
+                1
+              </td>
+              <td class="invoice__items-col--price">€ 1,800.00</td>
+              <td class="invoice__items-col--total">€ 1,800.00</td>
+            </tr>
+            <tr class="invoice__items-row">
+              <td class="invoice__items-col--desc">
+                International Shipping & Handling
+              </td>
+              <td class="invoice__items-col--qty" style="text-align: center">
+                1
+              </td>
+              <td class="invoice__items-col--price">€ 450.00</td>
+              <td class="invoice__items-col--total">€ 450.00</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="invoice__totals">
+        <div class="invoice__totals-row">
+          <div class="invoice__totals-label">Subtotal:</div>
+          <div class="invoice__totals-value">€ 8,500.00</div>
+        </div>
+        <div class="invoice__totals-row">
+          <div class="invoice__totals-label">Insurance:</div>
+          <div class="invoice__totals-value">€ 85.00</div>
+        </div>
+        <div class="invoice__totals-row">
+          <div class="invoice__totals-label">VAT (0% - Export):</div>
+          <div class="invoice__totals-value">€ 0.00</div>
+        </div>
+        <div class="invoice__totals-row invoice__totals-row--grand-total">
+          <div class="invoice__totals-label">Total Amount Due:</div>
+          <div class="invoice__totals-value invoice__totals-value--grand-total">
+            € 8,585.00
+          </div>
+        </div>
+        <div class="invoice__currency-note">(All amounts in Euro)</div>
+      </section>
+
+      <footer class="invoice__footer">
+        <div class="invoice__payment-info-title">
+          International Payment Information (EUR):
+        </div>
+        <div class="invoice__payment-details">
+          <p><strong>Beneficiary Bank:</strong> Deutsche Bank AG</p>
+          <p>
+            <strong>Bank Address:</strong> Taunusanlage 12, 60325 Frankfurt am
+            Main, Germany
+          </p>
+          <p><strong>Beneficiary Name:</strong> Global Exports GmbH</p>
+          <p><strong>IBAN:</strong> DE89 3704 0044 0532 0130 00</p>
+          <p><strong>SWIFT/BIC:</strong> DEUTDEFFXXX</p>
+        </div>
+        <div class="invoice__payment-terms">
+          Payment Terms: Net 30 Days from Invoice Date.
+        </div>
+        <div class="invoice__notes">
+          <p>
+            Please ensure all bank transfer charges are borne by the sender (OUR
+            instruction).
+          </p>
+          <p>Country of Origin for Goods: Germany.</p>
+          <p>Incoterms: DAP London (Delivered at Place)</p>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>

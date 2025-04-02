@@ -1,0 +1,37 @@
+{
+  "pageTitle": "Modern Brochure PDF from HTML | Tri-Fold Design Example",
+  "metaDescription": "Generate stunning, print-ready PDF brochures from complex HTML layouts. Showcase demonstrates accurate rendering of multi-column designs, images, icons, and branding for marketing materials.",
+  "tags": [
+    "generate pdf brochure",
+    "html to pdf brochure",
+    "tri-fold brochure pdf",
+    "marketing pdf",
+    "multi-column pdf layout",
+    "css grid pdf",
+    "print-ready brochure",
+    "html design to pdf",
+    "visual pdf generation",
+    "company brochure pdf"
+  ],
+  "render": {
+    "pdfOptions": {
+      "format": "A4",
+      "landscape": true,
+      "printBackground": true,
+      "margin": {
+        "top": "0mm",
+        "right": "0mm",
+        "bottom": "0mm",
+        "left": "0mm"
+      },
+      "scale": 0.9
+    },
+    "pageSetupOptions": {
+      "viewport": {
+        "width": 1122,
+        "height": 793,
+        "deviceScaleFactor": 2
+      }
+    }
+  }
+}

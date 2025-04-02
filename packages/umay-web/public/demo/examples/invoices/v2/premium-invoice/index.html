@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Premium Business Invoice</title>
+    <style>
+      /* Global Variables */
+
+      :root {
+        --primary-color: #3a6ea5;
+        --secondary-color: #2c3e50;
+        --accent-color: #f39c12;
+        --light-gray: #f5f7fa;
+        --mid-gray: #e5e7eb;
+        --dark-gray: #6b7280;
+        --text-dark: #1f2937;
+        --border-radius: 6px;
+        --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+        --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+          0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+          0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      }
+      /* Reset & Base Styles */
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f9fafb;
+        color: var(--text-dark);
+        line-height: 1.5;
+        padding: 2rem;
+      }
+
+      p {
+        margin-bottom: 0.75rem;
+      }
+      /* Layout */
+
+      .invoice {
+        max-width: 900px;
+        margin: 0 auto;
+        background-color: white;
+        border-radius: var(--border-radius);
+        overflow: hidden;
+        box-shadow: var(--shadow-lg);
+      }
+
+      .invoice__header-banner {
+        background-color: var(--primary-color);
+        padding: 1.5rem 2rem;
+        color: white;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .invoice__header-banner::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          135deg,
+          rgba(255, 255, 255, 0.1) 0%,
+          rgba(255, 255, 255, 0) 100%
+        );
+        z-index: 1;
+      }
+
+      .invoice__header-content {
+        position: relative;
+        z-index: 2;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .invoice__content {
+        padding: 2rem;
+      }
+      /* Logo & Title */
+
+      .invoice__logo {
+        max-width: 200px;
+      }
+
+      .invoice__logo-img {
+        max-width: 100%;
+        height: auto;
+      }
+
+      .invoice__title-area {
+        text-align: right;
+        color: white;
+      }
+
+      .invoice__title {
+        font-size: 2.25rem;
+        font-weight: 700;
+        letter-spacing: 1px;
+        margin-bottom: 0.5rem;
+        text-transform: uppercase;
+      }
+
+      .invoice__subtitle {
+        font-size: 1rem;
+        opacity: 0.9;
+      }
+      /* Details Bar */
+
+      .invoice__details-bar {
+        background-color: var(--light-gray);
+        padding: 1rem 2rem;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 1rem;
+        border-bottom: 1px solid var(--mid-gray);
+      }
+
+      .invoice__detail-item {
+        flex: 1;
+        min-width: 200px;
+      }
+
+      .invoice__detail-label {
+        font-size: 0.875rem;
+        color: var(--dark-gray);
+        margin-bottom: 0.25rem;
+      }
+
+      .invoice__detail-value {
+        font-weight: 600;
+        font-size: 1rem;
+      }
+      /* Parties */
+
+      .invoice__parties {
+        display: flex;
+        justify-content: space-between;
+        margin: 2rem 0;
+        gap: 2rem;
+        flex-wrap: wrap;
+      }
+
+      .invoice__party {
+        flex: 1;
+        min-width: 250px;
+      }
+
+      .invoice__party-title {
+        font-size: 1rem;
+        font-weight: 600;
+        color: var(--primary-color);
+        margin-bottom: 0.5rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 2px solid var(--light-gray);
+      }
+
+      .invoice__party-info {
+        font-size: 0.9375rem;
+        line-height: 1.6;
+      }
+      /* Items Table */
+
+      .invoice__items-container {
+        overflow-x: auto;
+        margin-bottom: 2rem;
+        border-radius: var(--border-radius);
+        box-shadow: var(--shadow-sm);
+      }
+
+      .invoice__items {
+        width: 100%;
+        border-collapse: collapse;
+        text-align: left;
+      }
+
+      .invoice__items-header {
+        background-color: var(--secondary-color);
+        color: white;
+      }
+
+      .invoice__items-header th {
+        padding: 0.875rem 1rem;
+        font-weight: 600;
+        font-size: 0.9375rem;
+      }
+
+      .invoice__items-header th:first-child {
+        border-top-left-radius: var(--border-radius);
+      }
+
+      .invoice__items-header th:last-child {
+        border-top-right-radius: var(--border-radius);
+      }
+
+      .invoice__items-row {
+        border-bottom: 1px solid var(--mid-gray);
+      }
+
+      .invoice__items-row:last-child {
+        border-bottom: none;
+      }
+
+      .invoice__items-row:nth-child(even) {
+        background-color: var(--light-gray);
+      }
+
+      .invoice__items-row td {
+        padding: 1rem;
+        font-size: 0.9375rem;
+      }
+
+      .invoice__items-description {
+        width: 40%;
+      }
+
+      .invoice__items-description-title {
+        font-weight: 600;
+        display: block;
+        margin-bottom: 0.25rem;
+      }
+
+      .invoice__items-description-text {
+        color: var(--dark-gray);
+        font-size: 0.875rem;
+      }
+
+      .invoice__items-quantity,
+      .invoice__items-unit {
+        width: 8%;
+      }
+
+      .invoice__items-price,
+      .invoice__items-vat-rate,
+      .invoice__items-vat-amount,
+      .invoice__items-total {
+        width: 12%;
+        text-align: right;
+      }
+      /* Totals */
+
+      .invoice__summary {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        flex-wrap: wrap;
+        gap: 2rem;
+        margin-bottom: 2rem;
+      }
+
+      .invoice__notes {
+        flex: 1;
+        min-width: 250px;
+      }
+
+      .invoice__notes-title {
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        color: var(--secondary-color);
+      }
+
+      .invoice__notes-content {
+        padding: 1rem;
+        background-color: var(--light-gray);
+        border-radius: var(--border-radius);
+        font-size: 0.875rem;
+        border-left: 3px solid var(--primary-color);
+      }
+
+      .invoice__totals {
+        min-width: 300px;
+        background-color: white;
+        border-radius: var(--border-radius);
+        box-shadow: var(--shadow-md);
+        overflow: hidden;
+      }
+
+      .invoice__totals-header {
+        background-color: var(--secondary-color);
+        color: white;
+        padding: 0.75rem 1.5rem;
+        font-weight: 600;
+      }
+
+      .invoice__totals-body {
+        padding: 1rem 1.5rem;
+      }
+
+      .invoice__totals-row {
+        display: flex;
+        justify-content: space-between;
+        padding: 0.5rem 0;
+        font-size: 0.9375rem;
+      }
+
+      .invoice__totals-row--subtotal {
+        border-bottom: 1px solid var(--mid-gray);
+        padding-bottom: 1rem;
+      }
+
+      .invoice__totals-row--total {
+        font-weight: 700;
+        font-size: 1.125rem;
+        color: var(--primary-color);
+        margin-top: 0.5rem;
+        padding-top: 1rem;
+        border-top: 2px solid var(--mid-gray);
+      }
+
+      .invoice__totals-label {
+        color: var(--dark-gray);
+      }
+
+      .invoice__totals-value {
+        font-weight: 600;
+        text-align: right;
+      }
+
+      .invoice__totals-value--total {
+        color: var(--primary-color);
+      }
+      /* Payment & Footer */
+
+      .invoice__payment {
+        margin-top: 2rem;
+        padding: 1.5rem;
+        background-color: var(--light-gray);
+        border-radius: var(--border-radius);
+        border: 1px solid var(--mid-gray);
+      }
+
+      .invoice__payment-title {
+        font-weight: 700;
+        font-size: 1.125rem;
+        color: var(--secondary-color);
+        margin-bottom: 1rem;
+      }
+
+      .invoice__payment-info {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 2rem;
+      }
+
+      .invoice__payment-column {
+        flex: 1;
+        min-width: 250px;
+      }
+
+      .invoice__payment-item {
+        margin-bottom: 0.75rem;
+      }
+
+      .invoice__payment-label {
+        font-weight: 600;
+        font-size: 0.875rem;
+        color: var(--dark-gray);
+        display: block;
+      }
+
+      .invoice__payment-value {
+        font-size: 0.9375rem;
+      }
+
+      .invoice__payment-terms {
+        margin-top: 1.5rem;
+        font-size: 0.875rem;
+        color: var(--dark-gray);
+        padding-top: 1rem;
+        border-top: 1px solid var(--mid-gray);
+      }
+
+      .invoice__qr-code {
+        display: flex;
+        justify-content: center;
+        margin-top: 1.5rem;
+      }
+
+      .invoice__qr-code img {
+        max-width: 100px;
+        height: auto;
+      }
+
+      .invoice__footer {
+        text-align: center;
+        margin-top: 2rem;
+        padding: 1.5rem;
+        background-color: var(--primary-color);
+        color: white;
+        border-bottom-left-radius: var(--border-radius);
+        border-bottom-right-radius: var(--border-radius);
+      }
+
+      .invoice__thank-you {
+        font-size: 1.25rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+      }
+
+      .invoice__footer-text {
+        opacity: 0.9;
+        font-size: 0.875rem;
+      }
+
+      .invoice__digital-signature {
+        margin-top: 1rem;
+        font-style: italic;
+        font-size: 0.8125rem;
+      }
+      /* Status Pill */
+
+      .invoice__status {
+        display: inline-block;
+        padding: 0.375rem 0.75rem;
+        border-radius: 50px;
+        font-weight: 600;
+        font-size: 0.75rem;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+      }
+
+      .invoice__status--paid {
+        background-color: rgba(16, 185, 129, 0.1);
+        color: #10b981;
+      }
+
+      .invoice__status--due {
+        background-color: rgba(245, 158, 11, 0.1);
+        color: #f59e0b;
+      }
+
+      .invoice__status--overdue {
+        background-color: rgba(239, 68, 68, 0.1);
+        color: #ef4444;
+      }
+      /* Responsive adjustments */
+
+      @media (max-width: 768px) {
+        body {
+          padding: 1rem;
+        }
+        .invoice__header-content {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 1.5rem;
+        }
+        .invoice__title-area {
+          text-align: left;
+        }
+        .invoice__content,
+        .invoice__header-banner {
+          padding: 1.5rem;
+        }
+        .invoice__detail-item {
+          min-width: 120px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="invoice">
+      <!-- Invoice Header Banner -->
+      <header class="invoice__header-banner">
+        <div class="invoice__header-content">
+          <div class="invoice__logo">
+            <img
+              class="invoice__logo-img"
+              src="https://i.imgur.com/0xURAaz.png"
+              alt="Company Logo"
+              width="306"
+              height="70"
+            />
+          </div>
+          <div class="invoice__title-area">
+            <h1 class="invoice__title">Invoice</h1>
+            <div class="invoice__subtitle">Professional Business Services</div>
+          </div>
+        </div>
+      </header>
+
+      <!-- Invoice Details Bar -->
+      <div class="invoice__details-bar">
+        <div class="invoice__detail-item">
+          <div class="invoice__detail-label">Invoice Number</div>
+          <div class="invoice__detail-value">INV-2024-0056</div>
+        </div>
+        <div class="invoice__detail-item">
+          <div class="invoice__detail-label">Issue Date</div>
+          <div class="invoice__detail-value">May 15, 2024</div>
+        </div>
+        <div class="invoice__detail-item">
+          <div class="invoice__detail-label">Due Date</div>
+          <div class="invoice__detail-value">June 14, 2024</div>
+        </div>
+        <div class="invoice__detail-item">
+          <div class="invoice__detail-label">Status</div>
+          <div class="invoice__status invoice__status--due">Due</div>
+        </div>
+      </div>
+
+      <!-- Main Content -->
+      <div class="invoice__content">
+        <!-- Sender and Recipient Info -->
+        <section class="invoice__parties">
+          <div class="invoice__party">
+            <div class="invoice__party-title">From</div>
+            <div class="invoice__party-info">
+              <p>
+                <strong>ABC Solutions International</strong><br />
+                123 Business Avenue, Suite 500<br />
+                Business District<br />
+                Cityville, ST 12345<br />
+                Tax ID: ABC-12345678<br />
+                Email: accounts@abcsolutions.com<br />
+                Phone: +1 (555) 123-4567
+              </p>
+            </div>
+          </div>
+          <div class="invoice__party">
+            <div class="invoice__party-title">To</div>
+            <div class="invoice__party-info">
+              <p>
+                <strong>XYZ Global Enterprises</strong><br />
+                456 Corporate Plaza, Floor 12<br />
+                Financial District<br />
+                Metropolis, ST 67890<br />
+                Tax ID: XYZ-98765432<br />
+                Email: billing@xyzglobal.com<br />
+                Phone: +1 (555) 987-6543
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Items Table -->
+        <div class="invoice__items-container">
+          <table class="invoice__items">
+            <thead class="invoice__items-header">
+              <tr>
+                <th class="invoice__items-description">Description</th>
+                <th class="invoice__items-quantity">Qty</th>
+                <th class="invoice__items-unit">Unit</th>
+                <th class="invoice__items-price">Unit Price</th>
+                <th class="invoice__items-vat-rate">Tax Rate</th>
+                <th class="invoice__items-vat-amount">Tax Amount</th>
+                <th class="invoice__items-total">Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="invoice__items-row">
+                <td class="invoice__items-description">
+                  <span class="invoice__items-description-title"
+                    >Enterprise Solution Implementation</span
+                  >
+                  <span class="invoice__items-description-text"
+                    >Complete setup and deployment of ERP software including
+                    data migration and user training</span
+                  >
+                </td>
+                <td class="invoice__items-quantity">1</td>
+                <td class="invoice__items-unit">pkg</td>
+                <td class="invoice__items-price">$5,000.00</td>
+                <td class="invoice__items-vat-rate">10%</td>
+                <td class="invoice__items-vat-amount">$500.00</td>
+                <td class="invoice__items-total">$5,500.00</td>
+              </tr>
+              <tr class="invoice__items-row">
+                <td class="invoice__items-description">
+                  <span class="invoice__items-description-title"
+                    >Software License - Premium Tier</span
+                  >
+                  <span class="invoice__items-description-text"
+                    >Annual subscription for cloud-based business management
+                    platform</span
+                  >
+                </td>
+                <td class="invoice__items-quantity">10</td>
+                <td class="invoice__items-unit">user</td>
+                <td class="invoice__items-price">$120.00</td>
+                <td class="invoice__items-vat-rate">10%</td>
+                <td class="invoice__items-vat-amount">$120.00</td>
+                <td class="invoice__items-total">$1,320.00</td>
+              </tr>
+              <tr class="invoice__items-row">
+                <td class="invoice__items-description">
+                  <span class="invoice__items-description-title"
+                    >Professional Consulting Services</span
+                  >
+                  <span class="invoice__items-description-text"
+                    >Strategic business process analysis and optimization</span
+                  >
+                </td>
+                <td class="invoice__items-quantity">25</td>
+                <td class="invoice__items-unit">hrs</td>
+                <td class="invoice__items-price">$200.00</td>
+                <td class="invoice__items-vat-rate">10%</td>
+                <td class="invoice__items-vat-amount">$500.00</td>
+                <td class="invoice__items-total">$5,500.00</td>
+              </tr>
+              <tr class="invoice__items-row">
+                <td class="invoice__items-description">
+                  <span class="invoice__items-description-title"
+                    >Hardware Equipment - Server Infrastructure</span
+                  >
+                  <span class="invoice__items-description-text"
+                    >High-performance server hardware with installation and
+                    configuration</span
+                  >
+                </td>
+                <td class="invoice__items-quantity">2</td>
+                <td class="invoice__items-unit">units</td>
+                <td class="invoice__items-price">$2,500.00</td>
+                <td class="invoice__items-vat-rate">5%</td>
+                <td class="invoice__items-vat-amount">$250.00</td>
+                <td class="invoice__items-total">$5,250.00</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Totals and Notes -->
+        <div class="invoice__summary">
+          <div class="invoice__notes">
+            <div class="invoice__notes-title">Notes</div>
+            <div class="invoice__notes-content">
+              <p>
+                This invoice covers the initial phase of our enterprise solution
+                implementation as outlined in contract #XYZ-2024-0015.
+              </p>
+              <p>
+                All services and products are delivered according to our terms
+                of service. Please check our website for detailed warranty
+                information.
+              </p>
+            </div>
+          </div>
+
+          <div class="invoice__totals">
+            <div class="invoice__totals-header">Invoice Summary</div>
+            <div class="invoice__totals-body">
+              <div class="invoice__totals-row invoice__totals-row--subtotal">
+                <div class="invoice__totals-label">Subtotal:</div>
+                <div class="invoice__totals-value">$12,820.00</div>
+              </div>
+              <div class="invoice__totals-row">
+                <div class="invoice__totals-label">Tax (10%):</div>
+                <div class="invoice__totals-value">$1,120.00</div>
+              </div>
+              <div class="invoice__totals-row">
+                <div class="invoice__totals-label">Tax (5%):</div>
+                <div class="invoice__totals-value">$250.00</div>
+              </div>
+              <div class="invoice__totals-row">
+                <div class="invoice__totals-label">Total Tax:</div>
+                <div class="invoice__totals-value">$1,370.00</div>
+              </div>
+              <div class="invoice__totals-row invoice__totals-row--total">
+                <div class="invoice__totals-label">Total Due:</div>
+                <div class="invoice__totals-value invoice__totals-value--total">
+                  $14,190.00
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Payment Information -->
+        <div class="invoice__payment">
+          <div class="invoice__payment-title">Payment Details</div>
+          <div class="invoice__payment-info">
+            <div class="invoice__payment-column">
+              <div class="invoice__payment-item">
+                <span class="invoice__payment-label">Bank Name</span>
+                <span class="invoice__payment-value"
+                  >International Banking Corporation</span
+                >
+              </div>
+              <div class="invoice__payment-item">
+                <span class="invoice__payment-label">Account Name</span>
+                <span class="invoice__payment-value"
+                  >ABC Solutions International</span
+                >
+              </div>
+              <div class="invoice__payment-item">
+                <span class="invoice__payment-label">Account Number</span>
+                <span class="invoice__payment-value">1234567890</span>
+              </div>
+            </div>
+            <div class="invoice__payment-column">
+              <div class="invoice__payment-item">
+                <span class="invoice__payment-label">IBAN</span>
+                <span class="invoice__payment-value"
+                  >GB29 NWBK 6016 1331 9268 19</span
+                >
+              </div>
+              <div class="invoice__payment-item">
+                <span class="invoice__payment-label">SWIFT/BIC</span>
+                <span class="invoice__payment-value">IBCORPXXX</span>
+              </div>
+              <div class="invoice__payment-item">
+                <span class="invoice__payment-label">Payment Reference</span>
+                <span class="invoice__payment-value">INV-2024-0056</span>
+              </div>
+            </div>
+          </div>
+          <div class="invoice__payment-terms">
+            <p>
+              Payment due within 30 days from invoice date. Late payments are
+              subject to a 2% monthly interest charge.
+            </p>
+            <p>
+              For questions regarding this invoice, please contact our accounts
+              department at accounts@abcsolutions.com or call +1 (555) 123-4567.
+            </p>
+          </div>
+          <div class="invoice__qr-code">
+            <img
+              src="https://i.imgur.com/3DYXxsj.png"
+              alt="Payment QR Code"
+              width="100"
+              height="100"
+            />
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <footer class="invoice__footer">
+        <div class="invoice__thank-you">Thank You for Your Business!</div>
+        <div class="invoice__footer-text">
+          ABC Solutions International | www.abcsolutions.com
+        </div>
+        <div class="invoice__digital-signature">
+          Digitally signed by: John Smith, CFO | 2024-05-15 10:23:45 UTC
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>

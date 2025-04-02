@@ -1,0 +1,37 @@
+{
+  "pageTitle": "Generate Accurate PDF Expense Reports from HTML | Table & Approval Example",
+  "metaDescription": "Generate accurate, print-ready PDF expense reports from complex HTML. This showcase demonstrates handling tables, multi-column layouts, categories, totals & signature fields flawlessly.",
+  "tags": [
+    "generate pdf expense report",
+    "html to pdf expense report",
+    "pdf reimbursement form",
+    "business expense pdf",
+    "travel expense pdf",
+    "accurate pdf conversion",
+    "html table to pdf",
+    "pdf signature field",
+    "corporate expense form pdf",
+    "html form to pdf"
+  ],
+  "render": {
+    "pdfOptions": {
+      "format": "A4",
+      "landscape": false,
+      "printBackground": true,
+      "margin": {
+        "top": "2mm",
+        "right": "2mm",
+        "bottom": "2mm",
+        "left": "2mm"
+      },
+      "scale": 0.9
+    },
+    "pageSetupOptions": {
+      "viewport": {
+        "width": 850,
+        "height": 1200,
+        "deviceScaleFactor": 2
+      }
+    }
+  }
+}

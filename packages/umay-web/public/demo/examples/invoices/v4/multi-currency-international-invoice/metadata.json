@@ -1,0 +1,36 @@
+{
+  "pageTitle": "Generate Multi-Currency PDF Invoices from HTML | International Billing Example",
+  "metaDescription": "Create professional PDF invoices for international trade with multi-currency support from HTML. Showcase demonstrates rendering IBAN/SWIFT, currency symbols (€, $, £), and VAT details.",
+  "tags": [
+    "generate pdf international invoice",
+    "html to pdf multi-currency",
+    "pdf invoice different currency",
+    "cross-border invoice pdf",
+    "iban swift pdf invoice",
+    "export invoice pdf",
+    "commercial invoice pdf",
+    "currency symbol pdf",
+    "international billing pdf"
+  ],
+  "render": {
+    "pdfOptions": {
+      "format": "A4",
+      "landscape": false,
+      "printBackground": true,
+      "margin": {
+        "top": "2mm",
+        "right": "2mm",
+        "bottom": "2mm",
+        "left": "2mm"
+      },
+      "scale": 0.9
+    },
+    "pageSetupOptions": {
+      "viewport": {
+        "width": 800,
+        "height": 1131,
+        "deviceScaleFactor": 2
+      }
+    }
+  }
+}

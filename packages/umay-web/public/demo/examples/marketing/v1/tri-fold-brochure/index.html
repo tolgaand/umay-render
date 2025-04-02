@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Modern Tri-Fold Brochure</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --primary-color: #6366f1;
+        /* Indigo */
+        --secondary-color: #10b981;
+        /* Emerald */
+        --text-dark: #111827;
+        /* Gray 900 */
+        --text-medium: #4b5563;
+        /* Gray 600 */
+        --text-light: #9ca3af;
+        /* Gray 400 */
+        --bg-light: #f9fafb;
+        /* Gray 50 */
+        --bg-panel: #ffffff;
+        --border-color: #e5e7eb;
+        /* Gray 200 */
+        --font-family: "Inter", sans-serif;
+        --border-radius: 8px;
+        --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+          0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+          0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      }
+      /* Assume Landscape A4/Letter base */
+
+      body {
+        font-family: var(--font-family);
+        margin: 0;
+        padding: 0;
+        /* Let the container handle padding */
+        font-size: 10pt;
+        /* Base size for print often smaller */
+        line-height: 1.5;
+        color: var(--text-medium);
+        background-color: var(--bg-light);
+        -webkit-print-color-adjust: exact;
+        /* Important for backgrounds in PDF */
+      }
+
+      .brochure-container {
+        /* Simulate unfolded landscape A4-ish aspect ratio, but let PDF engine handle actual size */
+        width: 1122px;
+        /* Approx width for landscape A4 at 96dpi */
+        height: 793px;
+        /* Approx height */
+        margin: 20px auto;
+        /* Center for preview */
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        /* Three equal columns */
+        gap: 0;
+        /* No gap, panels touch */
+        background-color: var(--bg-panel);
+        box-shadow: var(--shadow-md);
+        position: relative;
+        /* For fold lines if needed */
+      }
+
+      .brochure__panel {
+        padding: 30px;
+        display: flex;
+        flex-direction: column;
+        border-left: 1px dashed var(--border-color);
+        /* Simulate fold visually */
+      }
+
+      .brochure__panel:first-child {
+        border-left: none;
+      }
+      /* --- Panel Specific Styling --- */
+      /* Panel 3: Front Cover (Typically the rightmost panel when unfolded) */
+
+      .brochure__panel--front {
+        background: linear-gradient(
+          160deg,
+          var(--primary-color) 0%,
+          #4f46e5 100%
+        );
+        /* Gradient example */
+        color: white;
+        justify-content: space-between;
+        /* Push content apart */
+        align-items: center;
+        text-align: center;
+      }
+      /* Logo Styling: Control size via wrapper or max-width on image */
+
+      .brochure__logo-wrapper--front {
+        max-width: 200px;
+        /* Limit wrapper size */
+        margin-bottom: 30px;
+      }
+
+      .brochure__logo--front {
+        /* Use provided dimensions or let max-width control */
+        max-width: 100%;
+        height: auto;
+        /* Removed filter: brightness(0) invert(1); as the logo might have light parts */
+        /* You might need specific adjustments if the logo doesn't look good on the gradient */
+      }
+
+      .brochure__title--front {
+        font-size: 24pt;
+        font-weight: 700;
+        line-height: 1.3;
+        margin-bottom: 15px;
+      }
+
+      .brochure__subtitle--front {
+        font-size: 12pt;
+        opacity: 0.9;
+        margin-bottom: 30px;
+        font-weight: 300;
+      }
+
+      .brochure__hero-image {
+        width: 100%;
+        max-width: 250px;
+        /* Control image size */
+        height: auto;
+        margin-top: 30px;
+        border-radius: var(--border-radius);
+      }
+
+      .brochure__website--front {
+        font-size: 10pt;
+        margin-top: auto;
+        /* Push to bottom */
+        opacity: 0.8;
+      }
+      /* Panel 1: Back Cover (Typically the leftmost panel when unfolded) */
+
+      .brochure__panel--back {
+        background-color: #f3f4f6;
+        /* Slightly off-white */
+        justify-content: space-between;
+      }
+
+      .brochure__contact-title {
+        font-size: 14pt;
+        font-weight: 600;
+        color: var(--text-dark);
+        margin-bottom: 20px;
+        border-bottom: 2px solid var(--primary-color);
+        padding-bottom: 5px;
+        display: inline-block;
+        /* Fit border to text */
+      }
+
+      .brochure__contact-info p {
+        margin-bottom: 8px;
+        font-size: 10pt;
+        display: flex;
+        align-items: center;
+      }
+
+      .brochure__icon {
+        width: 14px;
+        height: 14px;
+        margin-right: 8px;
+        fill: var(--primary-color);
+        flex-shrink: 0;
+        /* Prevent icon shrinking */
+      }
+
+      .brochure__map-placeholder {
+        width: 100%;
+        height: 150px;
+        background-color: var(--border-color);
+        border-radius: var(--border-radius);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 10pt;
+        color: var(--text-light);
+        margin-top: 20px;
+        margin-bottom: 20px;
+      }
+
+      .brochure__back-footer {
+        margin-top: auto;
+        /* Push to bottom */
+        font-size: 9pt;
+        color: var(--text-light);
+        text-align: center;
+      }
+      /* Logo Styling: Control size via wrapper or max-width */
+
+      .brochure__logo-wrapper--back {
+        max-width: 150px;
+        /* Adjust wrapper size for back panel */
+        margin: 0 auto 10px auto;
+      }
+
+      .brochure__logo--back {
+        /* Use provided dimensions or let max-width control */
+        max-width: 100%;
+        height: auto;
+        opacity: 0.9;
+        /* Slightly less prominent */
+      }
+      /* Panel 2: Inside Left (Middle panel when unfolded) */
+
+      .brochure__panel--inside {
+        /* Standard panel styles apply */
+      }
+
+      .brochure__inside-title {
+        font-size: 16pt;
+        font-weight: 600;
+        color: var(--text-dark);
+        margin-bottom: 20px;
+      }
+
+      .brochure__paragraph {
+        font-size: 10pt;
+        margin-bottom: 15px;
+        color: var(--text-medium);
+      }
+
+      .brochure__feature-list {
+        list-style: none;
+        padding: 0;
+        margin-top: 20px;
+      }
+
+      .brochure__feature-item {
+        display: flex;
+        align-items: flex-start;
+        /* Align icon top */
+        margin-bottom: 15px;
+      }
+
+      .brochure__feature-icon {
+        width: 24px;
+        height: 24px;
+        margin-right: 12px;
+        padding: 4px;
+        background-color: #e0f2fe;
+        /* Light blue background for icon */
+        border-radius: 50%;
+        fill: var(--primary-color);
+        flex-shrink: 0;
+      }
+
+      .brochure__feature-text strong {
+        display: block;
+        font-weight: 600;
+        font-size: 11pt;
+        margin-bottom: 3px;
+        color: var(--text-dark);
+      }
+
+      .brochure__feature-text span {
+        font-size: 9.5pt;
+        color: var(--text-medium);
+      }
+
+      .brochure__cta-button {
+        display: inline-block;
+        background-color: var(--secondary-color);
+        color: white;
+        padding: 10px 20px;
+        border-radius: var(--border-radius);
+        text-decoration: none;
+        font-weight: 600;
+        text-align: center;
+        margin-top: 20px;
+        transition: background-color 0.2s ease;
+      }
+
+      .brochure__cta-button:hover {
+        /* Won't show in PDF, but good practice */
+        background-color: #059669;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="brochure-container">
+      <!-- Panel 1: Back Cover (Leftmost when unfolded) -->
+      <div class="brochure__panel brochure__panel--back">
+        <div>
+          <h3 class="brochure__contact-title">Contact Us</h3>
+          <div class="brochure__contact-info">
+            <p>
+              <svg
+                class="brochure__icon"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+              <span
+                >123 Innovation Drive, Suite 100<br />Tech City, CA 94000,
+                USA</span
+              >
+            </p>
+            <p>
+              <svg
+                class="brochure__icon"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"
+                />
+              </svg>
+              <span>+1 (555) 123-TECH</span>
+            </p>
+            <p>
+              <svg
+                class="brochure__icon"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  d="M2.003 5.884L10 11.884l7.997-6M2 12h16a1 1 0 001-1V7a1 1 0 00-1-1H2a1 1 0 00-1 1v4a1 1 0 001 1z"
+                />
+              </svg>
+              <span>info@innovatesolutions.example</span>
+            </p>
+            <p>
+              <svg
+                class="brochure__icon"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
+                <path
+                  fill-rule="evenodd"
+                  d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+              <span>www.innovatesolutions.example</span>
+            </p>
+          </div>
+          <div class="brochure__map-placeholder">
+            Placeholder for Location Map
+          </div>
+        </div>
+        <div class="brochure__back-footer">
+          <div class="brochure__logo-wrapper--back">
+            <!-- Use your specified logo -->
+            <img
+              class="brochure__logo--back"
+              src="https://i.imgur.com/0xURAaz.png"
+              alt="Company Logo"
+              width="306"
+              height="70"
+            />
+          </div>
+          Copyright © 2024 Innovate Solutions Ltd. All rights reserved.
+        </div>
+      </div>
+
+      <!-- Panel 2: Inside Panel (Middle when unfolded) -->
+      <div class="brochure__panel brochure__panel--inside">
+        <h2 class="brochure__inside-title">
+          Transform Your Business Operations
+        </h2>
+        <p class="brochure__paragraph">
+          In today's fast-paced market, efficiency and automation are key. Our
+          innovative platform provides the tools you need to streamline
+          workflows, enhance collaboration, and make data-driven decisions.
+        </p>
+        <p class="brochure__paragraph">
+          Stop wasting time on manual tasks and unlock your team's true
+          potential. Discover how Innovate Solutions can revolutionize your
+          processes.
+        </p>
+        <ul class="brochure__feature-list">
+          <li class="brochure__feature-item">
+            <svg
+              class="brochure__feature-icon"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
+              <path
+                d="M5 4a1 1 0 00-2 0v7.268a2 2 0 000 3.464V16a1 1 0 102 0v-1.268a2 2 0 000-3.464V4zM11 4a1 1 0 10-2 0v1.268a2 2 0 000 3.464V16a1 1 0 102 0V8.732a2 2 0 000-3.464V4zM16 3a1 1 0 011 1v7.268a2 2 0 010 3.464V16a1 1 0 11-2 0v-1.268a2 2 0 010-3.464V4a1 1 0 011-1z"
+              />
+            </svg>
+            <div class="brochure__feature-text">
+              <strong>Streamlined Workflows</strong>
+              <span
+                >Automate repetitive tasks and optimize your process from
+                end-to-end.</span
+              >
+            </div>
+          </li>
+          <li class="brochure__feature-item">
+            <svg
+              class="brochure__feature-icon"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
+              <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
+              <path
+                fill-rule="evenodd"
+                d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z"
+                clip-rule="evenodd"
+              />
+            </svg>
+            <div class="brochure__feature-text">
+              <strong>Actionable Insights</strong>
+              <span
+                >Gain real-time visibility into your key metrics with powerful
+                analytics.</span
+              >
+            </div>
+          </li>
+          <li class="brochure__feature-item">
+            <svg
+              class="brochure__feature-icon"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M12.586 4.586a2 2 0 112.828 2.828l-3 3a2 2 0 01-2.828 0l-1.5-1.5a2 2 0 112.828-2.828l1.5 1.5 3-3z"
+                clip-rule="evenodd"
+              />
+              <path
+                fill-rule="evenodd"
+                d="M6.414 11.586a2 2 0 010 2.828l-1.5 1.5a2 2 0 01-2.828-2.828l3-3a2 2 0 012.828 0l1.5 1.5a2 2 0 01-2.828 2.828l-1.5-1.5z"
+                clip-rule="evenodd"
+              />
+            </svg>
+            <div class="brochure__feature-text">
+              <strong>Seamless Integration</strong>
+              <span
+                >Connect effortlessly with the tools you already use every
+                day.</span
+              >
+            </div>
+          </li>
+        </ul>
+        <a href="#" class="brochure__cta-button">Request a Demo Today</a>
+      </div>
+
+      <!-- Panel 3: Front Cover (Rightmost when unfolded) -->
+      <div class="brochure__panel brochure__panel--front">
+        <div>
+          <div class="brochure__logo-wrapper--front">
+            <!-- Use your specified logo -->
+            <img
+              class="brochure__logo--front"
+              src="https://i.imgur.com/0xURAaz.png"
+              alt="Company Logo"
+              width="306"
+              height="70"
+            />
+          </div>
+          <h1 class="brochure__title--front">Unlock Peak Performance</h1>
+          <p class="brochure__subtitle--front">
+            The Future of Business Efficiency is Here.
+          </p>
+        </div>
+        <div>
+          <img
+            class="brochure__hero-image"
+            src="placeholder-brochure-image.png"
+            alt="Abstract graphic representing efficiency"
+          />
+          <p class="brochure__website--front">www.innovatesolutions.example</p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

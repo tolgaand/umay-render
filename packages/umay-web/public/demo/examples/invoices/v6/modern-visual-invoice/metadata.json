@@ -1,0 +1,37 @@
+{
+  "pageTitle": "Modern PDF Invoice Generation from HTML | Visual Design Showcase",
+  "metaDescription": "Create visually stunning, modern PDF invoices from HTML & CSS. This showcase highlights advanced design rendering including gradients, custom fonts, icons, shadows, and complex layouts.",
+  "tags": [
+    "modern pdf invoice",
+    "html to pdf design",
+    "visual invoice pdf",
+    "css invoice generation",
+    "custom pdf invoice",
+    "advanced html to pdf",
+    "premium invoice design",
+    "pdf branding showcase",
+    "gradient pdf background",
+    "custom font pdf"
+  ],
+  "render": {
+    "pdfOptions": {
+      "format": "A4",
+      "landscape": false,
+      "printBackground": true,
+      "margin": {
+        "top": "0mm",
+        "right": "0mm",
+        "bottom": "0mm",
+        "left": "0mm"
+      },
+      "scale": 0.9
+    },
+    "pageSetupOptions": {
+      "viewport": {
+        "width": 800,
+        "height": 1202,
+        "deviceScaleFactor": 2
+      }
+    }
+  }
+}

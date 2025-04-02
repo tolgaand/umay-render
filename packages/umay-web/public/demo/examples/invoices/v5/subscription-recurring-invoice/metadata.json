@@ -1,0 +1,36 @@
+{
+  "pageTitle": "Generate PDF Subscription Invoices from HTML | Recurring Billing Example",
+  "metaDescription": "Create clear PDF invoices for recurring subscriptions & SaaS billing from HTML. This showcase demonstrates rendering billing periods, plan details, usage charges & upcoming payments.",
+  "tags": [
+    "generate pdf subscription invoice",
+    "html to pdf recurring billing",
+    "saas invoice pdf",
+    "monthly billing pdf",
+    "subscription billing pdf",
+    "create pdf invoice",
+    "billing period pdf",
+    "recurring payment invoice",
+    "usage based billing pdf"
+  ],
+  "render": {
+    "pdfOptions": {
+      "format": "A4",
+      "landscape": false,
+      "printBackground": true,
+      "margin": {
+        "top": "2mm",
+        "right": "2mm",
+        "bottom": "2mm",
+        "left": "2mm"
+      },
+      "scale": 0.9
+    },
+    "pageSetupOptions": {
+      "viewport": {
+        "width": 800,
+        "height": 1131,
+        "deviceScaleFactor": 2
+      }
+    }
+  }
+}

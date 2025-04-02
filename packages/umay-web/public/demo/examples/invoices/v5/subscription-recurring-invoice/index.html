@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Subscription / Recurring Billing Invoice</title>
+    <style>
+      /* --- Base Styles (Similar to v1/v3, clean and professional) --- */
+
+      body {
+        font-family: "Roboto", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        /* Modern sans-serif */
+        margin: 0;
+        padding: 25px;
+        font-size: 13px;
+        line-height: 1.6;
+        color: #222;
+        /* Slightly darker text */
+        background-color: #fff;
+      }
+
+      .invoice {
+        max-width: 800px;
+        margin: 0 auto;
+        border: 1px solid #eaeaea;
+        /* Lighter border */
+        border-radius: 4px;
+        /* Subtle rounding */
+        overflow: hidden;
+        /* Helps with rounded corners */
+      }
+      /* --- BEM Naming --- */
+      /* Invoice Header */
+
+      .invoice__header {
+        padding: 25px 30px;
+        /* More padding */
+        background-color: #f9f9f9;
+        /* Light background */
+        border-bottom: 1px solid #eaeaea;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+      }
+
+      .invoice__logo-area {
+        flex: 1;
+      }
+
+      .invoice__logo {
+        max-width: 200px;
+        /* Adjusted max-width if needed */
+        height: auto;
+      }
+
+      .invoice__title-area {
+        flex: 1;
+        text-align: right;
+      }
+
+      .invoice__title {
+        font-size: 24px;
+        font-weight: 500;
+        /* Medium weight */
+        color: #000;
+        margin: 0 0 5px 0;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      .invoice__details {
+        font-size: 12px;
+        color: #555;
+      }
+
+      .invoice__detail-item {
+        margin-bottom: 4px;
+      }
+
+      .invoice__detail-label {
+        font-weight: bold;
+      }
+      /* Billing Period Highlight */
+
+      .invoice__billing-period {
+        padding: 10px 30px;
+        background-color: #eef5ff;
+        /* Light blue highlight */
+        text-align: center;
+        font-weight: bold;
+        margin-bottom: 20px;
+        border-bottom: 1px solid #eaeaea;
+      }
+      /* Parties */
+
+      .invoice__parties {
+        display: flex;
+        justify-content: space-between;
+        padding: 0 30px;
+        /* Padding for content area */
+        margin-bottom: 30px;
+        gap: 30px;
+      }
+
+      .invoice__party {
+        flex: 1;
+      }
+
+      .invoice__party-title {
+        font-weight: bold;
+        margin-bottom: 8px;
+        font-size: 14px;
+        color: #000;
+      }
+
+      .invoice__party-info p {
+        margin: 0 0 5px 0;
+        font-size: 13px;
+      }
+      /* Items Table - Subscription Focus */
+
+      .invoice__items-table-container {
+        padding: 0 30px;
+        margin-bottom: 30px;
+      }
+
+      .invoice__items-table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+
+      .invoice__items-header {
+        background-color: #f5f5f5;
+        font-weight: bold;
+        border-bottom: 2px solid #ddd;
+        text-align: left;
+      }
+
+      .invoice__items-header th {
+        padding: 10px;
+        font-size: 12px;
+      }
+
+      .invoice__items-row td {
+        padding: 12px 10px;
+        border-bottom: 1px solid #f0f0f0;
+      }
+
+      .invoice__items-col--plan {
+        width: 55%;
+      }
+
+      .invoice__items-col--users {
+        width: 15%;
+        text-align: center;
+      }
+
+      .invoice__items-col--price {
+        width: 15%;
+        text-align: right;
+      }
+
+      .invoice__items-col--total {
+        width: 15%;
+        text-align: right;
+        font-weight: 500;
+      }
+
+      .invoice__plan-name {
+        font-weight: 500;
+      }
+
+      .invoice__plan-details {
+        font-size: 11px;
+        color: #666;
+        margin-top: 2px;
+      }
+      /* Totals */
+
+      .invoice__totals-container {
+        padding: 0 30px;
+      }
+
+      .invoice__totals {
+        margin-left: auto;
+        width: 40%;
+        max-width: 280px;
+      }
+
+      .invoice__totals-row {
+        display: flex;
+        justify-content: space-between;
+        padding: 6px 0;
+        font-size: 13px;
+      }
+
+      .invoice__totals-label {
+        color: #555;
+      }
+
+      .invoice__totals-value {
+        font-weight: bold;
+        text-align: right;
+      }
+
+      .invoice__totals-row--grand-total {
+        font-size: 17px;
+        font-weight: bold;
+        border-top: 2px solid #333;
+        margin-top: 10px;
+        padding-top: 10px;
+      }
+
+      .invoice__totals-value--grand-total {
+        color: #000;
+      }
+      /* Footer/Next Billing */
+
+      .invoice__footer {
+        margin-top: 30px;
+        padding: 20px 30px;
+        background-color: #f9f9f9;
+        border-top: 1px solid #eaeaea;
+        font-size: 12px;
+        color: #555;
+      }
+
+      .invoice__payment-status {
+        font-weight: bold;
+        color: #27ae60;
+        /* Green for paid */
+        margin-bottom: 10px;
+      }
+
+      .invoice__payment-status--due {
+        color: #e67e22;
+      }
+      /* Orange for due */
+
+      .invoice__next-billing {
+        margin-bottom: 10px;
+      }
+
+      .invoice__notes {
+        font-style: italic;
+        margin-top: 15px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="invoice">
+      <header class="invoice__header">
+        <div class="invoice__logo-area">
+          <img
+            class="invoice__logo"
+            src="https://i.imgur.com/0xURAaz.png"
+            alt="SaaS Company Logo"
+            width="306"
+            height="70"
+          />
+        </div>
+        <div class="invoice__title-area">
+          <h1 class="invoice__title">Subscription Invoice</h1>
+          <div class="invoice__details">
+            <div class="invoice__detail-item">
+              <span class="invoice__detail-label">Invoice #:</span>
+              <span>SUB-2024-05-A1B</span>
+            </div>
+            <div class="invoice__detail-item">
+              <span class="invoice__detail-label">Date Issued:</span>
+              <span>May 20, 2024</span>
+            </div>
+            <div class="invoice__detail-item">
+              <span class="invoice__detail-label">Payment Due:</span>
+              <span>Upon Receipt</span>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <div class="invoice__billing-period">
+        Billing Period: May 1, 2024 - May 31, 2024
+      </div>
+
+      <section class="invoice__parties">
+        <div class="invoice__party">
+          <div class="invoice__party-title">Bill From:</div>
+          <div class="invoice__party-info">
+            <p><strong>CloudPlatform Inc.</strong></p>
+            <p>Suite 100, Tech Tower</p>
+            <p>1 Cloud Way</p>
+            <p>Silicon Valley, CA 94000</p>
+          </div>
+        </div>
+        <div class="invoice__party">
+          <div class="invoice__party-title">Bill To:</div>
+          <div class="invoice__party-info">
+            <p><strong>Synergy Corp</strong></p>
+            <p>Attn: Finance Department</p>
+            <p>45 Corporate Drive</p>
+            <p>Business Park, NY 10010</p>
+            <p>Account ID: SYN-CORP-001</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="invoice__items-table-container">
+        <table class="invoice__items-table">
+          <thead class="invoice__items-header">
+            <tr>
+              <th class="invoice__items-col--plan">Subscription Plan</th>
+              <th class="invoice__items-col--users">Users / Units</th>
+              <th class="invoice__items-col--price">Unit Price</th>
+              <th class="invoice__items-col--total">Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="invoice__items-row">
+              <td class="invoice__items-col--plan">
+                <span class="invoice__plan-name"
+                  >Professional Tier - Monthly</span
+                >
+                <div class="invoice__plan-details">
+                  Includes core features, premium support
+                </div>
+              </td>
+              <td class="invoice__items-col--users">15</td>
+              <td class="invoice__items-col--price">$25.00 / user</td>
+              <td class="invoice__items-col--total">$375.00</td>
+            </tr>
+            <tr class="invoice__items-row">
+              <td class="invoice__items-col--plan">
+                <span class="invoice__plan-name">API Usage Add-on</span>
+                <div class="invoice__plan-details">
+                  Metered usage for May 2024
+                </div>
+              </td>
+              <td class="invoice__items-col--users">150,000 calls</td>
+              <td class="invoice__items-col--price">$0.001 / call</td>
+              <td class="invoice__items-col--total">$150.00</td>
+            </tr>
+            <tr class="invoice__items-row">
+              <td class="invoice__items-col--plan">
+                <span class="invoice__plan-name"
+                  >Advanced Analytics Module</span
+                >
+                <div class="invoice__plan-details">Monthly flat fee</div>
+              </td>
+              <td class="invoice__items-col--users">1</td>
+              <td class="invoice__items-col--price">$99.00</td>
+              <td class="invoice__items-col--total">$99.00</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="invoice__totals-container">
+        <div class="invoice__totals">
+          <div class="invoice__totals-row">
+            <div class="invoice__totals-label">Subtotal:</div>
+            <div class="invoice__totals-value">$624.00</div>
+          </div>
+          <div class="invoice__totals-row">
+            <div class="invoice__totals-label">Taxes (if applicable):</div>
+            <div class="invoice__totals-value">$0.00</div>
+          </div>
+          <div class="invoice__totals-row">
+            <div class="invoice__totals-label">Credit Applied:</div>
+            <div class="invoice__totals-value">($0.00)</div>
+          </div>
+          <div class="invoice__totals-row invoice__totals-row--grand-total">
+            <div class="invoice__totals-label">Total Due:</div>
+            <div
+              class="invoice__totals-value invoice__totals-value--grand-total"
+            >
+              $624.00
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <footer class="invoice__footer">
+        <div class="invoice__payment-status invoice__payment-status--due">
+          Status: Due
+        </div>
+        <div class="invoice__next-billing">
+          Next Billing Date: June 20, 2024
+        </div>
+        <p>
+          Payment will be automatically charged to the payment method on file.
+        </p>
+        <div class="invoice__notes">
+          <p>
+            Questions about your subscription or this invoice? Contact
+            support@cloudplatform.example.
+          </p>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>

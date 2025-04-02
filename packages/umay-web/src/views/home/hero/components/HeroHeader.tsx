@@ -10,15 +10,17 @@ import {
   Flex,
   Icon,
 } from "@chakra-ui/react";
-import { LuArrowRight, LuGithub, LuFileOutput } from "react-icons/lu";
+import { LuArrowRight, LuGithub, LuBoxes } from "react-icons/lu";
 import { useTheme } from "next-themes";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 export function HeroHeader() {
   const { resolvedTheme } = useTheme();
   const isDark = resolvedTheme === "dark";
   const [currentWord, setCurrentWord] = useState(0);
   const words = ["Invoices", "Reports", "Contracts", "Statements"];
+  const navigate = useNavigate();
 
   // Animate words cycling
   useEffect(() => {
@@ -27,6 +29,9 @@ export function HeroHeader() {
     }, 3000);
     return () => clearInterval(interval);
   }, []);
+
+  // Navigation handler
+  const goToExamples = () => navigate("/demos");
 
   return (
     <Box
@@ -171,9 +176,10 @@ export function HeroHeader() {
                   boxShadow: "lg",
                 }}
                 transition="all 0.3s"
+                onClick={goToExamples}
               >
-                <Icon as={LuFileOutput} mr="2" />
-                Try it Now
+                <Icon as={LuBoxes} mr="2" />
+                Show Examples
                 <Box as={LuArrowRight} display="inline-block" ml="2" />
               </Button>
 

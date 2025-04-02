@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Packing Slip/Dispatch Note</title>
+    <style>
+      /* General Page Styles */
+
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 20px;
+        color: #333;
+        line-height: 1.5;
+      }
+      /* Packing Slip Block */
+
+      .packing-slip {
+        max-width: 800px;
+        margin: 0 auto;
+        border: 1px solid #ddd;
+        padding: 20px;
+      }
+      /* Header Section */
+
+      .packing-slip__header {
+        text-align: center;
+        margin-bottom: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+        flex-wrap: wrap;
+      }
+
+      .packing-slip__logo {
+        max-width: 306px;
+      }
+
+      .packing-slip__logo img {
+        max-width: 100%;
+        height: auto;
+      }
+
+      .packing-slip__title {
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 5px;
+        text-transform: uppercase;
+      }
+      /* Info Section */
+
+      .packing-slip__info {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 20px;
+      }
+
+      .packing-slip__info-group {
+        width: 48%;
+      }
+
+      .packing-slip__info-heading {
+        font-weight: bold;
+        border-bottom: 1px solid #ddd;
+        padding-bottom: 5px;
+        margin-bottom: 10px;
+      }
+
+      .packing-slip__info-content {
+        line-height: 1.6;
+      }
+      /* Details Section */
+
+      .packing-slip__details {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 15px;
+        background-color: #f9f9f9;
+        padding: 8px;
+        border: 1px solid #eee;
+      }
+
+      .packing-slip__detail {
+        margin-right: 15px;
+      }
+
+      .packing-slip__detail-label {
+        font-weight: bold;
+        margin-right: 5px;
+      }
+      /* Items Table */
+
+      .packing-slip__items {
+        margin-bottom: 30px;
+      }
+
+      .packing-slip__table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+
+      .packing-slip__table-header {
+        background-color: #f5f5f5;
+        text-align: left;
+      }
+
+      .packing-slip__table-header th {
+        padding: 10px 15px;
+        border-bottom: 2px solid #ddd;
+        font-weight: bold;
+      }
+
+      .packing-slip__table-row td {
+        padding: 8px 15px;
+        border-bottom: 1px solid #ddd;
+      }
+
+      .packing-slip__table-item-no {
+        width: 10%;
+      }
+
+      .packing-slip__table-product-code {
+        width: 20%;
+      }
+
+      .packing-slip__table-description {
+        width: 40%;
+      }
+
+      .packing-slip__table-unit {
+        width: 10%;
+      }
+
+      .packing-slip__table-quantity {
+        width: 10%;
+        text-align: center;
+      }
+      /* Total Section */
+
+      .packing-slip__total {
+        text-align: right;
+        margin-bottom: 30px;
+        font-weight: bold;
+      }
+      /* Signatures Section */
+
+      .packing-slip__signatures {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 20px;
+      }
+
+      .packing-slip__signature {
+        width: 45%;
+      }
+
+      .packing-slip__signature-heading {
+        font-weight: bold;
+        margin-bottom: 5px;
+      }
+
+      .packing-slip__signature-line {
+        border-bottom: 1px solid #000;
+        padding-top: 30px;
+        margin-bottom: 5px;
+      }
+
+      .packing-slip__signature-date {
+        display: flex;
+        margin-top: 10px;
+      }
+
+      .packing-slip__signature-date-label {
+        margin-right: 10px;
+        font-weight: bold;
+      }
+
+      .packing-slip__signature-date-line {
+        border-bottom: 1px solid #000;
+        width: 150px;
+      }
+      /* Notes Section */
+
+      .packing-slip__notes {
+        margin-top: 20px;
+        padding: 10px;
+        border: 1px solid #ddd;
+        background-color: #f9f9f9;
+        font-style: italic;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="packing-slip">
+      <!-- Header Section -->
+      <header class="packing-slip__header">
+        <div class="packing-slip__logo">
+          <img
+            src="https://i.imgur.com/0xURAaz.png"
+            alt="Company Logo"
+            width="306"
+            height="70"
+          />
+        </div>
+        <h1 class="packing-slip__title">Packing Slip</h1>
+      </header>
+
+      <!-- Sender and Recipient Info -->
+      <section class="packing-slip__info">
+        <div class="packing-slip__info-group">
+          <div class="packing-slip__info-heading">From:</div>
+          <div class="packing-slip__info-content">
+            <p>
+              <strong>ABC Warehouse &amp; Distribution</strong><br />
+              123 Shipping Lane<br />
+              Warehouse District<br />
+              Cityville, ST 12345<br />
+              Contact: (555) 123-4567
+            </p>
+          </div>
+        </div>
+        <div class="packing-slip__info-group">
+          <div class="packing-slip__info-heading">To:</div>
+          <div class="packing-slip__info-content">
+            <p>
+              <strong>XYZ Retail Store</strong><br />
+              456 Shopping Plaza<br />
+              Retail Center<br />
+              Marketville, ST 67890<br />
+              Contact: (555) 987-6543
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Packing Slip Details -->
+      <section class="packing-slip__details">
+        <div class="packing-slip__detail">
+          <span class="packing-slip__detail-label">Packing Slip No:</span>
+          <span>PS-2024-0123</span>
+        </div>
+        <div class="packing-slip__detail">
+          <span class="packing-slip__detail-label">Issue Date:</span>
+          <span>May 15, 2024</span>
+        </div>
+        <div class="packing-slip__detail">
+          <span class="packing-slip__detail-label">Dispatch Date:</span>
+          <span>May 16, 2024</span>
+        </div>
+        <div class="packing-slip__detail">
+          <span class="packing-slip__detail-label">Order Ref:</span>
+          <span>ORD-45678</span>
+        </div>
+      </section>
+
+      <!-- Shipped Items Table -->
+      <section class="packing-slip__items">
+        <table class="packing-slip__table">
+          <thead class="packing-slip__table-header">
+            <tr>
+              <th class="packing-slip__table-item-no">Item No.</th>
+              <th class="packing-slip__table-product-code">
+                Product Code/Barcode
+              </th>
+              <th class="packing-slip__table-description">
+                Product Description
+              </th>
+              <th class="packing-slip__table-unit">Unit</th>
+              <th class="packing-slip__table-quantity">Quantity</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="packing-slip__table-row">
+              <td class="packing-slip__table-item-no">1</td>
+              <td class="packing-slip__table-product-code">PRD-001-BLK</td>
+              <td class="packing-slip__table-description">
+                Premium Widget - Black
+              </td>
+              <td class="packing-slip__table-unit">pcs</td>
+              <td class="packing-slip__table-quantity">25</td>
+            </tr>
+            <tr class="packing-slip__table-row">
+              <td class="packing-slip__table-item-no">2</td>
+              <td class="packing-slip__table-product-code">PRD-001-BLU</td>
+              <td class="packing-slip__table-description">
+                Premium Widget - Blue
+              </td>
+              <td class="packing-slip__table-unit">pcs</td>
+              <td class="packing-slip__table-quantity">15</td>
+            </tr>
+            <tr class="packing-slip__table-row">
+              <td class="packing-slip__table-item-no">3</td>
+              <td class="packing-slip__table-product-code">PRD-002-STD</td>
+              <td class="packing-slip__table-description">Standard Gadget</td>
+              <td class="packing-slip__table-unit">pcs</td>
+              <td class="packing-slip__table-quantity">50</td>
+            </tr>
+            <tr class="packing-slip__table-row">
+              <td class="packing-slip__table-item-no">4</td>
+              <td class="packing-slip__table-product-code">ACC-A100</td>
+              <td class="packing-slip__table-description">
+                Accessory Kit A-Series
+              </td>
+              <td class="packing-slip__table-unit">set</td>
+              <td class="packing-slip__table-quantity">10</td>
+            </tr>
+            <tr class="packing-slip__table-row">
+              <td class="packing-slip__table-item-no">5</td>
+              <td class="packing-slip__table-product-code">MNL-PRD-1</td>
+              <td class="packing-slip__table-description">Product Manual</td>
+              <td class="packing-slip__table-unit">pcs</td>
+              <td class="packing-slip__table-quantity">100</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- Total -->
+      <div class="packing-slip__total">
+        Total Items: 5 &nbsp;&nbsp;|&nbsp;&nbsp; Total Quantity: 200
+      </div>
+
+      <!-- Notes -->
+      <div class="packing-slip__notes">
+        <p>
+          Please inspect all items upon receipt. Report any discrepancies within
+          3 business days.
+        </p>
+      </div>
+
+      <!-- Signatures -->
+      <section class="packing-slip__signatures">
+        <div class="packing-slip__signature">
+          <div class="packing-slip__signature-heading">Dispatcher:</div>
+          <div class="packing-slip__signature-line"></div>
+          <div class="packing-slip__signature-name">Name/ID</div>
+          <div class="packing-slip__signature-date">
+            <span class="packing-slip__signature-date-label">Date:</span>
+            <span class="packing-slip__signature-date-line"></span>
+          </div>
+        </div>
+        <div class="packing-slip__signature">
+          <div class="packing-slip__signature-heading">Received By:</div>
+          <div class="packing-slip__signature-line"></div>
+          <div class="packing-slip__signature-name">Name/ID</div>
+          <div class="packing-slip__signature-date">
+            <span class="packing-slip__signature-date-label">Date:</span>
+            <span class="packing-slip__signature-date-line"></span>
+          </div>
+        </div>
+      </section>
+    </div>
+  </body>
+</html>

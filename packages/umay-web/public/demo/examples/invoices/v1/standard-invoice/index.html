@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Detailed Commercial Invoice</title>
+    <style>
+      /* General Page Styles */
+
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 20px;
+        color: #333;
+        line-height: 1.5;
+      }
+      /* Invoice Block */
+
+      .invoice {
+        max-width: 800px;
+        margin: 0 auto;
+        border: 1px solid #ddd;
+        padding: 30px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+      /* Invoice Header */
+
+      .invoice__header {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 40px;
+      }
+
+      .invoice__logo {
+        max-width: 200px;
+      }
+
+      .invoice__logo img {
+        max-width: 100%;
+        height: auto;
+      }
+
+      .invoice__title {
+        text-align: right;
+      }
+
+      .invoice__title h1 {
+        font-size: 24px;
+        color: #2a5885;
+        margin: 0 0 5px 0;
+      }
+
+      .invoice__details {
+        text-align: right;
+        font-size: 14px;
+      }
+
+      .invoice__details-row {
+        margin-bottom: 5px;
+      }
+
+      .invoice__details-label {
+        font-weight: bold;
+        margin-right: 10px;
+      }
+      /* Invoice Parties */
+
+      .invoice__parties {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 30px;
+      }
+
+      .invoice__party {
+        width: 48%;
+      }
+
+      .invoice__party-title {
+        font-size: 16px;
+        font-weight: bold;
+        border-bottom: 1px solid #ddd;
+        padding-bottom: 5px;
+        margin-bottom: 10px;
+      }
+
+      .invoice__party-info {
+        font-size: 14px;
+        line-height: 1.6;
+      }
+      /* Items Table */
+
+      .invoice__items {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 30px;
+      }
+
+      .invoice__items-header {
+        background-color: #f5f5f5;
+      }
+
+      .invoice__items-header th {
+        padding: 10px;
+        text-align: left;
+        border-bottom: 2px solid #ddd;
+        font-weight: bold;
+      }
+
+      .invoice__items-row td {
+        padding: 10px;
+        border-bottom: 1px solid #ddd;
+      }
+
+      .invoice__items-description {
+        width: 40%;
+      }
+
+      .invoice__items-quantity,
+      .invoice__items-unit {
+        width: 10%;
+      }
+
+      .invoice__items-price,
+      .invoice__items-vat-rate,
+      .invoice__items-vat-amount,
+      .invoice__items-total {
+        width: 10%;
+        text-align: right;
+      }
+      /* Totals */
+
+      .invoice__totals {
+        margin-left: auto;
+        width: 300px;
+      }
+
+      .invoice__totals-row {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 5px;
+        padding: 5px 0;
+      }
+
+      .invoice__totals-row--subtotal {
+        border-top: 1px solid #ddd;
+      }
+
+      .invoice__totals-row--total {
+        font-weight: bold;
+        font-size: 16px;
+        border-top: 2px solid #333;
+        padding-top: 10px;
+      }
+
+      .invoice__totals-label {
+        text-align: left;
+      }
+
+      .invoice__totals-value {
+        text-align: right;
+        min-width: 100px;
+      }
+      /* Payment Info */
+
+      .invoice__payment {
+        margin-top: 40px;
+        border-top: 1px solid #ddd;
+        padding-top: 20px;
+      }
+
+      .invoice__payment-title {
+        font-weight: bold;
+        margin-bottom: 10px;
+      }
+
+      .invoice__payment-info {
+        font-size: 14px;
+        line-height: 1.6;
+      }
+
+      .invoice__payment-terms {
+        margin-top: 20px;
+        font-style: italic;
+        color: #666;
+      }
+
+      .invoice__thank-you {
+        margin-top: 30px;
+        text-align: center;
+        font-weight: bold;
+        color: #2a5885;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="invoice">
+      <!-- Invoice Header -->
+      <header class="invoice__header">
+        <div class="invoice__logo">
+          <img
+            src="https://i.imgur.com/0xURAaz.png"
+            alt="Company Logo"
+            width="306"
+            height="70"
+          />
+        </div>
+        <div class="invoice__title">
+          <h1>INVOICE</h1>
+          <div class="invoice__details">
+            <div class="invoice__details-row">
+              <span class="invoice__details-label">Invoice No:</span>
+              <span>INV-2024-0001</span>
+            </div>
+            <div class="invoice__details-row">
+              <span class="invoice__details-label">Invoice Date:</span>
+              <span>May 15, 2024</span>
+            </div>
+            <div class="invoice__details-row">
+              <span class="invoice__details-label">Due Date:</span>
+              <span>June 14, 2024</span>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- Sender and Recipient Info -->
+      <section class="invoice__parties">
+        <div class="invoice__party">
+          <div class="invoice__party-title">From:</div>
+          <div class="invoice__party-info">
+            <p>
+              <strong>ABC Company Ltd</strong><br />
+              123 Business Avenue<br />
+              Business District<br />
+              Cityville, ST 12345<br />
+              Tax ID: ABC-12345678
+            </p>
+          </div>
+        </div>
+        <div class="invoice__party">
+          <div class="invoice__party-title">To:</div>
+          <div class="invoice__party-info">
+            <p>
+              <strong>XYZ Corporation</strong><br />
+              456 Corporate Plaza<br />
+              Downtown Area<br />
+              Metropolis, ST 67890<br />
+              Tax ID: XYZ-98765432
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Items Table -->
+      <table class="invoice__items">
+        <thead class="invoice__items-header">
+          <tr>
+            <th class="invoice__items-description">Description</th>
+            <th class="invoice__items-quantity">Qty</th>
+            <th class="invoice__items-unit">Unit</th>
+            <th class="invoice__items-price">Unit Price</th>
+            <th class="invoice__items-vat-rate">VAT Rate</th>
+            <th class="invoice__items-vat-amount">VAT Amount</th>
+            <th class="invoice__items-total">Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="invoice__items-row">
+            <td class="invoice__items-description">Premium Widget A</td>
+            <td class="invoice__items-quantity">5</td>
+            <td class="invoice__items-unit">pcs</td>
+            <td class="invoice__items-price">$100.00</td>
+            <td class="invoice__items-vat-rate">10%</td>
+            <td class="invoice__items-vat-amount">$50.00</td>
+            <td class="invoice__items-total">$550.00</td>
+          </tr>
+          <tr class="invoice__items-row">
+            <td class="invoice__items-description">Professional Services</td>
+            <td class="invoice__items-quantity">10</td>
+            <td class="invoice__items-unit">hrs</td>
+            <td class="invoice__items-price">$150.00</td>
+            <td class="invoice__items-vat-rate">10%</td>
+            <td class="invoice__items-vat-amount">$150.00</td>
+            <td class="invoice__items-total">$1,650.00</td>
+          </tr>
+          <tr class="invoice__items-row">
+            <td class="invoice__items-description">Standard Widget B</td>
+            <td class="invoice__items-quantity">8</td>
+            <td class="invoice__items-unit">pcs</td>
+            <td class="invoice__items-price">$75.00</td>
+            <td class="invoice__items-vat-rate">5%</td>
+            <td class="invoice__items-vat-amount">$30.00</td>
+            <td class="invoice__items-total">$630.00</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Totals -->
+      <div class="invoice__totals">
+        <div class="invoice__totals-row invoice__totals-row--subtotal">
+          <div class="invoice__totals-label">Subtotal:</div>
+          <div class="invoice__totals-value">$2,600.00</div>
+        </div>
+        <div class="invoice__totals-row">
+          <div class="invoice__totals-label">VAT (10%):</div>
+          <div class="invoice__totals-value">$200.00</div>
+        </div>
+        <div class="invoice__totals-row">
+          <div class="invoice__totals-label">VAT (5%):</div>
+          <div class="invoice__totals-value">$30.00</div>
+        </div>
+        <div class="invoice__totals-row">
+          <div class="invoice__totals-label">Total VAT:</div>
+          <div class="invoice__totals-value">$230.00</div>
+        </div>
+        <div class="invoice__totals-row invoice__totals-row--total">
+          <div class="invoice__totals-label">Total Due:</div>
+          <div class="invoice__totals-value">$2,830.00</div>
+        </div>
+      </div>
+
+      <!-- Payment Information -->
+      <div class="invoice__payment">
+        <div class="invoice__payment-title">Payment Details:</div>
+        <div class="invoice__payment-info">
+          <p>
+            <strong>Bank Name:</strong> International Banking Corporation<br />
+            <strong>Account Name:</strong> ABC Company Ltd<br />
+            <strong>Account Number:</strong> 1234567890<br />
+            <strong>IBAN:</strong> GB29 NWBK 6016 1331 9268 19<br />
+            <strong>SWIFT/BIC:</strong> IBANCORP
+          </p>
+        </div>
+        <div class="invoice__payment-terms">
+          <p>
+            Payment due within 30 days. Please include the invoice number in
+            your payment reference.
+          </p>
+        </div>
+        <div class="invoice__thank-you">
+          <p>Thank you for your business!</p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

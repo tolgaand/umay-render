@@ -1,0 +1,38 @@
+{
+  "pageTitle": "Modern Invoice PDF from HTML & Advanced CSS | Premium Showcase",
+  "metaDescription": "Generate pixel-perfect, premium PDF invoices from HTML using modern CSS (variables, shadows, complex layouts). Showcase highlights accurate branding & design rendering.",
+  "tags": [
+    "html to pdf invoice",
+    "modern invoice pdf",
+    "css invoice pdf",
+    "premium invoice design",
+    "generate pdf invoice",
+    "custom css to pdf",
+    "professional invoice pdf",
+    "pdf branding rendering",
+    "css variables pdf",
+    "advanced html to pdf",
+    "pixel-perfect pdf"
+  ],
+  "render": {
+    "pdfOptions": {
+      "format": "A4",
+      "landscape": false,
+      "printBackground": true,
+      "margin": {
+        "top": "2mm",
+        "right": "2mm",
+        "bottom": "2mm",
+        "left": "2mm"
+      },
+      "scale": 0.9
+    },
+    "pageSetupOptions": {
+      "viewport": {
+        "width": 950,
+        "height": 1200,
+        "deviceScaleFactor": 2
+      }
+    }
+  }
+}

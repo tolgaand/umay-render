@@ -9,14 +9,7 @@ import {
   Badge,
   Link,
 } from "@chakra-ui/react";
-import {
-  LuGithub,
-  LuPackage,
-  LuHeart,
-  LuBox,
-  LuPlay,
-  LuBoxes,
-} from "react-icons/lu";
+import { LuGithub, LuPackage, LuHeart, LuBox } from "react-icons/lu";
 import { useTheme } from "next-themes";
 import { useNavigate } from "react-router-dom";
 
@@ -31,8 +24,7 @@ export default function Footer() {
   const borderColor = isDark ? "gray.600" : "gray.200";
 
   // Navigation handlers
-  const goToDemo = () => navigate("/demo");
-  const goToSamples = () => navigate("/samples");
+  const goToDemo = () => navigate("/demos");
 
   return (
     <Box as="footer" py={10}>
@@ -72,8 +64,8 @@ export default function Footer() {
                 color={textMuted}
                 textAlign={{ base: "center", md: "left" }}
               >
-                Professional-quality HTML href PDF conversion. Free,
-                open-source, and without limits.
+                Professional-quality HTML to PDF conversion. Free, open-source,
+                and without limits.
               </Text>
               <HStack gap={4}>
                 <Link
@@ -115,7 +107,7 @@ export default function Footer() {
                 <Box
                   as="span"
                   cursor="pointer"
-                  color={textMuted}
+                  color={isDark ? "brand.300" : "brand.600"}
                   _hover={{ color: brandColor }}
                   transition="color 0.2s"
                   onClick={goToDemo}
@@ -123,27 +115,12 @@ export default function Footer() {
                   alignItems="center"
                   gap="2"
                 >
-                  <Box as={LuPlay} boxSize="4" />
-                  <Text>Demo</Text>
-                </Box>
-                <Box
-                  as="span"
-                  cursor="pointer"
-                  color={textMuted}
-                  _hover={{ color: brandColor }}
-                  transition="color 0.2s"
-                  onClick={goToSamples}
-                  display="flex"
-                  alignItems="center"
-                  gap="2"
-                >
-                  <Box as={LuBoxes} boxSize="4" />
-                  <Text>Samples</Text>
+                  <Text>Examples</Text>
                 </Box>
                 <Link
                   href="https://github.com/tolgaand/umay-render"
                   target="_blank"
-                  color={textMuted}
+                  color={isDark ? "brand.300" : "brand.600"}
                   _hover={{ color: brandColor }}
                   transition="color 0.2s"
                   display="flex"

@@ -1,0 +1,194 @@
+{
+  "categories": {
+    "invoices": "Invoices",
+    "orders": "Orders",
+    "financial": "Financial Documents",
+    "legal": "Legal Documents",
+    "reports": "Reports",
+    "marketing": "Marketing Documents"
+  },
+  "demos": [
+    {
+      "id": "standard-invoice",
+      "title": "Accurate HTML to PDF Invoice Conversion | Commercial Example",
+      "description": "Convert your HTML commercial invoices to professional, pixel-perfect PDFs. See accurate rendering of detailed tables, VAT calculations, branding & payment info in this showcase.",
+      "category": "invoices",
+      "screenshots": [
+        "/demo/examples/invoices/v1/standard-invoice/standard-invoice.webp"
+      ],
+      "links": {
+        "html": "/demo/examples/invoices/v1/standard-invoice/index.html",
+        "pdf": "/demo/examples/invoices/v1/standard-invoice/standard-invoice.pdf",
+        "jpg": "/demo/examples/invoices/v1/standard-invoice/standard-invoice.webp"
+      }
+    },
+    {
+      "id": "price-quote",
+      "title": "Create Multi-Page PDF Quotes & Proposals from HTML | Showcase",
+      "description": "Generate pixel-perfect, multi-page PDF price quotes and business proposals from complex HTML. This showcase demonstrates accurate rendering of cover pages, tables, custom layouts & branding.",
+      "category": "financial",
+      "screenshots": [
+        "/demo/examples/financial/v1/price-quote/price-quote.webp"
+      ],
+      "links": {
+        "html": "/demo/examples/financial/v1/price-quote/index.html",
+        "pdf": "/demo/examples/financial/v1/price-quote/price-quote.pdf",
+        "jpg": "/demo/examples/financial/v1/price-quote/price-quote.webp"
+      }
+    },
+    {
+      "id": "expense-report",
+      "title": "Generate Accurate PDF Expense Reports from HTML | Table & Approval Example",
+      "description": "Generate accurate, print-ready PDF expense reports from complex HTML. This showcase demonstrates handling tables, multi-column layouts, categories, totals & signature fields flawlessly.",
+      "category": "financial",
+      "screenshots": [
+        "/demo/examples/financial/v1/expense-report/expense-report.webp"
+      ],
+      "links": {
+        "html": "/demo/examples/financial/v1/expense-report/index.html",
+        "pdf": "/demo/examples/financial/v1/expense-report/expense-report.pdf",
+        "jpg": "/demo/examples/financial/v1/expense-report/expense-report.webp"
+      }
+    },
+    {
+      "id": "multi-currency-international-invoice",
+      "title": "Generate Multi-Currency PDF Invoices from HTML | International Billing Example",
+      "description": "Create professional PDF invoices for international trade with multi-currency support from HTML. Showcase demonstrates rendering IBAN/SWIFT, currency symbols (€, $, £), and VAT details.",
+      "category": "invoices",
+      "screenshots": [
+        "/demo/examples/invoices/v4/multi-currency-international-invoice/multi-currency-international-invoice.webp"
+      ],
+      "links": {
+        "html": "/demo/examples/invoices/v4/multi-currency-international-invoice/index.html",
+        "pdf": "/demo/examples/invoices/v4/multi-currency-international-invoice/multi-currency-international-invoice.pdf",
+        "jpg": "/demo/examples/invoices/v4/multi-currency-international-invoice/multi-currency-international-invoice.webp"
+      }
+    },
+    {
+      "id": "packing-slip",
+      "title": "Generate PDF Packing Slips & Dispatch Notes from HTML | Logistics Example",
+      "description": "Generate clear, accurate PDF packing slips & dispatch notes directly from HTML. Showcase demonstrates precise rendering of item tables, quantities & signatures for logistics & shipping.",
+      "category": "orders",
+      "screenshots": [
+        "/demo/examples/orders/v1/packing-slip/packing-slip.webp"
+      ],
+      "links": {
+        "html": "/demo/examples/orders/v1/packing-slip/index.html",
+        "pdf": "/demo/examples/orders/v1/packing-slip/packing-slip.pdf",
+        "jpg": "/demo/examples/orders/v1/packing-slip/packing-slip.webp"
+      }
+    },
+    {
+      "id": "sales-report-chartjs",
+      "title": "Generate PDF Reports with Charts from HTML | Chart.js Example",
+      "description": "Create professional PDF reports including dynamic charts generated with Chart.js from HTML. Showcase demonstrates rendering canvas-based bar charts accurately within PDF documents.",
+      "category": "reports",
+      "screenshots": [
+        "/demo/examples/reports/v1/sales-report-chartjs/sales-report-chartjs.webp"
+      ],
+      "links": {
+        "html": "/demo/examples/reports/v1/sales-report-chartjs/index.html",
+        "pdf": "/demo/examples/reports/v1/sales-report-chartjs/sales-report-chartjs.pdf",
+        "jpg": "/demo/examples/reports/v1/sales-report-chartjs/sales-report-chartjs.webp"
+      }
+    },
+    {
+      "id": "service-agreement",
+      "title": "Generate PDF Service Agreements & Contracts from HTML | Legal Document Example",
+      "description": "Easily convert your HTML service agreements and legal contracts into professional, print-ready PDFs. Showcase demonstrates accurate rendering of clauses, formal layouts & signature blocks.",
+      "category": "legal",
+      "screenshots": [
+        "/demo/examples/legal/v1/service-agreement/service-agreement.webp"
+      ],
+      "links": {
+        "html": "/demo/examples/legal/v1/service-agreement/index.html",
+        "pdf": "/demo/examples/legal/v1/service-agreement/service-agreement.pdf",
+        "jpg": "/demo/examples/legal/v1/service-agreement/service-agreement.webp"
+      }
+    },
+    {
+      "id": "service-hourly-invoice",
+      "title": "Generate PDF Service Invoices from HTML | Hourly Rate Billing Example",
+      "description": "Create professional PDF invoices for services billed by the hour. This showcase demonstrates clear rendering of task descriptions, hours, rates, and totals from HTML.",
+      "category": "invoices",
+      "screenshots": [
+        "/demo/examples/invoices/v3/service-hourly-invoice/service-hourly-invoice.webp"
+      ],
+      "links": {
+        "html": "/demo/examples/invoices/v3/service-hourly-invoice/index.html",
+        "pdf": "/demo/examples/invoices/v3/service-hourly-invoice/service-hourly-invoice.pdf",
+        "jpg": "/demo/examples/invoices/v3/service-hourly-invoice/service-hourly-invoice.webp"
+      }
+    },
+    {
+      "id": "subscription-recurring-invoice",
+      "title": "Generate PDF Subscription Invoices from HTML | Recurring Billing Example",
+      "description": "Create clear PDF invoices for recurring subscriptions & SaaS billing from HTML. This showcase demonstrates rendering billing periods, plan details, usage charges & upcoming payments.",
+      "category": "invoices",
+      "screenshots": [
+        "/demo/examples/invoices/v5/subscription-recurring-invoice/subscription-recurring-invoice.webp"
+      ],
+      "links": {
+        "html": "/demo/examples/invoices/v5/subscription-recurring-invoice/index.html",
+        "pdf": "/demo/examples/invoices/v5/subscription-recurring-invoice/subscription-recurring-invoice.pdf",
+        "jpg": "/demo/examples/invoices/v5/subscription-recurring-invoice/subscription-recurring-invoice.webp"
+      }
+    },
+    {
+      "id": "order-confirmation",
+      "title": "Generate Printable PDF Order Confirmations from HTML | E-commerce Showcase",
+      "description": "Easily generate professional, printable PDF order confirmations from your e-commerce HTML. This showcase demonstrates accurate rendering of product tables with images, pricing breakdowns, and shipping details.",
+      "category": "orders",
+      "screenshots": [
+        "/demo/examples/orders/v1/order-confirmation/order-confirmation.webp"
+      ],
+      "links": {
+        "html": "/demo/examples/orders/v1/order-confirmation/index.html",
+        "pdf": "/demo/examples/orders/v1/order-confirmation/order-confirmation.pdf",
+        "jpg": "/demo/examples/orders/v1/order-confirmation/order-confirmation.webp"
+      }
+    },
+    {
+      "id": "tri-fold-brochure",
+      "title": "Modern Brochure PDF from HTML | Tri-Fold Design Example",
+      "description": "Generate stunning, print-ready PDF brochures from complex HTML layouts. Showcase demonstrates accurate rendering of multi-column designs, images, icons, and branding for marketing materials.",
+      "category": "marketing",
+      "screenshots": [
+        "/demo/examples/marketing/v1/tri-fold-brochure/tri-fold-brochure.webp"
+      ],
+      "links": {
+        "html": "/demo/examples/marketing/v1/tri-fold-brochure/index.html",
+        "pdf": "/demo/examples/marketing/v1/tri-fold-brochure/tri-fold-brochure.pdf",
+        "jpg": "/demo/examples/marketing/v1/tri-fold-brochure/tri-fold-brochure.webp"
+      }
+    },
+    {
+      "id": "premium-invoice",
+      "title": "Modern Invoice PDF from HTML & Advanced CSS | Premium Showcase",
+      "description": "Generate pixel-perfect, premium PDF invoices from HTML using modern CSS (variables, shadows, complex layouts). Showcase highlights accurate branding & design rendering.",
+      "category": "invoices",
+      "screenshots": [
+        "/demo/examples/invoices/v2/premium-invoice/premium-invoice.webp"
+      ],
+      "links": {
+        "html": "/demo/examples/invoices/v2/premium-invoice/index.html",
+        "pdf": "/demo/examples/invoices/v2/premium-invoice/premium-invoice.pdf",
+        "jpg": "/demo/examples/invoices/v2/premium-invoice/premium-invoice.webp"
+      }
+    },
+    {
+      "id": "modern-visual-invoice",
+      "title": "Modern PDF Invoice Generation from HTML | Visual Design Showcase",
+      "description": "Create visually stunning, modern PDF invoices from HTML & CSS. This showcase highlights advanced design rendering including gradients, custom fonts, icons, shadows, and complex layouts.",
+      "category": "invoices",
+      "screenshots": [
+        "/demo/examples/invoices/v6/modern-visual-invoice/modern-visual-invoice.webp"
+      ],
+      "links": {
+        "html": "/demo/examples/invoices/v6/modern-visual-invoice/index.html",
+        "pdf": "/demo/examples/invoices/v6/modern-visual-invoice/modern-visual-invoice.pdf",
+        "jpg": "/demo/examples/invoices/v6/modern-visual-invoice/modern-visual-invoice.webp"
+      }
+    }
+  ]
+}

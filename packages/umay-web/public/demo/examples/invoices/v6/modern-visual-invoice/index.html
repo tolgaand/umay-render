@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Modern Visual Invoice</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --primary-color: #4a90e2;
+        /* A nice blue */
+        --secondary-color: #50e3c2;
+        /* Teal accent */
+        --text-dark: #2d3748;
+        /* Dark gray for text */
+        --text-light: #718096;
+        /* Lighter gray */
+        --bg-light: #f7fafc;
+        /* Light background */
+        --bg-card: #ffffff;
+        --border-color: #e2e8f0;
+        --font-family: "Poppins", sans-serif;
+        --border-radius: 8px;
+        --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+          0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+          0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      }
+
+      body {
+        font-family: var(--font-family);
+        margin: 0;
+        padding: 40px;
+        /* More padding around */
+        font-size: 14px;
+        line-height: 1.6;
+        color: var(--text-dark);
+        background-color: var(--bg-light);
+      }
+
+      .invoice {
+        max-width: 850px;
+        margin: 0 auto;
+        background-color: var(--bg-card);
+        border-radius: var(--border-radius);
+        box-shadow: var(--shadow-lg);
+        overflow: hidden;
+        /* Keep shadows contained */
+      }
+      /* --- BEM Naming --- */
+      /* Header with Gradient */
+
+      .invoice__header {
+        background: linear-gradient(
+          135deg,
+          var(--primary-color) 0%,
+          #357abd 100%
+        );
+        color: white;
+        padding: 30px 40px;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+      }
+
+      .invoice__logo-area {
+        /* No changes needed */
+      }
+
+      .invoice__logo {
+        max-width: 180px;
+        /* Adjust size */
+        height: auto;
+        filter: brightness(0) invert(1);
+        /* Make logo white if it's dark */
+      }
+
+      .invoice__title-area {
+        text-align: right;
+      }
+
+      .invoice__title {
+        font-size: 32px;
+        font-weight: 700;
+        margin: 0 0 5px 0;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      .invoice__details {
+        font-size: 12px;
+        opacity: 0.9;
+      }
+
+      .invoice__detail-item {
+        margin-bottom: 4px;
+      }
+
+      .invoice__detail-label {
+        font-weight: 600;
+        /* Bold labels */
+      }
+      /* Content Area */
+
+      .invoice__content {
+        padding: 30px 40px;
+      }
+      /* Parties in Cards */
+
+      .invoice__parties {
+        display: grid;
+        /* Use grid for better alignment */
+        grid-template-columns: 1fr 1fr;
+        gap: 30px;
+        margin-bottom: 40px;
+      }
+
+      .invoice__party {
+        background-color: #fff;
+        border: 1px solid var(--border-color);
+        border-radius: var(--border-radius);
+        padding: 20px;
+        box-shadow: var(--shadow-md);
+      }
+
+      .invoice__party-title {
+        font-weight: 600;
+        margin-bottom: 15px;
+        font-size: 16px;
+        color: var(--primary-color);
+        display: flex;
+        align-items: center;
+      }
+      /* Simple SVG icons */
+
+      .invoice__icon {
+        width: 16px;
+        height: 16px;
+        margin-right: 8px;
+        fill: var(--primary-color);
+      }
+
+      .invoice__party-info p {
+        margin: 0 0 6px 0;
+        font-size: 14px;
+        color: var(--text-light);
+      }
+
+      .invoice__party-info strong {
+        color: var(--text-dark);
+        font-weight: 500;
+      }
+      /* Subtler strong */
+      /* Items Table - Modern Styling */
+
+      .invoice__items-container {
+        margin-bottom: 40px;
+      }
+
+      .invoice__items-table {
+        width: 100%;
+        border-collapse: separate;
+        /* Allow border-radius on cells */
+        border-spacing: 0;
+        overflow: hidden;
+        /* Needed for border-radius on table */
+        border: 1px solid var(--border-color);
+        border-radius: var(--border-radius);
+      }
+
+      .invoice__items-header {
+        background-color: var(--bg-light);
+        font-weight: 600;
+        /* Semibold */
+        text-align: left;
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        color: var(--text-light);
+      }
+
+      .invoice__items-header th {
+        padding: 12px 15px;
+        border-bottom: 1px solid var(--border-color);
+      }
+
+      .invoice__items-row td {
+        padding: 15px;
+        /* More padding in rows */
+        border-bottom: 1px solid var(--border-color);
+        font-size: 14px;
+        vertical-align: top;
+        /* Align content top */
+      }
+
+      .invoice__items-row:last-child td {
+        border-bottom: none;
+      }
+
+      .invoice__items-col--desc {
+        width: 50%;
+      }
+
+      .invoice__items-col--qty {
+        width: 10%;
+        text-align: center;
+      }
+
+      .invoice__items-col--price {
+        width: 20%;
+        text-align: right;
+      }
+
+      .invoice__items-col--total {
+        width: 20%;
+        text-align: right;
+        font-weight: 600;
+        color: var(--text-dark);
+      }
+
+      .invoice__item-title {
+        display: block;
+        font-weight: 500;
+        margin-bottom: 3px;
+        color: var(--text-dark);
+      }
+
+      .invoice__item-details {
+        font-size: 12px;
+        color: var(--text-light);
+      }
+      /* Totals Section */
+
+      .invoice__totals-section {
+        text-align: right;
+      }
+      /* Align container right */
+
+      .invoice__totals {
+        display: inline-block;
+        /* Allow text-align right on parent */
+        min-width: 300px;
+        text-align: left;
+        /* Reset text-align inside */
+        margin-bottom: 30px;
+      }
+
+      .invoice__totals-row {
+        display: flex;
+        justify-content: space-between;
+        padding: 8px 0;
+        font-size: 14px;
+        border-bottom: 1px dashed var(--border-color);
+        /* Dashed separator */
+      }
+
+      .invoice__totals-row:last-of-type {
+        border-bottom: none;
+      }
+
+      .invoice__totals-label {
+        color: var(--text-light);
+      }
+
+      .invoice__totals-value {
+        font-weight: 500;
+        text-align: right;
+        color: var(--text-dark);
+      }
+
+      .invoice__totals-row--grand-total {
+        font-size: 18px;
+        /* Larger Total */
+        font-weight: 700;
+        /* Bold */
+        color: var(--primary-color);
+        border-top: 2px solid var(--primary-color);
+        margin-top: 10px;
+        padding-top: 10px;
+        border-bottom: none;
+        /* Remove dashed line */
+      }
+
+      .invoice__totals-value--grand-total {
+        color: var(--primary-color);
+      }
+      /* Footer / Notes */
+
+      .invoice__footer {
+        margin-top: 30px;
+        padding: 25px 40px;
+        background-color: var(--bg-light);
+        border-top: 1px solid var(--border-color);
+        font-size: 12px;
+        color: var(--text-light);
+      }
+
+      .invoice__notes-title {
+        font-weight: 600;
+        color: var(--text-dark);
+        margin-bottom: 8px;
+      }
+
+      .invoice__notes p {
+        margin-bottom: 5px;
+      }
+
+      .invoice__thank-you {
+        margin-top: 20px;
+        text-align: center;
+        font-weight: 600;
+        font-size: 16px;
+        color: var(--primary-color);
+      }
+      /* Status Pill */
+
+      .invoice__status {
+        display: inline-block;
+        padding: 4px 12px;
+        border-radius: 15px;
+        /* Pill shape */
+        font-weight: 600;
+        font-size: 11px;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+        margin-top: 5px;
+        /* Space it */
+      }
+
+      .invoice__status--paid {
+        background-color: #d1fae5;
+        color: #065f46;
+      }
+      /* Tailwind Green */
+
+      .invoice__status--due {
+        background-color: #fef3c7;
+        color: #92400e;
+      }
+      /* Tailwind Amber */
+
+      .invoice__status--overdue {
+        background-color: #fee2e2;
+        color: #991b1b;
+      }
+      /* Tailwind Red */
+    </style>
+  </head>
+
+  <body>
+    <div class="invoice">
+      <header class="invoice__header">
+        <div class="invoice__logo-area">
+          <!-- Use your specified logo -->
+          <img
+            class="invoice__logo"
+            src="https://i.imgur.com/0xURAaz.png"
+            alt="Company Logo"
+            width="306"
+            height="70"
+          />
+        </div>
+        <div class="invoice__title-area">
+          <h1 class="invoice__title">Invoice</h1>
+          <div class="invoice__details">
+            <div class="invoice__detail-item">
+              <span class="invoice__detail-label">Invoice #:</span>
+              <span>INV-MODERN-001</span>
+            </div>
+            <div class="invoice__detail-item">
+              <span class="invoice__detail-label">Issued:</span>
+              <span>May 20, 2024</span>
+            </div>
+            <div class="invoice__detail-item">
+              <span class="invoice__detail-label">Due:</span>
+              <span>June 19, 2024</span>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <div class="invoice__content">
+        <section class="invoice__parties">
+          <div class="invoice__party">
+            <div class="invoice__party-title">
+              <svg
+                class="invoice__icon"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"
+                />
+              </svg>
+              From
+            </div>
+            <div class="invoice__party-info">
+              <p><strong>Innovate Solutions Ltd.</strong></p>
+              <p>Suite 500, Tech Hub</p>
+              <p>1 Innovation Plaza</p>
+              <p>Metro City, ST 11223</p>
+              <p>hello@innovate.example</p>
+            </div>
+          </div>
+          <div class="invoice__party">
+            <div class="invoice__party-title">
+              <svg
+                class="invoice__icon"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0012 11z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+              Bill To
+            </div>
+            <div class="invoice__party-info">
+              <p><strong>Synergy Corp.</strong></p>
+              <p>Finance Department</p>
+              <p>456 Corporate Drive</p>
+              <p>Commerce Town, ST 54321</p>
+              <p>billing@synergy.example</p>
+              <div class="invoice__status invoice__status--due">Due</div>
+            </div>
+          </div>
+        </section>
+
+        <section class="invoice__items-container">
+          <table class="invoice__items-table">
+            <thead class="invoice__items-header">
+              <tr>
+                <th class="invoice__items-col--desc">Service / Product</th>
+                <th class="invoice__items-col--qty">Qty</th>
+                <th class="invoice__items-col--price">Rate</th>
+                <th class="invoice__items-col--total">Amount</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="invoice__items-row">
+                <td class="invoice__items-col--desc">
+                  <span class="invoice__item-title"
+                    >Enterprise Software License</span
+                  >
+                  <span class="invoice__item-details"
+                    >Annual subscription renewal (Pro Tier)</span
+                  >
+                </td>
+                <td class="invoice__items-col--qty">1</td>
+                <td class="invoice__items-col--price">$2,400.00</td>
+                <td class="invoice__items-col--total">$2,400.00</td>
+              </tr>
+              <tr class="invoice__items-row">
+                <td class="invoice__items-col--desc">
+                  <span class="invoice__item-title"
+                    >Custom Development Hours</span
+                  >
+                  <span class="invoice__item-details"
+                    >Integration module development (May)</span
+                  >
+                </td>
+                <td class="invoice__items-col--qty">25</td>
+                <td class="invoice__items-col--price">$180.00 / hr</td>
+                <td class="invoice__items-col--total">$4,500.00</td>
+              </tr>
+              <tr class="invoice__items-row">
+                <td class="invoice__items-col--desc">
+                  <span class="invoice__item-title"
+                    >Premium Support Package</span
+                  >
+                  <span class="invoice__item-details"
+                    >Monthly retainer for dedicated support</span
+                  >
+                </td>
+                <td class="invoice__items-col--qty">1</td>
+                <td class="invoice__items-col--price">$500.00 / mo</td>
+                <td class="invoice__items-col--total">$500.00</td>
+              </tr>
+              <tr class="invoice__items-row">
+                <td class="invoice__items-col--desc">
+                  <span class="invoice__item-title">Cloud Storage Addon</span>
+                  <span class="invoice__item-details"
+                    >Additional 500 GB storage</span
+                  >
+                </td>
+                <td class="invoice__items-col--qty">1</td>
+                <td class="invoice__items-col--price">$50.00 / mo</td>
+                <td class="invoice__items-col--total">$50.00</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section class="invoice__totals-section">
+          <div class="invoice__totals">
+            <div class="invoice__totals-row">
+              <div class="invoice__totals-label">Subtotal:</div>
+              <div class="invoice__totals-value">$7,450.00</div>
+            </div>
+            <div class="invoice__totals-row">
+              <div class="invoice__totals-label">Discount (Loyalty):</div>
+              <div class="invoice__totals-value">($372.50)</div>
+            </div>
+            <div class="invoice__totals-row">
+              <div class="invoice__totals-label">Tax (GST 5%):</div>
+              <div class="invoice__totals-value">$353.88</div>
+            </div>
+            <div class="invoice__totals-row invoice__totals-row--grand-total">
+              <div class="invoice__totals-label">Total Due (USD):</div>
+              <div
+                class="invoice__totals-value invoice__totals-value--grand-total"
+              >
+                $7,431.38
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <footer class="invoice__footer">
+        <div class="invoice__notes">
+          <div class="invoice__notes-title">Notes & Payment Information</div>
+          <p>
+            Please make payment within 30 days. Reference Invoice #
+            INV-MODERN-001.
+          </p>
+          <p>
+            Payment Methods Accepted: Bank Transfer (Details available upon
+            request), Credit Card (Online Payment Portal).
+          </p>
+          <p>For billing inquiries, please contact finance@innovate.example.</p>
+        </div>
+        <div class="invoice__thank-you">Thank you for your partnership!</div>
+      </footer>
+    </div>
+  </body>
+</html>

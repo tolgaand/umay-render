@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>E-commerce Order Confirmation</title>
+    <style>
+      /* General Page Styles */
+
+      body {
+        font-family: "Helvetica", Arial, sans-serif;
+        margin: 0;
+        padding: 20px;
+        color: #333;
+        line-height: 1.5;
+        background-color: #f7f7f7;
+      }
+      /* Order Confirmation Block */
+
+      .order {
+        max-width: 800px;
+        margin: 0 auto;
+        background-color: #fff;
+        border-radius: 6px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        padding: 30px;
+      }
+      /* Order Header */
+
+      .order__header {
+        text-align: center;
+        margin-bottom: 30px;
+        padding-bottom: 20px;
+        border-bottom: 1px solid #eee;
+      }
+
+      .order__logo {
+        max-width: 180px;
+        margin: 0 auto 15px;
+      }
+
+      .order__logo img {
+        max-width: 100%;
+        height: auto;
+      }
+
+      .order__title {
+        color: #4a8522;
+        font-size: 24px;
+        margin: 10px 0;
+      }
+
+      .order__subtitle {
+        color: #666;
+        font-size: 16px;
+        margin: 5px 0;
+      }
+      /* Order Details */
+
+      .order__details {
+        margin-bottom: 30px;
+      }
+
+      .order__details-row {
+        display: flex;
+        margin-bottom: 8px;
+      }
+
+      .order__details-label {
+        font-weight: bold;
+        width: 150px;
+      }
+
+      .order__details-value {
+        flex: 1;
+      }
+      /* Order Addresses */
+
+      .order__addresses {
+        display: flex;
+        flex-wrap: wrap;
+        margin-bottom: 30px;
+        gap: 20px;
+      }
+
+      .order__address {
+        flex: 1;
+        min-width: 250px;
+        padding: 15px;
+        background-color: #f9f9f9;
+        border-radius: 4px;
+      }
+
+      .order__address-title {
+        font-weight: bold;
+        margin-bottom: 10px;
+        padding-bottom: 5px;
+        border-bottom: 1px solid #eee;
+      }
+
+      .order__address-content {
+        line-height: 1.6;
+      }
+      /* Order Items */
+
+      .order__items {
+        margin-bottom: 30px;
+      }
+
+      .order__items-title {
+        font-size: 18px;
+        margin-bottom: 15px;
+        padding-bottom: 5px;
+        border-bottom: 1px solid #eee;
+      }
+
+      .order__items-table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+
+      .order__items-header {
+        background-color: #f5f5f5;
+        text-align: left;
+      }
+
+      .order__items-header th {
+        padding: 12px 15px;
+      }
+
+      .order__items-row td {
+        padding: 15px;
+        border-bottom: 1px solid #eee;
+        vertical-align: middle;
+      }
+
+      .order__items-image {
+        width: 60px;
+      }
+
+      .order__items-image img {
+        max-width: 100%;
+        height: auto;
+        border: 1px solid #eee;
+        border-radius: 4px;
+      }
+
+      .order__items-name {
+        width: 40%;
+      }
+
+      .order__items-sku {
+        color: #777;
+        font-size: 13px;
+        display: block;
+        margin-top: 5px;
+      }
+
+      .order__items-quantity,
+      .order__items-price,
+      .order__items-total {
+        text-align: right;
+      }
+      /* Order Summary */
+
+      .order__summary {
+        width: 350px;
+        margin-left: auto;
+        margin-bottom: 30px;
+      }
+
+      .order__summary-row {
+        display: flex;
+        justify-content: space-between;
+        padding: 8px 0;
+      }
+
+      .order__summary-row--total {
+        font-weight: bold;
+        font-size: 18px;
+        border-top: 2px solid #ddd;
+        padding-top: 12px;
+        margin-top: 8px;
+      }
+      /* Shipping Info */
+
+      .order__shipping {
+        background-color: #f9f9f9;
+        padding: 15px;
+        border-radius: 4px;
+        margin-bottom: 30px;
+      }
+
+      .order__shipping-title {
+        font-weight: bold;
+        margin-bottom: 10px;
+      }
+
+      .order__shipping-eta {
+        font-size: 16px;
+        color: #4a8522;
+      }
+      /* Footer */
+
+      .order__footer {
+        margin-top: 40px;
+        padding-top: 20px;
+        border-top: 1px solid #eee;
+        text-align: center;
+        color: #666;
+        font-size: 14px;
+      }
+
+      .order__links {
+        margin-top: 15px;
+      }
+
+      .order__link {
+        color: #4a8522;
+        margin: 0 10px;
+        text-decoration: none;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="order">
+      <!-- Order Header -->
+      <header class="order__header">
+        <div class="order__logo">
+          <img
+            src="https://i.imgur.com/0xURAaz.png"
+            alt="Company Logo"
+            width="306"
+            height="70"
+          />
+        </div>
+        <h1 class="order__title">Your Order is Confirmed!</h1>
+        <p class="order__subtitle">Thank you for shopping with us.</p>
+      </header>
+
+      <!-- Order Details -->
+      <section class="order__details">
+        <div class="order__details-row">
+          <div class="order__details-label">Order Number:</div>
+          <div class="order__details-value">#ORD-12345678</div>
+        </div>
+        <div class="order__details-row">
+          <div class="order__details-label">Order Date:</div>
+          <div class="order__details-value">May 18, 2024</div>
+        </div>
+        <div class="order__details-row">
+          <div class="order__details-label">Payment Method:</div>
+          <div class="order__details-value">Credit Card (ending in 1234)</div>
+        </div>
+      </section>
+
+      <!-- Address Information -->
+      <section class="order__addresses">
+        <div class="order__address">
+          <div class="order__address-title">Shipping Address</div>
+          <div class="order__address-content">
+            John Doe<br />
+            123 Delivery Street<br />
+            Apt 4B<br />
+            Cityville, ST 12345<br />
+            United States<br />
+            Phone: (555) 123-4567
+          </div>
+        </div>
+        <div class="order__address">
+          <div class="order__address-title">Billing Address</div>
+          <div class="order__address-content">
+            John Doe<br />
+            123 Delivery Street<br />
+            Apt 4B<br />
+            Cityville, ST 12345<br />
+            United States<br />
+            Phone: (555) 123-4567
+          </div>
+        </div>
+      </section>
+
+      <!-- Ordered Items -->
+      <section class="order__items">
+        <h2 class="order__items-title">Ordered Items</h2>
+        <table class="order__items-table">
+          <thead class="order__items-header">
+            <tr>
+              <th class="order__items-image"></th>
+              <th class="order__items-name">Product</th>
+              <th class="order__items-quantity">Qty</th>
+              <th class="order__items-price">Price</th>
+              <th class="order__items-total">Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="order__items-row">
+              <td class="order__items-image">
+                <img
+                  src="https://i.imgur.com/wXuQ7LB.png"
+                  alt="Premium Headphones"
+                  width="60"
+                  height="60"
+                />
+              </td>
+              <td class="order__items-name">
+                Premium Wireless Headphones
+                <span class="order__items-sku">SKU: HD-PRO-X1</span>
+              </td>
+              <td class="order__items-quantity">1</td>
+              <td class="order__items-price">$199.99</td>
+              <td class="order__items-total">$199.99</td>
+            </tr>
+            <tr class="order__items-row">
+              <td class="order__items-image">
+                <img
+                  src="https://i.imgur.com/YFAptZF.png"
+                  alt="Smartphone Case"
+                  width="60"
+                  height="60"
+                />
+              </td>
+              <td class="order__items-name">
+                Protective Smartphone Case - Black
+                <span class="order__items-sku">SKU: CASE-BLK-12</span>
+              </td>
+              <td class="order__items-quantity">2</td>
+              <td class="order__items-price">$29.99</td>
+              <td class="order__items-total">$59.98</td>
+            </tr>
+            <tr class="order__items-row">
+              <td class="order__items-image">
+                <img
+                  src="https://i.imgur.com/JTWitEe.png"
+                  alt="Charging Cable"
+                  width="60"
+                  height="60"
+                />
+              </td>
+              <td class="order__items-name">
+                Fast Charging USB-C Cable (10ft)
+                <span class="order__items-sku">SKU: CABLE-C-10</span>
+              </td>
+              <td class="order__items-quantity">3</td>
+              <td class="order__items-price">$14.99</td>
+              <td class="order__items-total">$44.97</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- Order Summary -->
+      <section class="order__summary">
+        <div class="order__summary-row">
+          <div>Subtotal:</div>
+          <div>$304.94</div>
+        </div>
+        <div class="order__summary-row">
+          <div>Shipping:</div>
+          <div>$8.99</div>
+        </div>
+        <div class="order__summary-row">
+          <div>Tax:</div>
+          <div>$25.31</div>
+        </div>
+        <div class="order__summary-row">
+          <div>Discount (SUMMER10):</div>
+          <div>-$30.49</div>
+        </div>
+        <div class="order__summary-row order__summary-row--total">
+          <div>Total:</div>
+          <div>$308.75</div>
+        </div>
+      </section>
+
+      <!-- Shipping Information -->
+      <section class="order__shipping">
+        <div class="order__shipping-title">Shipping Information</div>
+        <div class="order__shipping-eta">
+          <p>Estimated Delivery: May 22 - May 25, 2024</p>
+          <p>Shipping Method: Standard Shipping (3-5 business days)</p>
+        </div>
+      </section>
+
+      <!-- Footer -->
+      <footer class="order__footer">
+        <p>
+          If you have any questions about your order, please contact our
+          customer service team.
+        </p>
+        <p>Email: support@example.com | Phone: (800) 123-4567</p>
+        <div class="order__links">
+          <span class="order__link">Return Policy</span>
+          <span class="order__link">Track Your Order</span>
+          <span class="order__link">Help Center</span>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>

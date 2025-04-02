@@ -24,31 +24,63 @@ export default tseslint.config({
   languageOptions: {
     // other options...
     parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
+      project: ["./tsconfig.node.json", "./tsconfig.app.json"],
       tsconfigRootDir: import.meta.dirname,
     },
   },
-})
+});
 ```
 
 You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
 
 ```js
 // eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+import reactX from "eslint-plugin-react-x";
+import reactDom from "eslint-plugin-react-dom";
 
 export default tseslint.config({
   plugins: {
     // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
+    "react-x": reactX,
+    "react-dom": reactDom,
   },
   rules: {
     // other rules...
     // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
+    ...reactX.configs["recommended-typescript"].rules,
     ...reactDom.configs.recommended.rules,
   },
-})
+});
 ```
+
+## Server Configuration for Client-Side Routing
+
+For proper client-side routing to work (to fix the 404 errors for direct access to routes like `/demos`), use the appropriate configuration for your hosting provider:
+
+### Netlify
+
+The `_redirects` file in the `public` directory will handle client-side routing on Netlify.
+
+### Vercel
+
+The `vercel.json` file in the project root will handle client-side routing on Vercel.
+
+### Other Hosting Providers
+
+- For Apache servers, a `.htaccess` file should be added.
+- For IIS servers, the `web.config` file in the `public` directory will handle routing.
+
+## Sitemap
+
+The sitemap is automatically generated during the build process using the `vite-plugin-sitemap` package. It will create:
+
+1. `sitemap.xml` - Lists all routes of the application for search engines
+2. `robots.txt` - Tells search engines how to crawl the site
+
+To submit the sitemap to Google:
+
+1. Go to [Google Search Console](https://search.console.google.com/)
+2. Add your site if not already added
+3. Navigate to Sitemaps and add `https://www.umayrender.com/sitemap.xml`
+
+Additionally, make sure your `robots.txt` file is properly set up to allow crawling.

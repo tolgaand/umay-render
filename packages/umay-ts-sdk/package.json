@@ -1,6 +1,6 @@
 {
     "name": "umay-render",
-    "version": "2.0.0",
+    "version": "2.0.1",
     "description": "Free, high-performance HTML to PDF and HTML to Image conversion SDK for both browser and Node.js",
     "keywords": [
         "html-to-pdf",

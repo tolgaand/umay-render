@@ -5,8 +5,8 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <PackageId>UmaySDK</PackageId>
-    <Version>1.0.3</Version>
-    <Authors>Umay</Authors>
+    <Version>1.0.4</Version>
+    <Authors>tolgaand</Authors>
     <Company>Umay</Company>
     <Description>C# SDK for the Umay HTML to PDF/Image conversion service</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>

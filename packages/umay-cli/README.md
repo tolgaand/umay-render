@@ -77,7 +77,7 @@ Options:
 - `--margin-right <margin>` - Right margin [default: "20mm"]
 - `--margin-bottom <margin>` - Bottom margin [default: "20mm"]
 - `--margin-left <margin>` - Left margin [default: "20mm"]
-- `--api-url <url>` - Custom API URL (optional) [default: "https://umay-api-935360498495.us-central1.run.app/v1"]
+- `--api-url <url>` - Custom API URL (optional) [default: "https://api.umayrender.com/v1"]
 
 ### Image Generation
 
@@ -96,7 +96,7 @@ Options:
 - `--viewport-width <width>` - Viewport width [default: 1920]
 - `--viewport-height <height>` - Viewport height [default: 1080]
 - `--device-scale-factor <factor>` - Device scale factor [default: 2]
-- `--api-url <url>` - Custom API URL (optional) [default: "https://umay-api-935360498495.us-central1.run.app/v1"]
+- `--api-url <url>` - Custom API URL (optional) [default: "https://api.umayrender.com/v1"]
 
 ## API Reference
 

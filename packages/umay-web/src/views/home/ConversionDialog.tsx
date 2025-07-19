@@ -59,7 +59,7 @@ interface ConversionDialogProps {
 // Initialize UmaySDK
 const umay = new UmaySDK({
   ...(import.meta.env.DEV && {
-    API_URL: "http://localhost:3001/v1",
+    API_URL: "https://api.umayrender.com/v1",
   }),
 });
 

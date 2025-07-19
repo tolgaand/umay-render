@@ -65,7 +65,7 @@ program
         API_URL:
           options.apiUrl ||
           process.env.UMAY_API_URL ||
-          "https://umay-api-935360498495.us-central1.run.app/v1",
+          "https://api.umayrender.com/v1",
       });
 
       // Generate PDF
@@ -190,7 +190,7 @@ program
         API_URL:
           options.apiUrl ||
           process.env.UMAY_API_URL ||
-          "https://umay-api-935360498495.us-central1.run.app/v1",
+          "https://api.umayrender.com/v1",
       });
 
       console.log("Requesting PDF generation...");
@@ -258,7 +258,7 @@ program
         API_URL:
           options.apiUrl ||
           process.env.UMAY_API_URL ||
-          "https://umay-api-935360498495.us-central1.run.app/v1",
+          "https://api.umayrender.com/v1",
       });
 
       console.log("Requesting image generation...");

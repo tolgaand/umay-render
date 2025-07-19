@@ -11,7 +11,7 @@ public class UmayClient
     private readonly string _baseUrl;
     private readonly JsonSerializerOptions _jsonOptions;
 
-    public UmayClient(string baseUrl = "https://umay-api-935360498495.us-central1.run.app/v1")
+    public UmayClient(string baseUrl = "https://api.umayrender.com/v1")
     {
         _baseUrl = baseUrl;
         _httpClient = new HttpClient();

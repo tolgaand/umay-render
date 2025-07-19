@@ -1,10 +1,7 @@
 import { z } from "zod";
 
 const EnvSchema = z.object({
-  API_URL: z
-    .string()
-    .url()
-    .default("https://umay-api-935360498495.us-central1.run.app/v1"),
+  API_URL: z.string().url().default("https://api.umayrender.com/v1"),
   TIMEOUT: z.coerce.number().default(30_000),
 });
 
